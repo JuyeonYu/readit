@@ -101,3 +101,80 @@ body {
 .btn-primary:hover {
   background-color: var(--color-primary-hover);
 }
+
+/* Container */
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: calc(var(--spacing-unit) * 2) var(--spacing-unit);
+}
+
+.container h1 {
+  font-size: 1.75rem;
+  margin-bottom: calc(var(--spacing-unit) * 0.5);
+}
+
+.subtitle {
+  color: var(--color-text-light);
+  margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+/* Forms */
+.message-form {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing-unit) * 1.5);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing-unit) * 0.5);
+}
+
+.form-group label {
+  font-weight: 500;
+}
+
+.form-group textarea,
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="number"] {
+  padding: calc(var(--spacing-unit) * 0.75);
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.form-group textarea:focus,
+.form-group input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form-actions {
+  margin-top: var(--spacing-unit);
+}
+
+.form-actions .btn-primary {
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Error Messages */
+.error-messages {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  padding: var(--spacing-unit);
+  color: #dc2626;
+}
+
+.error-messages p {
+  margin: 0;
+}

@@ -2,5 +2,24 @@
 
 <main class="container">
   <h1>메시지 작성</h1>
-  <p>T02에서 구현 예정</p>
+  <p class="subtitle">상대방에게 전달할 메시지를 입력하세요</p>
+
+  <%= form_with model: @message, class: "message-form" do |f| %>
+    <% if @message.errors.any? %>
+      <div class="error-messages">
+        <% @message.errors.full_messages.each do |msg| %>
+          <p><%= msg %></p>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :content, "메시지 내용" %>
+      <%= f.text_area :content, rows: 8, placeholder: "여기에 메시지를 입력하세요..." %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit "다음", class: "btn-primary" %>
+    </div>
+  <% end %>
 </main>
