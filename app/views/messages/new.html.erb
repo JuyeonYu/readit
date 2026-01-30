@@ -18,8 +18,32 @@
       <%= f.text_area :content, rows: 8, placeholder: "여기에 메시지를 입력하세요..." %>
     </div>
 
+    <p class="hint">메시지가 읽히면 <strong><%= current_user.email %></strong>으로 알림을 보내드려요</p>
+
+    <fieldset class="options-section">
+      <legend>옵션 (선택)</legend>
+
+      <div class="form-group">
+        <%= f.label :expires_at, "만료 시간" %>
+        <%= f.datetime_local_field :expires_at %>
+        <p class="hint">설정한 시간이 지나면 메시지를 볼 수 없어요</p>
+      </div>
+
+      <div class="form-group checkbox-group">
+        <%= f.check_box :max_read_count, { checked: @message.max_read_count == 1 }, 1, nil %>
+        <%= f.label :max_read_count, "1회만 읽기 가능" %>
+        <p class="hint">한 번 읽으면 더 이상 볼 수 없어요</p>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password, "비밀번호" %>
+        <%= f.password_field :password, placeholder: "6자 이상" %>
+        <p class="hint">설정하면 비밀번호를 입력해야 메시지를 볼 수 있어요</p>
+      </div>
+    </fieldset>
+
     <div class="form-actions">
-      <%= f.submit "다음", class: "btn-primary" %>
+      <%= f.submit "링크 만들기", class: "btn-primary" %>
     </div>
   <% end %>
 </main>

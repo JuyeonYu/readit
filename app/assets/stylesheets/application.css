@@ -140,7 +140,8 @@ body {
 .form-group input[type="text"],
 .form-group input[type="email"],
 .form-group input[type="password"],
-.form-group input[type="number"] {
+.form-group input[type="number"],
+.form-group input[type="datetime-local"] {
   padding: calc(var(--spacing-unit) * 0.75);
   border: 1px solid #d1d5db;
   border-radius: 6px;
@@ -177,4 +178,78 @@ body {
 
 .error-messages p {
   margin: 0;
+}
+
+/* Options Section */
+.options-section {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: calc(var(--spacing-unit) * 1.5);
+  margin-top: var(--spacing-unit);
+}
+
+.options-section legend {
+  font-weight: 600;
+  padding: 0 calc(var(--spacing-unit) * 0.5);
+  color: var(--color-text);
+}
+
+.options-section .form-group {
+  margin-top: var(--spacing-unit);
+}
+
+.options-section .form-group:first-of-type {
+  margin-top: 0;
+}
+
+.hint {
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+  margin: 0;
+}
+
+/* Checkbox styling */
+.checkbox-group {
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: calc(var(--spacing-unit) * 0.5);
+  accent-color: var(--color-primary);
+}
+
+.checkbox-group label {
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.checkbox-group .hint {
+  width: 100%;
+  margin-top: calc(var(--spacing-unit) * 0.25);
+}
+
+/* Utility */
+.text-center {
+  text-align: center;
+}
+
+/* Info Box */
+.info-box {
+  background-color: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 8px;
+  padding: calc(var(--spacing-unit) * 1.5);
+  margin: calc(var(--spacing-unit) * 2) 0;
+}
+
+.info-box p {
+  margin: 0;
+}
+
+.info-box p + p {
+  margin-top: calc(var(--spacing-unit) * 0.5);
 }

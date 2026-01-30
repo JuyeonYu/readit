@@ -10,10 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_30_131933) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_30_133237) do
+  create_table "login_tokens", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "expires_at", null: false
+    t.string "token", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "used_at"
+    t.integer "user_id", null: false
+    t.index ["token"], name: "index_login_tokens_on_token", unique: true
+    t.index ["user_id"], name: "index_login_tokens_on_user_id"
+  end
+
   create_table "messages", force: :cascade do |t|
     t.text "content", null: false
     t.datetime "created_at", null: false
+    t.datetime "expires_at"
+    t.integer "max_read_count"
+    t.string "password_digest"
+    t.string "sender_email"
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
+
+  create_table "users", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+  end
+
+  add_foreign_key "login_tokens", "users"
+  add_foreign_key "messages", "users"
 end

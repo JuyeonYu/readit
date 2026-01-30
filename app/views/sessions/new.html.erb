@@ -1,0 +1,17 @@
+<% content_for(:title) { "로그인 - 읽었어?" } %>
+
+<main class="container">
+  <h1>로그인</h1>
+  <p class="subtitle">이메일 주소를 입력하면 로그인 링크를 보내드려요</p>
+
+  <%= form_with url: login_path, method: :post, class: "message-form" do |f| %>
+    <div class="form-group">
+      <%= f.label :email, "이메일" %>
+      <%= f.email_field :email, placeholder: "example@email.com", required: true, autofocus: true %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit "로그인 링크 받기", class: "btn-primary" %>
+    </div>
+  <% end %>
+</main>
