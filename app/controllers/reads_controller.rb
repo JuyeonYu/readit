@@ -13,8 +13,19 @@ class ReadsController < ApplicationController
       end
     end
 
-    # T08에서 읽기 처리 구현 예정
-    render :show
+    viewer_token = cookies.signed[:viewer_token] ||= SecureRandom.hex(32)
+
+    result = ReadMessageService.call(
+      @message,
+      viewer_token_hash: Digest::SHA256.hexdigest(viewer_token),
+      user_agent: request.user_agent
+    )
+
+    if result.success?
+      render :content
+    else
+      redirect_to expired_message_path, alert: result.error
+    end
   end
 
   def expired

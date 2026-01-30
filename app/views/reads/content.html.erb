@@ -1,0 +1,12 @@
+<% content_for(:title) { "메시지 - 읽었어?" } %>
+
+<main class="container">
+  <div class="message-content">
+    <p class="message-sender"><%= @message.user.email %>님의 메시지</p>
+    <div class="message-body">
+      <%= simple_format(@message.content) %>
+    </div>
+  </div>
+
+  <p class="hint text-center">이 메시지를 읽었다는 알림이 발신자에게 전송되었습니다</p>
+</main>

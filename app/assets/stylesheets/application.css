@@ -337,3 +337,32 @@ body {
   color: #dc2626;
   margin-bottom: calc(var(--spacing-unit) * 1.5);
 }
+
+/* Message Content */
+.message-content {
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: calc(var(--spacing-unit) * 2);
+  margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+.message-sender {
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-unit);
+}
+
+.message-body {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+
+.message-body p {
+  margin: 0;
+}
+
+.message-body p + p {
+  margin-top: var(--spacing-unit);
+}

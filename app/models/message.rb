@@ -1,5 +1,6 @@
 class Message < ApplicationRecord
   belongs_to :user
+  has_many :read_events, dependent: :destroy
 
   has_secure_password validations: false
 
@@ -19,6 +20,10 @@ class Message < ApplicationRecord
     is_active &&
       (expires_at.nil? || expires_at.future?) &&
       (max_read_count.nil? || read_count < max_read_count)
+  end
+
+  def increment_read_count!
+    increment!(:read_count)
   end
 
   private

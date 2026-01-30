@@ -78,4 +78,33 @@ class ReadsControllerTest < ActionDispatch::IntegrationTest
     post read_message_path(@message.token)
     assert_response :success
   end
+
+  test "create increments read_count" do
+    assert_difference -> { @message.reload.read_count }, 1 do
+      post read_message_path(@message.token)
+    end
+  end
+
+  test "create creates ReadEvent" do
+    assert_difference "ReadEvent.count", 1 do
+      post read_message_path(@message.token)
+    end
+
+    read_event = ReadEvent.last
+    assert_equal @message, read_event.message
+    assert read_event.viewer_token_hash.present?
+  end
+
+  test "create displays message content" do
+    post read_message_path(@message.token)
+    assert_response :success
+    assert_match @message.content, response.body
+  end
+
+  test "create redirects to expired when message becomes unreadable" do
+    @message.update!(max_read_count: 1, read_count: 1)
+
+    post read_message_path(@message.token)
+    assert_redirected_to expired_message_path
+  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_30_135323) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_30_140732) do
   create_table "login_tokens", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "expires_at", null: false
@@ -38,6 +38,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_30_135323) do
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
+  create_table "read_events", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "message_id", null: false
+    t.datetime "read_at", default: -> { "CURRENT_TIMESTAMP" }
+    t.datetime "updated_at", null: false
+    t.string "user_agent"
+    t.string "viewer_token_hash"
+    t.index ["message_id"], name: "index_read_events_on_message_id"
+    t.index ["read_at"], name: "index_read_events_on_read_at"
+    t.index ["viewer_token_hash"], name: "index_read_events_on_viewer_token_hash"
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email", null: false
@@ -47,4 +59,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_30_135323) do
 
   add_foreign_key "login_tokens", "users"
   add_foreign_key "messages", "users"
+  add_foreign_key "read_events", "messages"
 end
