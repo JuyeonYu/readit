@@ -1,0 +1,15 @@
+<% content_for(:title) { "메시지 도착 - 읽었어?" } %>
+
+<main class="container text-center">
+  <h1>메시지가 도착했습니다</h1>
+  <p class="subtitle"><%= @message.user.email %>님이 보낸 메시지입니다</p>
+
+  <div class="preview-box">
+    <p>읽을까요?</p>
+    <p class="hint">읽기 버튼을 누르면 발신자에게 알림이 전송됩니다</p>
+  </div>
+
+  <%= form_with url: read_message_path(@message.token), method: :post, class: "read-form" do %>
+    <button type="submit" class="btn-primary btn-large">읽기</button>
+  <% end %>
+</main>

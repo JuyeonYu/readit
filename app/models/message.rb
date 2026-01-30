@@ -15,6 +15,12 @@ class Message < ApplicationRecord
     user&.email
   end
 
+  def readable?
+    is_active &&
+      (expires_at.nil? || expires_at.future?) &&
+      (max_read_count.nil? || read_count < max_read_count)
+  end
+
   private
 
   def generate_token

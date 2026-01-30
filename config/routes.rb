@@ -22,4 +22,5 @@ Rails.application.routes.draw do
   resources :messages, only: [:new, :create]
   get "/share/:token", to: "messages#share", as: :share_message
   get "/read/:token", to: "reads#show", as: :read_message
+  get "/expired", to: "reads#expired", as: :expired_message
 end

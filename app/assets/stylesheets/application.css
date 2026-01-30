@@ -290,3 +290,34 @@ body {
 .btn-secondary:hover {
   background-color: #f9fafb;
 }
+
+/* Preview Box */
+.preview-box {
+  background-color: #fefce8;
+  border: 1px solid #fef08a;
+  border-radius: 8px;
+  padding: calc(var(--spacing-unit) * 2);
+  margin: calc(var(--spacing-unit) * 2) 0;
+}
+
+.preview-box p {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.preview-box .hint {
+  font-size: 0.875rem;
+  font-weight: normal;
+  margin-top: calc(var(--spacing-unit) * 0.5);
+}
+
+/* Read Form */
+.read-form {
+  margin-top: calc(var(--spacing-unit) * 2);
+}
+
+.btn-large {
+  padding: calc(var(--spacing-unit) * 1) calc(var(--spacing-unit) * 3);
+  font-size: 1.25rem;
+}

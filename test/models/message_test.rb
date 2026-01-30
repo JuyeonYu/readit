@@ -72,4 +72,27 @@ class MessageTest < ActiveSupport::TestCase
     message2 = @user.messages.create!(content: "Test 2")
     assert_not_equal message1.token, message2.token
   end
+
+  test "readable? returns true for active message" do
+    message = @user.messages.create!(content: "Test")
+    assert message.readable?
+  end
+
+  test "readable? returns false when expired" do
+    message = @user.messages.create!(content: "Test")
+    message.update_column(:expires_at, 1.hour.ago)
+    assert_not message.readable?
+  end
+
+  test "readable? returns false when max_read_count reached" do
+    message = @user.messages.create!(content: "Test", max_read_count: 1)
+    message.update!(read_count: 1)
+    assert_not message.readable?
+  end
+
+  test "readable? returns false when inactive" do
+    message = @user.messages.create!(content: "Test")
+    message.update!(is_active: false)
+    assert_not message.readable?
+  end
 end
