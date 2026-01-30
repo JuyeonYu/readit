@@ -3,12 +3,28 @@ class Message < ApplicationRecord
 
   has_secure_password validations: false
 
+  validates :token, presence: true, uniqueness: true
   validates :content, presence: true
   validates :expires_at, comparison: { greater_than: -> { Time.current } },
             if: -> { expires_at.present? && will_save_change_to_expires_at? }
   validates :password, length: { minimum: 6 }, allow_blank: true
 
+  before_validation :generate_token, on: :create
+
   def sender_email
     user&.email
+  end
+
+  private
+
+  def generate_token
+    return if token.present?
+
+    10.times do
+      self.token = SecureRandom.urlsafe_base64(24)
+      return unless Message.exists?(token: token)
+    end
+
+    errors.add(:token, "could not be generated")
   end
 end

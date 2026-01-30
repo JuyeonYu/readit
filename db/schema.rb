@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_30_133237) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_30_134804) do
   create_table "login_tokens", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "expires_at", null: false
@@ -29,8 +29,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_30_133237) do
     t.integer "max_read_count"
     t.string "password_digest"
     t.string "sender_email"
+    t.string "token"
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
+    t.index ["token"], name: "index_messages_on_token", unique: true
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 

@@ -253,3 +253,40 @@ body {
 .info-box p + p {
   margin-top: calc(var(--spacing-unit) * 0.5);
 }
+
+/* Share Link Box */
+.share-link-box {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-unit);
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: var(--spacing-unit);
+  margin: calc(var(--spacing-unit) * 2) 0;
+}
+
+.share-link-box code {
+  flex: 1;
+  font-size: 0.875rem;
+  word-break: break-all;
+  color: var(--color-text);
+}
+
+.btn-secondary {
+  display: inline-block;
+  padding: calc(var(--spacing-unit) * 0.5) var(--spacing-unit);
+  background-color: #ffffff;
+  color: var(--color-text);
+  text-decoration: none;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #f9fafb;
+}

@@ -46,6 +46,28 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
     assert_select ".error-messages"
   end
 
+  test "create with valid content saves message and redirects to share" do
+    login_as(@user)
+
+    assert_difference "Message.count", 1 do
+      post messages_url, params: { message: { content: "Test message" } }
+    end
+
+    message = Message.last
+    assert_redirected_to share_message_path(message.token)
+    assert message.token.present?
+    assert_equal @user, message.user
+  end
+
+  test "share page shows link" do
+    login_as(@user)
+    message = @user.messages.create!(content: "Test")
+
+    get share_message_path(message.token)
+    assert_response :success
+    assert_match message.token, response.body
+  end
+
   private
 
   def login_as(user)

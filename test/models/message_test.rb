@@ -60,4 +60,16 @@ class MessageTest < ActiveSupport::TestCase
     assert message.authenticate("secret123")
     assert_not message.authenticate("wrongpassword")
   end
+
+  test "generates unique token on create" do
+    message = @user.messages.create!(content: "Test")
+    assert message.token.present?
+    assert_equal 32, message.token.length
+  end
+
+  test "token is unique" do
+    message1 = @user.messages.create!(content: "Test 1")
+    message2 = @user.messages.create!(content: "Test 2")
+    assert_not_equal message1.token, message2.token
+  end
 end

@@ -1,0 +1,22 @@
+<% content_for(:title) { "링크 공유 - 읽었어?" } %>
+
+<main class="container text-center">
+  <h1>링크가 생성되었습니다</h1>
+  <p class="subtitle">아래 링크를 복사해서 공유하세요</p>
+
+  <div class="share-link-box">
+    <code id="share-link"><%= read_message_url(@message.token) %></code>
+    <button type="button" class="btn-secondary" onclick="copyLink()">복사</button>
+  </div>
+
+  <p class="hint">이 링크를 받은 사람이 메시지를 읽으면 알림을 받습니다</p>
+</main>
+
+<script>
+function copyLink() {
+  const link = document.getElementById('share-link').textContent;
+  navigator.clipboard.writeText(link).then(() => {
+    alert('링크가 복사되었습니다');
+  });
+}
+</script>

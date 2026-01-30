@@ -20,4 +20,6 @@ Rails.application.routes.draw do
   delete "/logout", to: "sessions#destroy", as: :logout
 
   resources :messages, only: [:new, :create]
+  get "/share/:token", to: "messages#share", as: :share_message
+  get "/read/:token", to: "reads#show", as: :read_message
 end
