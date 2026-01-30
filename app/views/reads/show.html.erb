@@ -1,6 +1,10 @@
 <% content_for(:title) { "메시지 도착 - 읽었어?" } %>
 
 <main class="container text-center">
+  <% if flash[:alert] %>
+    <div class="flash-alert"><%= flash[:alert] %></div>
+  <% end %>
+
   <h1>메시지가 도착했습니다</h1>
   <p class="subtitle"><%= @message.user.email %>님이 보낸 메시지입니다</p>
 
@@ -9,7 +13,14 @@
     <p class="hint">읽기 버튼을 누르면 발신자에게 알림이 전송됩니다</p>
   </div>
 
-  <%= form_with url: read_message_path(@message.token), method: :post, class: "read-form" do %>
+  <%= form_with url: read_message_path(@message.token), method: :post, class: "read-form" do |f| %>
+    <% if @message.password_digest.present? %>
+      <div class="form-group password-input">
+        <%= f.label :password, "비밀번호" %>
+        <%= f.password_field :password, required: true, placeholder: "비밀번호를 입력하세요" %>
+      </div>
+    <% end %>
+
     <button type="submit" class="btn-primary btn-large">읽기</button>
   <% end %>
 </main>

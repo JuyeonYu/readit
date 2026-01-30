@@ -1,26 +1,21 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-
-  # Defines the root path route ("/")
   root "pages#home"
 
   # Authentication
-  get "/login", to: "sessions#new", as: :login
-  post "/login", to: "sessions#create"
-  get "/login/sent", to: "sessions#sent", as: :login_sent
-  get "/login/verify/:token", to: "sessions#verify", as: :verify_login
-  delete "/logout", to: "sessions#destroy", as: :logout
+  get "login" => "sessions#new"
+  post "login" => "sessions#create"
+  get "login/sent" => "sessions#sent", as: :login_sent
+  get "login/verify/:token" => "sessions#verify", as: :verify_login
+  delete "logout" => "sessions#destroy"
 
-  resources :messages, only: [:new, :create]
-  get "/share/:token", to: "messages#share", as: :share_message
-  get "/read/:token", to: "reads#show", as: :read_message
-  get "/expired", to: "reads#expired", as: :expired_message
+  # Messages
+  resources :messages, only: %i[new create]
+  get "share/:token" => "messages#share", as: :share_message
+
+  # Reads
+  get "read/:token" => "reads#show", as: :read_message
+  post "read/:token" => "reads#create"
+  get "expired" => "reads#expired", as: :expired_message
 end

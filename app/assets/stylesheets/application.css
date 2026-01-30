@@ -317,7 +317,23 @@ body {
   margin-top: calc(var(--spacing-unit) * 2);
 }
 
+.read-form .password-input {
+  max-width: 300px;
+  margin: 0 auto calc(var(--spacing-unit) * 1.5);
+  text-align: left;
+}
+
 .btn-large {
   padding: calc(var(--spacing-unit) * 1) calc(var(--spacing-unit) * 3);
   font-size: 1.25rem;
+}
+
+/* Flash Messages */
+.flash-alert {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  padding: var(--spacing-unit);
+  color: #dc2626;
+  margin-bottom: calc(var(--spacing-unit) * 1.5);
 }
