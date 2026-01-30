@@ -20,6 +20,11 @@ class ReadMessageService
       end
     end
 
+    # 알림 발송 (비동기, 트랜잭션 밖)
+    if message.sender_email.present?
+      SendNotificationJob.perform_later(message.id)
+    end
+
     Result.new(success?: true, read_event: read_event)
   rescue ActiveRecord::RecordInvalid => e
     Result.new(success?: false, error: e.message)

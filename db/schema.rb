@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_30_140732) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_30_141744) do
   create_table "login_tokens", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "expires_at", null: false
@@ -38,6 +38,21 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_30_140732) do
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "idempotency_key", null: false
+    t.integer "message_id", null: false
+    t.integer "notification_type", default: 0, null: false
+    t.string "recipient", null: false
+    t.datetime "sent_at"
+    t.integer "status", default: 0, null: false
+    t.datetime "updated_at", null: false
+    t.index ["idempotency_key"], name: "index_notifications_on_idempotency_key", unique: true
+    t.index ["message_id", "status"], name: "index_notifications_on_message_id_and_status"
+    t.index ["message_id"], name: "index_notifications_on_message_id"
+    t.index ["sent_at"], name: "index_notifications_on_sent_at"
+  end
+
   create_table "read_events", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "message_id", null: false
@@ -59,5 +74,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_30_140732) do
 
   add_foreign_key "login_tokens", "users"
   add_foreign_key "messages", "users"
+  add_foreign_key "notifications", "messages"
   add_foreign_key "read_events", "messages"
 end

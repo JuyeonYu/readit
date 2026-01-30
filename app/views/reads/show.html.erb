@@ -13,7 +13,7 @@
     <p class="hint">읽기 버튼을 누르면 발신자에게 알림이 전송됩니다</p>
   </div>
 
-  <%= form_with url: read_message_path(@message.token), method: :post, class: "read-form" do |f| %>
+  <%= form_with url: read_message_path(@message.token), method: :post, class: "read-form", data: { turbo: false } do |f| %>
     <% if @message.password_digest.present? %>
       <div class="form-group password-input">
         <%= f.label :password, "비밀번호" %>

@@ -1,6 +1,7 @@
 require "test_helper"
 
 class ReadMessageServiceTest < ActiveSupport::TestCase
+  include ActiveJob::TestHelper
   setup do
     @user = User.create!(email: "test@example.com")
     @message = @user.messages.create!(content: "Test message")
@@ -63,5 +64,19 @@ class ReadMessageServiceTest < ActiveSupport::TestCase
 
     assert_equal 1, success_count
     assert_equal 1, @message.reload.read_count
+  end
+
+  test "enqueues notification job on successful read" do
+    assert_enqueued_with(job: SendNotificationJob, args: [@message.id]) do
+      ReadMessageService.call(@message, viewer_token_hash: @viewer_token_hash)
+    end
+  end
+
+  test "does not enqueue notification job on failed read" do
+    @message.update!(is_active: false)
+
+    assert_no_enqueued_jobs do
+      ReadMessageService.call(@message, viewer_token_hash: @viewer_token_hash)
+    end
   end
 end
