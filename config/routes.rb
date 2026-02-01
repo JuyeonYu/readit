@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   resources :messages, only: %i[new create]
   get "share/:token" => "messages#share", as: :share_message
 
+  # Notifications
+  resources :notifications, only: %i[index]
+
   # Reads
   get "read/:token" => "reads#show", as: :read_message
   post "read/:token" => "reads#create"

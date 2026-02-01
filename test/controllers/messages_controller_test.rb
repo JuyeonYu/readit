@@ -68,6 +68,48 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
     assert_match message.token, response.body
   end
 
+  test "share page shows read events section" do
+    login_as(@user)
+    message = @user.messages.create!(content: "Test")
+
+    get share_message_path(message.token)
+    assert_select ".read-events-section"
+    assert_select ".read-events-section h2", "읽음 기록"
+  end
+
+  test "share page shows empty state when no read events" do
+    login_as(@user)
+    message = @user.messages.create!(content: "Test")
+
+    get share_message_path(message.token)
+    assert_select ".read-summary", /총 0회 읽음/
+    assert_select ".empty-state", /아직 아무도 읽지 않았습니다/
+  end
+
+  test "share page shows read events list when message has been read" do
+    login_as(@user)
+    message = @user.messages.create!(content: "Test")
+    message.read_events.create!(read_at: 1.hour.ago, viewer_token_hash: "abc123")
+    message.read_events.create!(read_at: 30.minutes.ago, viewer_token_hash: "def456")
+    message.update!(read_count: 2)
+
+    get share_message_path(message.token)
+    assert_select ".read-summary", /총 2회 읽음/
+    assert_select ".read-events-list"
+    assert_select ".read-event-item", 2
+  end
+
+  test "share page shows read events in descending order" do
+    login_as(@user)
+    message = @user.messages.create!(content: "Test")
+    older = message.read_events.create!(read_at: 2.hours.ago, viewer_token_hash: "abc123")
+    newer = message.read_events.create!(read_at: 1.hour.ago, viewer_token_hash: "def456")
+
+    get share_message_path(message.token)
+    # The most recent event should be #2 (shown first), older should be #1
+    assert_select ".read-event-item:first-child .read-event-number", "#2"
+  end
+
   private
 
   def login_as(user)

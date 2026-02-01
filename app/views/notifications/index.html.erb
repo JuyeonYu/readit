@@ -1,0 +1,45 @@
+<% content_for(:title) { "알림 목록 - 읽었어?" } %>
+
+<main class="container">
+  <h1>알림 목록</h1>
+  <p class="subtitle">메시지가 읽혔을 때 발송된 알림 내역입니다</p>
+
+  <% if @notifications.any? %>
+    <ul class="notifications-list">
+      <% @notifications.each do |notification| %>
+        <li class="notification-item">
+          <div class="notification-content">
+            <div class="notification-header">
+              <span class="notification-status notification-status-<%= notification.status %>">
+                <%= notification_status_label(notification.status) %>
+              </span>
+              <span class="notification-type"><%= notification_type_label(notification.notification_type) %></span>
+            </div>
+            <p class="notification-message">
+              <%= link_to truncate(notification.message.content, length: 50), share_message_path(notification.message.token) %>
+            </p>
+            <div class="notification-meta">
+              <span class="notification-recipient"><%= notification.recipient %></span>
+              <span class="notification-time">
+                <% if notification.sent_at.present? %>
+                  <%= notification.sent_at.strftime("%Y-%m-%d %H:%M") %>
+                <% else %>
+                  <%= notification.created_at.strftime("%Y-%m-%d %H:%M") %>
+                <% end %>
+              </span>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <div class="empty-state">
+      <p>아직 발송된 알림이 없습니다.</p>
+      <p>메시지를 만들고 공유하면, 누군가 읽었을 때 알림을 받게 됩니다.</p>
+    </div>
+  <% end %>
+
+  <div class="text-center">
+    <%= link_to "← 홈으로", root_path, class: "btn-secondary" %>
+  </div>
+</main>

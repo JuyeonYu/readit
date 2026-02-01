@@ -16,7 +16,8 @@ class MessagesController < ApplicationController
   end
 
   def share
-    @message = current_user.messages.find_by!(token: params[:token])
+    @message = current_user.messages.includes(:read_events).find_by!(token: params[:token])
+    @read_events = @message.read_events.order(read_at: :desc)
   end
 
   private

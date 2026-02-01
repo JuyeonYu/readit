@@ -1,15 +1,42 @@
 <% content_for(:title) { "링크 공유 - 읽었어?" } %>
 
-<main class="container text-center">
-  <h1>링크가 생성되었습니다</h1>
-  <p class="subtitle">아래 링크를 복사해서 공유하세요</p>
+<main class="container">
+  <div class="text-center">
+    <h1>링크가 생성되었습니다</h1>
+    <p class="subtitle">아래 링크를 복사해서 공유하세요</p>
 
-  <div class="share-link-box">
-    <code id="share-link"><%= read_message_url(@message.token) %></code>
-    <button type="button" class="btn-secondary" onclick="copyLink()">복사</button>
+    <div class="share-link-box">
+      <code id="share-link"><%= read_message_url(@message.token) %></code>
+      <button type="button" class="btn-secondary" onclick="copyLink()">복사</button>
+    </div>
+
+    <p class="hint">이 링크를 받은 사람이 메시지를 읽으면 알림을 받습니다</p>
   </div>
 
-  <p class="hint">이 링크를 받은 사람이 메시지를 읽으면 알림을 받습니다</p>
+  <section class="read-events-section">
+    <h2>읽음 기록</h2>
+    <p class="read-summary">총 <strong><%= @message.read_count %></strong>회 읽음</p>
+
+    <% if @read_events.any? %>
+      <ul class="read-events-list">
+        <% @read_events.each_with_index do |event, index| %>
+          <li class="read-event-item">
+            <span class="read-event-number">#<%= @read_events.size - index %></span>
+            <span class="read-event-time"><%= event.read_at.strftime("%Y-%m-%d %H:%M") %></span>
+            <span class="read-event-ago">(<%= time_ago_in_words(event.read_at) %> 전)</span>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <div class="empty-state">
+        <p>아직 아무도 읽지 않았습니다.</p>
+      </div>
+    <% end %>
+  </section>
+
+  <div class="text-center">
+    <%= link_to "← 홈으로", root_path, class: "btn-secondary" %>
+  </div>
 </main>
 
 <script>
