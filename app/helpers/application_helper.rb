@@ -17,4 +17,12 @@ module ApplicationHelper
     else notification_type
     end
   end
+
+  def format_datetime(time)
+    time.strftime("%Y년 %m월 %d일 %H:%M")
+  end
+
+  def format_date_short(time)
+    time.strftime("%m월 %d일 %H:%M")
+  end
 end

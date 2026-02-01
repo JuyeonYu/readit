@@ -22,9 +22,9 @@
               <span class="notification-recipient"><%= notification.recipient %></span>
               <span class="notification-time">
                 <% if notification.sent_at.present? %>
-                  <%= notification.sent_at.strftime("%Y-%m-%d %H:%M") %>
+                  <%= format_datetime(notification.sent_at) %>
                 <% else %>
-                  <%= notification.created_at.strftime("%Y-%m-%d %H:%M") %>
+                  <%= format_datetime(notification.created_at) %>
                 <% end %>
               </span>
             </div>

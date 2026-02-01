@@ -13,6 +13,15 @@
     <p class="hint">이 링크를 받은 사람이 메시지를 읽으면 알림을 받습니다</p>
   </div>
 
+  <section class="message-content-section">
+    <h2>메시지 내용</h2>
+    <div class="message-content">
+      <div class="message-body">
+        <%= simple_format(@message.content) %>
+      </div>
+    </div>
+  </section>
+
   <section class="read-events-section">
     <h2>읽음 기록</h2>
     <p class="read-summary"><strong><%= @message.unique_reader_count %></strong>명이 총 <strong><%= @message.read_count %></strong>회 읽음</p>
@@ -29,7 +38,7 @@
             <ul class="reader-times">
               <% events.reverse.each do |event| %>
                 <li>
-                  <span class="read-event-time"><%= event.read_at.strftime("%Y-%m-%d %H:%M") %></span>
+                  <span class="read-event-time"><%= format_datetime(event.read_at) %></span>
                   <span class="read-event-ago">(<%= time_ago_in_words(event.read_at) %> 전)</span>
                 </li>
               <% end %>
