@@ -15,7 +15,8 @@
 
   <section class="read-events-section">
     <h2>읽음 기록</h2>
-    <p class="read-summary">총 <strong><%= @message.read_count %></strong>회 읽음</p>
+    <p class="read-summary"><strong><%= @message.unique_reader_count %></strong>명이 총 <strong><%= @message.read_count %></strong>회 읽음</p>
+    <p class="read-summary-hint">* 브라우저 쿠키 기준이므로 같은 사람도 다른 기기/브라우저에서는 별도로 집계됩니다</p>
 
     <% if @read_events.any? %>
       <ul class="read-events-list">

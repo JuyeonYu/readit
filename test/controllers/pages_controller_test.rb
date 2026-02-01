@@ -75,10 +75,13 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
   test "home page shows message read count" do
     login_as(@user)
     message = @user.messages.create!(content: "Test message")
-    message.update!(read_count: 5)
+    message.read_events.create!(viewer_token_hash: "abc123", read_at: Time.current)
+    message.read_events.create!(viewer_token_hash: "abc123", read_at: Time.current)
+    message.read_events.create!(viewer_token_hash: "def456", read_at: Time.current)
+    message.update!(read_count: 3)
 
     get root_url
-    assert_select ".read-count", /읽음 5회/
+    assert_select ".read-count", /2명 \/ 3회/
   end
 
   test "home page shows password badge for password-protected message" do

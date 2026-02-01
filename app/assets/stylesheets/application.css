@@ -584,12 +584,18 @@ body:has(.global-header) {
 
 .read-summary {
   color: var(--color-text-light);
-  margin-bottom: calc(var(--spacing-unit) * 1.5);
+  margin-bottom: calc(var(--spacing-unit) * 0.25);
 }
 
 .read-summary strong {
   color: var(--color-primary);
   font-size: 1.25rem;
+}
+
+.read-summary-hint {
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+  margin-bottom: calc(var(--spacing-unit) * 1.5);
 }
 
 .read-events-list {

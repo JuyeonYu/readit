@@ -24,7 +24,7 @@
                 <div class="message-preview">
                   <p class="message-excerpt"><%= truncate(message.content, length: 80) %></p>
                   <div class="message-meta">
-                    <span class="read-count">읽음 <%= message.read_count %>회</span>
+                    <span class="read-count"><%= message.unique_reader_count %>명 / <%= message.read_count %>회</span>
                     <span class="created-at"><%= time_ago_in_words(message.created_at) %> 전</span>
                     <% if message.expires_at.present? %>
                       <% if message.expires_at.future? %>

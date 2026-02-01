@@ -27,6 +27,10 @@ class Message < ApplicationRecord
     increment!(:read_count)
   end
 
+  def unique_reader_count
+    read_events.distinct.count(:viewer_token_hash)
+  end
+
   private
 
   def generate_token
