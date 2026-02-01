@@ -606,30 +606,54 @@ body:has(.global-header) {
   margin-bottom: calc(var(--spacing-unit) * 2);
 }
 
-.read-event-item {
-  display: flex;
-  align-items: center;
-  gap: calc(var(--spacing-unit) * 0.75);
-  padding: calc(var(--spacing-unit) * 0.75) var(--spacing-unit);
+.read-event-group {
   background-color: #f9fafb;
   border: 1px solid #e5e7eb;
   border-radius: 6px;
+  padding: var(--spacing-unit);
 }
 
-.read-event-number {
+.reader-header {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing-unit) * 0.5);
+  margin-bottom: calc(var(--spacing-unit) * 0.5);
+}
+
+.reader-number {
   font-weight: 600;
   color: var(--color-primary);
-  min-width: 2rem;
+}
+
+.reader-count {
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+}
+
+.reader-times {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing-unit) * 0.25);
+  padding-left: calc(var(--spacing-unit) * 1.5);
+  border-left: 2px solid #e5e7eb;
+}
+
+.reader-times li {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing-unit) * 0.5);
 }
 
 .read-event-time {
   color: var(--color-text);
   font-family: monospace;
+  font-size: 0.875rem;
 }
 
 .read-event-ago {
   color: var(--color-text-light);
-  font-size: 0.875rem;
+  font-size: 0.75rem;
 }
 
 /* Notifications List */

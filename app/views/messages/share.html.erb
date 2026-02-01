@@ -18,13 +18,22 @@
     <p class="read-summary"><strong><%= @message.unique_reader_count %></strong>명이 총 <strong><%= @message.read_count %></strong>회 읽음</p>
     <p class="read-summary-hint">* 브라우저 쿠키 기준이므로 같은 사람도 다른 기기/브라우저에서는 별도로 집계됩니다</p>
 
-    <% if @read_events.any? %>
+    <% if @grouped_reads.any? %>
       <ul class="read-events-list">
-        <% @read_events.each_with_index do |event, index| %>
-          <li class="read-event-item">
-            <span class="read-event-number">#<%= @read_events.size - index %></span>
-            <span class="read-event-time"><%= event.read_at.strftime("%Y-%m-%d %H:%M") %></span>
-            <span class="read-event-ago">(<%= time_ago_in_words(event.read_at) %> 전)</span>
+        <% @grouped_reads.each_with_index do |(viewer_hash, events), index| %>
+          <li class="read-event-group">
+            <div class="reader-header">
+              <span class="reader-number">#<%= @grouped_reads.size - index %></span>
+              <span class="reader-count"><%= events.size %>회 읽음</span>
+            </div>
+            <ul class="reader-times">
+              <% events.reverse.each do |event| %>
+                <li>
+                  <span class="read-event-time"><%= event.read_at.strftime("%Y-%m-%d %H:%M") %></span>
+                  <span class="read-event-ago">(<%= time_ago_in_words(event.read_at) %> 전)</span>
+                </li>
+              <% end %>
+            </ul>
           </li>
         <% end %>
       </ul>

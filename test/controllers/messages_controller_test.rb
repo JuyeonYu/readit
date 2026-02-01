@@ -86,28 +86,29 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
     assert_select ".empty-state", /아직 아무도 읽지 않았습니다/
   end
 
-  test "share page shows read events list when message has been read" do
+  test "share page shows read events grouped by viewer" do
     login_as(@user)
     message = @user.messages.create!(content: "Test")
     message.read_events.create!(read_at: 1.hour.ago, viewer_token_hash: "abc123")
-    message.read_events.create!(read_at: 30.minutes.ago, viewer_token_hash: "def456")
-    message.update!(read_count: 2)
+    message.read_events.create!(read_at: 30.minutes.ago, viewer_token_hash: "abc123")
+    message.read_events.create!(read_at: 20.minutes.ago, viewer_token_hash: "def456")
+    message.update!(read_count: 3)
 
     get share_message_path(message.token)
-    assert_select ".read-summary", /총 2회 읽음/
+    assert_select ".read-summary", /총 3회 읽음/
     assert_select ".read-events-list"
-    assert_select ".read-event-item", 2
+    assert_select ".read-event-group", 2  # 2 unique viewers
   end
 
-  test "share page shows read events in descending order" do
+  test "share page shows readers in descending order by first read" do
     login_as(@user)
     message = @user.messages.create!(content: "Test")
-    older = message.read_events.create!(read_at: 2.hours.ago, viewer_token_hash: "abc123")
-    newer = message.read_events.create!(read_at: 1.hour.ago, viewer_token_hash: "def456")
+    message.read_events.create!(read_at: 2.hours.ago, viewer_token_hash: "abc123")
+    message.read_events.create!(read_at: 1.hour.ago, viewer_token_hash: "def456")
 
     get share_message_path(message.token)
-    # The most recent event should be #2 (shown first), older should be #1
-    assert_select ".read-event-item:first-child .read-event-number", "#2"
+    # The most recent reader should be #2 (shown first)
+    assert_select ".read-event-group:first-child .reader-number", "#2"
   end
 
   private

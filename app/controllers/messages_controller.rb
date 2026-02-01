@@ -17,7 +17,11 @@ class MessagesController < ApplicationController
 
   def share
     @message = current_user.messages.includes(:read_events).find_by!(token: params[:token])
-    @read_events = @message.read_events.order(read_at: :desc)
+    @grouped_reads = @message.read_events
+      .group_by(&:viewer_token_hash)
+      .transform_values { |events| events.sort_by(&:read_at) }
+      .sort_by { |_, events| events.first.read_at }
+      .reverse
   end
 
   private
