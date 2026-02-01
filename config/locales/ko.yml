@@ -1,0 +1,59 @@
+ko:
+  activerecord:
+    errors:
+      messages:
+        blank: "을(를) 입력해주세요"
+        required: "이(가) 필요합니다"
+        too_short: "이(가) 너무 짧습니다 (최소 %{count}자)"
+        too_long: "이(가) 너무 깁니다 (최대 %{count}자)"
+        invalid: "이(가) 올바르지 않습니다"
+        taken: "이(가) 이미 사용중입니다"
+        greater_than: "이(가) %{count}보다 커야 합니다"
+  errors:
+    messages:
+      blank: "을(를) 입력해주세요"
+      required: "이(가) 필요합니다"
+      too_short: "이(가) 너무 짧습니다 (최소 %{count}자)"
+      too_long: "이(가) 너무 깁니다 (최대 %{count}자)"
+      invalid: "이(가) 올바르지 않습니다"
+      taken: "이(가) 이미 사용중입니다"
+      greater_than: "이(가) %{count}보다 커야 합니다"
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: "약 1시간"
+        other: "약 %{count}시간"
+      about_x_months:
+        one: "약 1개월"
+        other: "약 %{count}개월"
+      about_x_years:
+        one: "약 1년"
+        other: "약 %{count}년"
+      almost_x_years:
+        one: "거의 1년"
+        other: "거의 %{count}년"
+      half_a_minute: "30초"
+      less_than_x_minutes:
+        one: "1분 미만"
+        other: "%{count}분 미만"
+      less_than_x_seconds:
+        one: "1초 미만"
+        other: "%{count}초 미만"
+      over_x_years:
+        one: "1년 이상"
+        other: "%{count}년 이상"
+      x_days:
+        one: "1일"
+        other: "%{count}일"
+      x_minutes:
+        one: "1분"
+        other: "%{count}분"
+      x_months:
+        one: "1개월"
+        other: "%{count}개월"
+      x_seconds:
+        one: "1초"
+        other: "%{count}초"
+      x_years:
+        one: "1년"
+        other: "%{count}년"
