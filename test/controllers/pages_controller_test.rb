@@ -56,13 +56,20 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
   test "home page shows new message button when logged in" do
     login_as(@user)
     get root_url
-    assert_select ".action-buttons a[href=?]", new_message_path
+    assert_select ".cta a[href=?]", new_message_path
   end
 
-  test "home page shows notifications link when logged in" do
+  test "home page shows global header with notifications link when logged in" do
     login_as(@user)
     get root_url
-    assert_select ".action-buttons a[href=?]", notifications_path
+    assert_select ".global-header"
+    assert_select ".header-nav a[href=?]", notifications_path
+  end
+
+  test "home page shows logout button in global header when logged in" do
+    login_as(@user)
+    get root_url
+    assert_select ".global-header .btn-logout"
   end
 
   test "home page shows message read count" do

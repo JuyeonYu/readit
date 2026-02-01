@@ -7,11 +7,8 @@
   </section>
 
   <% if logged_in? %>
-    <section class="user-actions">
-      <div class="action-buttons">
-        <%= link_to "새 메시지", new_message_path, class: "btn-primary" %>
-        <%= link_to "알림 목록", notifications_path, class: "btn-secondary" %>
-      </div>
+    <section class="cta">
+      <%= link_to "새 메시지", new_message_path, class: "btn-primary" %>
     </section>
 
     <section class="sent-messages">

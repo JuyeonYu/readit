@@ -367,16 +367,73 @@ body {
   margin-top: var(--spacing-unit);
 }
 
-/* User Actions */
-.user-actions {
-  margin-top: calc(var(--spacing-unit) * 2);
+/* Global Header */
+.global-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 100;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid #e5e7eb;
+  backdrop-filter: blur(8px);
 }
 
-.action-buttons {
+.header-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: calc(var(--spacing-unit) * 0.5) var(--spacing-unit);
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
+  align-items: center;
   gap: var(--spacing-unit);
-  flex-wrap: wrap;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing-unit) * 0.75);
+}
+
+.header-link {
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+  text-decoration: none;
+  padding: calc(var(--spacing-unit) * 0.25) calc(var(--spacing-unit) * 0.5);
+  border-radius: 4px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.header-link:hover {
+  color: var(--color-primary);
+  background-color: #f3f4f6;
+}
+
+.user-email {
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+}
+
+.btn-logout {
+  padding: calc(var(--spacing-unit) * 0.25) calc(var(--spacing-unit) * 0.75);
+  background-color: transparent;
+  color: var(--color-text-light);
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-logout:hover {
+  background-color: #fee2e2;
+  color: #dc2626;
+  border-color: #fecaca;
+}
+
+/* Add top padding to body when header is present */
+body:has(.global-header) {
+  padding-top: calc(var(--spacing-unit) * 3);
 }
 
 /* Sent Messages Section */

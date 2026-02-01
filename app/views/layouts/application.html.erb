@@ -24,6 +24,17 @@
   </head>
 
   <body>
+    <% if logged_in? %>
+      <header class="global-header">
+        <div class="header-content">
+          <span class="user-email"><%= current_user.email %></span>
+          <nav class="header-nav">
+            <%= link_to "알림", notifications_path, class: "header-link" %>
+            <%= button_to "로그아웃", logout_path, method: :delete, class: "btn-logout" %>
+          </nav>
+        </div>
+      </header>
+    <% end %>
     <%= yield %>
   </body>
 </html>
