@@ -14,19 +14,19 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     get root_url
     assert_select "h1", "읽었어?"
     assert_select ".tagline"
-    assert_select ".description"
+    assert_select ".value-prop"
   end
 
-  test "home page contains CTA button" do
+  test "home page contains CTA button linking to login" do
     get root_url
-    assert_select "a.btn-primary", "메시지 만들어보기"
-    assert_select "a[href=?]", new_message_path
+    assert_select "a.btn-primary", "시작하기"
+    assert_select ".cta-section a[href=?]", login_path
   end
 
-  test "home page shows login prompt when not logged in" do
+  test "home page shows how it works section when not logged in" do
     get root_url
-    assert_select ".login-prompt"
-    assert_select ".login-prompt a[href=?]", login_path
+    assert_select ".how-it-works"
+    assert_select ".steps li", 3
   end
 
   test "home page shows sent messages section when logged in" do
