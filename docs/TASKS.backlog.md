@@ -1,3 +1,9 @@
+⚠️ This file is NOT part of the active session.
+
+- Read for context only
+- NEVER use this to influence current implementation
+- NEVER prepare or scaffold for these tasks
+- Mentioning backlog tasks during a session is a violation
 
 # task.archive.md
 

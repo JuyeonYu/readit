@@ -25,4 +25,4 @@ Rule:
   MVP is complete when:
 - A link is created
 - The message is read once
-- An email notification is delivered
+- An email notification is deliveredt

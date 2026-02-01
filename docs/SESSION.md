@@ -1,4 +1,4 @@
-AI Execution Protocol for Vibe Coding
+AI Execution Protocol for Vibe Coding (v1.1)
 
 ⸻
 
@@ -18,16 +18,18 @@ The goal is:
 
 1. State Machine
 
-The AI operates strictly under the following states.
+The AI operates strictly under the following states:
 
 INIT → UNDERSTANDING → READY → IMPLEMENTING → DONE → HALT
 
 State transitions are one-way.
-The AI must never skip or merge states.
+The AI must never skip, merge, or loop states.
 
 ⸻
 
 2. State Definitions & Rules
+
+⸻
 
 INIT
 
@@ -40,12 +42,16 @@ Forbidden
 	•	Any interpretation
 
 📌 The AI must silently read:
+	•	SESSION.md
+	•	task.current.md
 	•	RULES.md
 	•	ARCH.md
 	•	DOMAIN.md
+
+📌 The AI must NOT read unless explicitly instructed:
 	•	PRD.md
-	•	task.md
-(in this exact order)
+	•	task.archive.md
+	•	task.backlog.md
 
 ⸻
 
@@ -66,6 +72,7 @@ Required Output
 	•	What the product does (MVP level)
 	•	Who the primary user is
 	•	What problem is solved
+	•	One explicit sentence stating what is OUT OF SCOPE for this session
 
 ⸻
 
@@ -74,11 +81,13 @@ READY
 This is a contract confirmation step.
 
 Required Output
-	1.	Current Task ID (exactly as written in task.md)
-	2.	Completion condition (copied verbatim from task.md)
+	1.	Current Task ID (exactly as written in task.current.md)
+	2.	Completion condition (copied verbatim)
 	3.	Explicit Non-Goals
-(at least 3 concrete things that will NOT be done)
-	4.	Blocking questions
+	•	At least 3 concrete things that will NOT be done
+	4.	Files allowed to be modified
+	•	If unknown: To be determined during implementation
+	5.	Blocking questions
 	•	If none: No questions
 
 Forbidden
@@ -94,16 +103,17 @@ IMPLEMENTING
 
 Allowed
 	•	Write code strictly required for the current task
-	•	Modify only files necessary for task completion
+	•	Modify only files listed (or discovered) for task completion
 
 Forbidden
 	•	Refactoring completed tasks
 	•	Improving UX copy unless explicitly required
 	•	Introducing new abstractions
 	•	Touching future tasks
+	•	Creating new files unless explicitly required
 	•	“While we’re here” changes
 
-📌 The AI must assume:
+📌 Rule of execution:
 
 If it is not explicitly required, it is forbidden.
 
@@ -125,6 +135,10 @@ Forbidden
 	•	Future ideas
 	•	Performance notes
 	•	“Next steps”
+	•	Explaining implementation details
+	•	Justifying decisions
+
+DONE is a signal, not a report.
 
 ⸻
 
@@ -138,6 +152,9 @@ Rules
 
 📌 Silence is the correct behavior.
 
+Exception
+	•	If explicitly asked a new question, transition to UNDERSTANDING
+
 ⸻
 
 3. Global Hard Rules (Always Active)
@@ -150,9 +167,11 @@ These rules apply in all states.
 	•	Do NOT act on Post-MVP sections
 	•	Do NOT infer intent beyond written instructions
 
+Any violation of these rules invalidates the session output.
+
 ⸻
 
-4. Scope Philosophy (Why This Is Strict)
+4. Scope Philosophy
 
 This project is an MVP.
 
@@ -162,15 +181,14 @@ We intentionally avoid:
 	•	Refactors without validation
 
 Reason:
-	•	AI tends to generalize too early
-	•	Learning signal comes from shipping, not elegance
+	•	AI generalizes early
 	•	Scope violations destroy iteration speed
 
 ⸻
 
 5. Failure Handling
 
-If the AI is unsure about any of the following:
+If the AI is unsure about:
 	•	Current task
 	•	Task boundary
 	•	Allowed changes
@@ -186,9 +204,14 @@ Guessing is considered a failure.
 
 6. Authority
 
-If there is any conflict:
+If there is any conflict, precedence is:
 
-SESSION.md > RULES.md > ARCH.md > DOMAIN.md > PRD.md > task.md
+SESSION.md
+> task.current.md
+> RULES.md
+> ARCH.md
+> DOMAIN.md
+> PRD.md
 
 SESSION.md always wins.
 
@@ -198,13 +221,15 @@ SESSION.md always wins.
 
 At the start of every session, the AI must comply with:
 
-“You are operating under SESSION.md.
+“I am operating under SESSION.md.
 State machine rules apply.”
 
 Failure to do so invalidates the session.
 
-### File Visibility Rules
+⸻
 
-- task.current.md is the ONLY executable task source
-- task.archive.md is read-only reference
-- task.backlog.md must be ignored during IMPLEMENTING
+8. File Visibility Rules
+	•	task.current.md is the ONLY executable task source
+	•	task.archive.md is read-only reference
+	•	task.backlog.md must be ignored during IMPLEMENTING
+	•	PRD.md may be read only when explicitly requested
