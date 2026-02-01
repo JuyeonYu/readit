@@ -5,9 +5,15 @@ class ApplicationController < ActionController::Base
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
 
+  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
+
   helper_method :current_user, :logged_in?
 
   private
+
+  def render_not_found
+    render file: Rails.public_path.join("404.html"), status: :not_found, layout: false
+  end
 
   def current_user
     @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
