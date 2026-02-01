@@ -22,7 +22,7 @@ class ReadMessageService
 
     # 알림 발송 (비동기, 트랜잭션 밖)
     if message.sender_email.present?
-      SendNotificationJob.perform_later(message.id)
+      SendNotificationJob.perform_later(message.id, viewer_token_hash)
     end
 
     Result.new(success?: true, read_event: read_event)

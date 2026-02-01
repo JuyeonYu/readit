@@ -6,12 +6,13 @@ class SendNotificationJobTest < ActiveJob::TestCase
   setup do
     @user = User.create!(email: "sender@example.com")
     @message = @user.messages.create!(content: "Test message")
+    @viewer_hash = "abc123"
   end
 
   test "sends email notification" do
     assert_difference "Notification.count", 1 do
       assert_emails 1 do
-        SendNotificationJob.perform_now(@message.id)
+        SendNotificationJob.perform_now(@message.id, @viewer_hash)
       end
     end
 
@@ -22,22 +23,31 @@ class SendNotificationJobTest < ActiveJob::TestCase
     assert notification.sent_at.present?
   end
 
-  test "prevents duplicate notifications within 5 minutes" do
+  test "prevents duplicate notifications for same viewer" do
     assert_difference "Notification.count", 1 do
       assert_emails 1 do
-        2.times { SendNotificationJob.perform_now(@message.id) }
+        2.times { SendNotificationJob.perform_now(@message.id, @viewer_hash) }
       end
     end
   end
 
-  test "creates new notification after 5 minute bucket" do
-    # First notification
-    SendNotificationJob.perform_now(@message.id)
+  test "sends separate notifications for different viewers" do
+    assert_difference "Notification.count", 2 do
+      assert_emails 2 do
+        SendNotificationJob.perform_now(@message.id, "viewer_1")
+        SendNotificationJob.perform_now(@message.id, "viewer_2")
+      end
+    end
+  end
 
-    # Simulate time passing to next bucket
-    travel 6.minutes do
-      assert_difference "Notification.count", 1 do
-        SendNotificationJob.perform_now(@message.id)
+  test "same viewer does not get duplicate notification even after time passes" do
+    SendNotificationJob.perform_now(@message.id, @viewer_hash)
+
+    travel 1.hour do
+      assert_no_difference "Notification.count" do
+        assert_emails 0 do
+          SendNotificationJob.perform_now(@message.id, @viewer_hash)
+        end
       end
     end
   end

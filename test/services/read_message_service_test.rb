@@ -67,7 +67,7 @@ class ReadMessageServiceTest < ActiveSupport::TestCase
   end
 
   test "enqueues notification job on successful read" do
-    assert_enqueued_with(job: SendNotificationJob, args: [@message.id]) do
+    assert_enqueued_with(job: SendNotificationJob, args: [@message.id, @viewer_token_hash]) do
       ReadMessageService.call(@message, viewer_token_hash: @viewer_token_hash)
     end
   end

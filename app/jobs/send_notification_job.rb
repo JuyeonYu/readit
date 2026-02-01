@@ -1,13 +1,12 @@
 class SendNotificationJob < ApplicationJob
   queue_as :default
 
-  def perform(message_id)
+  def perform(message_id, viewer_token_hash)
     message = Message.find(message_id)
     return unless message.sender_email.present?
 
-    # idempotency_key 생성 (5분 버킷)
-    bucket = (Time.current.to_i / 300) * 300
-    idempotency_key = "message:#{message_id}:email:#{bucket}"
+    # idempotency_key 생성 (읽은 사람당 1회만)
+    idempotency_key = "message:#{message_id}:viewer:#{viewer_token_hash}"
 
     # 중복 방지 (find_or_create_by)
     notification = message.notifications.find_or_create_by!(
