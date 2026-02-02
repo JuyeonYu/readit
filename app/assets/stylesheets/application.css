@@ -10,180 +10,26 @@
  */
 
 :root {
-  --color-primary: #4a90a4;
-  --color-primary-hover: #3d7a8c;
-  --color-primary-light: #e8f4f8;
-  --color-accent: #7ecba1;
-  --color-accent-light: #e6f7ed;
-  --color-text: #2d3748;
-  --color-text-light: #718096;
-  --color-bg: #ffffff;
-  --color-surface: #f7fafc;
-  --color-border: #e2e8f0;
+  /* New Design System Colors */
+  --color-primary: #4F46E5;
+  --color-primary-hover: #4338CA;
+  --color-primary-light: #EEF2FF;
+  --color-success: #10B981;
+  --color-success-light: #D1FAE5;
+  --color-accent: #F59E0B;
+  --color-text: #111827;
+  --color-text-light: #6B7280;
+  --color-bg: #F9FAFB;
+  --color-surface: #FFFFFF;
+  --color-border: #E5E7EB;
   --spacing-unit: 1rem;
 }
 
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  color: var(--color-text);
-  background-color: var(--color-bg);
-  line-height: 1.6;
-}
-
-/* Landing Page */
-.landing {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: calc(var(--spacing-unit) * 4) var(--spacing-unit);
-  text-align: center;
-}
-
-.hero {
-  margin-bottom: calc(var(--spacing-unit) * 3);
-}
-
-.hero h1 {
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: calc(var(--spacing-unit) * 0.5);
-}
-
-.tagline {
-  font-size: 1.25rem;
-  color: var(--color-text-light);
-}
-
-/* Value Proposition */
-.value-prop {
-  margin-bottom: calc(var(--spacing-unit) * 3);
-}
-
-.problem {
-  margin-bottom: calc(var(--spacing-unit) * 1.5);
-}
-
-.problem-text {
-  font-size: 1.125rem;
-  color: var(--color-text-light);
-}
-
-.solution {
-  font-size: 1.5rem;
-  line-height: 1.4;
-}
-
-.solution strong {
-  color: var(--color-primary);
-}
-
-/* How It Works */
-.how-it-works {
-  margin-bottom: calc(var(--spacing-unit) * 3);
-  text-align: left;
-}
-
-.how-it-works h2 {
-  font-size: 1rem;
-  color: var(--color-text-light);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: calc(var(--spacing-unit) * 1.5);
-  text-align: center;
-}
-
-.steps {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-unit);
-}
-
-.steps li {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--spacing-unit);
-  padding: var(--spacing-unit);
-  background-color: var(--color-surface);
-  border-radius: 8px;
-  border: 1px solid var(--color-border);
-}
-
-.step-number {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  background-color: var(--color-primary);
-  color: white;
-  font-weight: 600;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.step-text {
-  padding-top: calc(var(--spacing-unit) * 0.25);
-}
-
-.step-text strong {
-  color: var(--color-primary);
-}
-
-/* CTA Section */
-.cta-section {
-  margin-top: calc(var(--spacing-unit) * 2);
-  text-align: center;
-}
-
-.cta-hint {
-  margin-top: calc(var(--spacing-unit) * 0.75);
-  font-size: 0.875rem;
-  color: var(--color-text-light);
-}
-
-.description {
-  margin-bottom: calc(var(--spacing-unit) * 2);
-}
-
-.description p {
-  margin-bottom: var(--spacing-unit);
-}
-
-.features {
-  margin-bottom: calc(var(--spacing-unit) * 3);
-  text-align: left;
-}
-
-.features ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: calc(var(--spacing-unit) * 0.5);
-}
-
-.features li {
-  color: var(--color-text-light);
-  display: flex;
-  align-items: flex-start;
-  gap: calc(var(--spacing-unit) * 0.5);
-}
-
-.features li::before {
-  content: "✓";
-  color: var(--color-primary);
-  font-weight: 600;
-}
-
-.cta {
-  margin-top: calc(var(--spacing-unit) * 2);
-}
-
+/* Base button styles for non-Tailwind pages */
 .btn-primary {
   display: inline-block;
   padding: calc(var(--spacing-unit) * 0.75) calc(var(--spacing-unit) * 2);
@@ -252,23 +98,131 @@ body {
 .form-group input:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(74, 144, 164, 0.15);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
 }
 
-/* Trix Editor */
+/* Trix Editor - Enhanced Styling */
 trix-editor {
   min-height: 300px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  padding: calc(var(--spacing-unit) * 0.75);
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  padding: 1rem;
   font-size: 1rem;
-  line-height: 1.6;
+  line-height: 1.75;
+  background-color: #FFFFFF;
 }
 
 trix-editor:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(74, 144, 164, 0.15);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+trix-editor[placeholder]:empty:not(:focus)::before {
+  color: #9CA3AF;
+}
+
+/* Trix Toolbar Styling */
+trix-toolbar {
+  background-color: #F9FAFB;
+  border: 1px solid #E5E7EB;
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  padding: 0.5rem;
+}
+
+trix-toolbar .trix-button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+trix-toolbar .trix-button-group {
+  display: flex;
+  margin-right: 0.5rem;
+  border: none;
+}
+
+trix-toolbar .trix-button {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 0.375rem 0.5rem;
+  color: #4B5563;
+  transition: all 0.15s ease;
+}
+
+trix-toolbar .trix-button:hover {
+  background-color: #E5E7EB;
+  color: #111827;
+}
+
+trix-toolbar .trix-button.trix-active {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+trix-toolbar .trix-button--icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+/* When toolbar is above editor, connect them */
+trix-toolbar + trix-editor {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  margin-top: -1px;
+}
+
+/* Trix content styling */
+trix-editor h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+trix-editor a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+trix-editor ul, trix-editor ol {
+  padding-left: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+trix-editor blockquote {
+  border-left: 3px solid var(--color-primary);
+  padding-left: 1rem;
+  margin: 0.5rem 0;
+  color: #6B7280;
+}
+
+/* Prose styling for rendered content */
+.prose {
+  color: #374151;
+  line-height: 1.75;
+}
+
+.prose p {
+  margin-bottom: 1rem;
+}
+
+.prose a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.prose ul, .prose ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.prose blockquote {
+  border-left: 3px solid #E5E7EB;
+  padding-left: 1rem;
+  color: #6B7280;
+  font-style: italic;
 }
 
 .form-actions {
@@ -354,7 +308,7 @@ trix-editor:focus {
 /* Info Box */
 .info-box {
   background-color: var(--color-primary-light);
-  border: 1px solid #b8d4e3;
+  border: 1px solid #C7D2FE;
   border-radius: 8px;
   padding: calc(var(--spacing-unit) * 1.5);
   margin: calc(var(--spacing-unit) * 2) 0;
@@ -443,13 +397,13 @@ trix-editor:focus {
   padding: calc(var(--spacing-unit) * 1.25) calc(var(--spacing-unit) * 3);
   font-size: 1.25rem;
   font-weight: 600;
-  box-shadow: 0 4px 14px rgba(74, 144, 164, 0.3);
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
   transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn-large:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(74, 144, 164, 0.4);
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
 }
 
 /* Flash Messages */
@@ -608,7 +562,7 @@ body:has(.global-header) {
 
 .message-item:hover {
   border-color: var(--color-primary);
-  box-shadow: 0 2px 8px rgba(74, 144, 164, 0.15);
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.15);
 }
 
 .message-link {
@@ -644,7 +598,7 @@ body:has(.global-header) {
 }
 
 .read-count {
-  background-color: var(--color-accent-light);
+  background-color: var(--color-success-light);
   color: #047857;
 }
 

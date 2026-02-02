@@ -1,26 +1,120 @@
-<% content_for(:title) { "메시지 도착 - 읽었어?" } %>
+<% content_for(:title) { "#{@message.title} - MessageOpen" } %>
 
-<main class="container text-center">
-  <% if flash[:alert] %>
-    <div class="flash-alert"><%= flash[:alert] %></div>
-  <% end %>
-
-  <h1><%= @message.title %></h1>
-  <p class="subtitle"><%= @message.user.email %>님이 보낸 메시지입니다</p>
-
-  <div class="preview-box">
-    <p>읽을까요?</p>
-    <p class="hint">읽기 버튼을 누르면 발신자에게 알림이 전송됩니다</p>
-  </div>
-
-  <%= form_with url: read_message_path(@message.token), method: :post, class: "read-form", data: { turbo: false } do |f| %>
-    <% if @message.password_digest.present? %>
-      <div class="form-group password-input">
-        <%= f.label :password, "비밀번호" %>
-        <%= f.password_field :password, required: true, placeholder: "비밀번호를 입력하세요" %>
+<div class="min-h-screen bg-gray-50">
+  <!-- Minimal Header -->
+  <header class="bg-white/80 backdrop-blur-sm border-b border-gray-100">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 py-4">
+      <div class="flex items-center justify-between">
+        <%= link_to root_path, class: "flex items-center gap-2" do %>
+          <div class="w-6 h-6 bg-primary-600 rounded flex items-center justify-center">
+            <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <span class="text-sm font-medium text-gray-700">MessageOpen</span>
+        <% end %>
+        <span class="flex items-center gap-1.5 text-xs text-gray-500">
+          <svg class="w-3.5 h-3.5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+          Secure message
+        </span>
       </div>
-    <% end %>
+    </div>
+  </header>
 
-    <button type="submit" class="btn-primary btn-large">읽기</button>
-  <% end %>
-</main>
+  <!-- Main Content -->
+  <main class="px-4 py-8 sm:py-12">
+    <div class="max-w-2xl mx-auto">
+      <% if flash[:alert] %>
+        <div class="mb-6 bg-red-50 border border-red-200 rounded-xl p-4">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <p class="text-sm text-red-700"><%= flash[:alert] %></p>
+          </div>
+        </div>
+      <% end %>
+
+      <!-- Message Card -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+        <!-- Sender Info -->
+        <div class="px-6 sm:px-10 pt-8 sm:pt-10">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center shadow-sm">
+              <span class="text-white font-medium text-sm"><%= @message.user.email[0].upcase %></span>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Message from</p>
+              <p class="font-medium text-gray-900"><%= @message.user.email %></p>
+            </div>
+          </div>
+
+          <!-- Message Title -->
+          <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 leading-tight">
+            <%= @message.title %>
+          </h1>
+        </div>
+
+        <!-- Message Preview Indicator -->
+        <div class="px-6 sm:px-10 py-6 mt-4 bg-gray-50 border-t border-gray-100">
+          <div class="flex items-center gap-3 text-gray-600">
+            <div class="w-10 h-10 bg-white rounded-lg border border-gray-200 flex items-center justify-center">
+              <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-gray-900">Message ready to view</p>
+              <p class="text-xs text-gray-500">The sender will be notified when you open this message</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Section -->
+        <div class="px-6 sm:px-10 py-6 border-t border-gray-100">
+          <%= form_with url: read_message_path(@message.token), method: :post, data: { turbo: false } do |f| %>
+            <% if @message.password_digest.present? %>
+              <div class="mb-6">
+                <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+                  This message is password protected
+                </label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                    </svg>
+                  </div>
+                  <%= f.password_field :password,
+                      required: true,
+                      placeholder: "Enter password",
+                      class: "w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors" %>
+                </div>
+                <p class="mt-2 text-xs text-gray-500">The sender shared this password with you separately</p>
+              </div>
+            <% end %>
+
+            <button type="submit" class="w-full inline-flex items-center justify-center gap-2 bg-primary-600 text-white px-6 py-4 rounded-xl font-medium text-lg hover:bg-primary-700 transition-all shadow-sm hover:shadow">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+              </svg>
+              View Message
+            </button>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="mt-8 text-center">
+        <p class="text-xs text-gray-400">
+          Powered by <a href="<%= root_url %>" class="text-gray-500 hover:text-primary-600 transition-colors">MessageOpen</a>
+        </p>
+        <p class="text-xs text-gray-400 mt-1">
+          Secure message sharing with read receipts
+        </p>
+      </footer>
+    </div>
+  </main>
+</div>

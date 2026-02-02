@@ -8,6 +8,12 @@ class MessagesController < ApplicationController
   def create
     @message = current_user.messages.build(message_params)
 
+    # Handle expires_in dropdown (days from now)
+    if params.dig(:message, :expires_in).present?
+      days = params[:message][:expires_in].to_i
+      @message.expires_at = days.days.from_now if days > 0
+    end
+
     if @message.save
       redirect_to share_message_path(@message.token)
     else

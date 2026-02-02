@@ -1,0 +1,18 @@
+<svg width="280" height="48" viewBox="0 0 280 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- MessageOpen Horizontal Lockup: Icon + Wordmark -->
+
+  <!-- Icon (48x48) -->
+  <g transform="translate(0, 0)">
+    <!-- Envelope body -->
+    <path d="M6 18V40C6 42.209 7.791 44 10 44H38C40.209 44 42 42.209 42 40V18" stroke="#4F46E5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+    <!-- Envelope fold -->
+    <path d="M6 18L24 32L42 18" stroke="#4F46E5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+    <!-- Arrow up -->
+    <path d="M24 4L16 12M24 4L32 12M24 4V24" stroke="#4F46E5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="56" y="32" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="22" font-weight="600" fill="#111827">MessageOpen</text>
+</svg>
