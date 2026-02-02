@@ -1,13 +1,14 @@
-안녕하세요,
+Your message was opened
+=======================
 
-보내신 메시지가 읽혔습니다.
+Someone just viewed your message.
 
----
-메시지 제목:
-<%= @message.title %>
----
+MESSAGE: <%= @message.title %>
+TOTAL VIEWS: <%= @read_count %>
+OPENED: Just now
 
-읽은 횟수: <%= @read_count %>회
+View details: <%= share_message_url(@message.token) %>
 
-감사합니다,
-읽었어? 팀
+--
+MessageOpen
+Know when your messages are read

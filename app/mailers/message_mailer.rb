@@ -5,7 +5,32 @@ class MessageMailer < ApplicationMailer
 
     mail(
       to: message.sender_email,
-      subject: "[읽었어?] 메시지가 읽혔습니다"
+      subject: "Your message was opened"
+    )
+  end
+
+  def welcome(user)
+    @user = user
+    mail(
+      to: @user.email,
+      subject: "Welcome to MessageOpen"
+    )
+  end
+
+  def weekly_digest(user, stats)
+    @user = user
+    @stats = stats
+    mail(
+      to: @user.email,
+      subject: "Your weekly message report"
+    )
+  end
+
+  def upgrade_prompt(user)
+    @user = user
+    mail(
+      to: @user.email,
+      subject: "You're running low on messages"
     )
   end
 end

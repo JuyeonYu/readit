@@ -1,0 +1,114 @@
+<% content_for :preheader do %>
+  Your messages were opened <%= @stats[:total_opens] %> times this week
+<% end %>
+
+<!-- Heading -->
+<h1 style="margin: 0 0 8px; font-size: 24px; font-weight: 700; color: #111827;">
+  Your weekly report
+</h1>
+
+<p style="margin: 0 0 32px; font-size: 16px; color: #6b7280;">
+  Here's how your messages performed this week.
+</p>
+
+<!-- Stats cards -->
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin-bottom: 32px;">
+  <tr>
+    <!-- Messages sent -->
+    <td width="33%" style="padding-right: 8px;">
+      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #f9fafb; border-radius: 8px;">
+        <tr>
+          <td style="padding: 16px; text-align: center;">
+            <p style="margin: 0 0 4px; font-size: 28px; font-weight: 700; color: #4F46E5;">
+              <%= @stats[:messages_sent] || 0 %>
+            </p>
+            <p style="margin: 0; font-size: 12px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px;">
+              Sent
+            </p>
+          </td>
+        </tr>
+      </table>
+    </td>
+
+    <!-- Total opens -->
+    <td width="33%" style="padding: 0 4px;">
+      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #f9fafb; border-radius: 8px;">
+        <tr>
+          <td style="padding: 16px; text-align: center;">
+            <p style="margin: 0 0 4px; font-size: 28px; font-weight: 700; color: #10B981;">
+              <%= @stats[:total_opens] || 0 %>
+            </p>
+            <p style="margin: 0; font-size: 12px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px;">
+              Opens
+            </p>
+          </td>
+        </tr>
+      </table>
+    </td>
+
+    <!-- Open rate -->
+    <td width="33%" style="padding-left: 8px;">
+      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #f9fafb; border-radius: 8px;">
+        <tr>
+          <td style="padding: 16px; text-align: center;">
+            <p style="margin: 0 0 4px; font-size: 28px; font-weight: 700; color: #111827;">
+              <%= @stats[:open_rate] || 0 %>%
+            </p>
+            <p style="margin: 0; font-size: 12px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px;">
+              Open Rate
+            </p>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<% if @stats[:top_messages].present? && @stats[:top_messages].any? %>
+  <!-- Top performing messages -->
+  <h2 style="margin: 0 0 16px; font-size: 16px; font-weight: 600; color: #111827;">
+    Top performing messages
+  </h2>
+
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin-bottom: 32px;">
+    <% @stats[:top_messages].each_with_index do |msg, index| %>
+      <tr>
+        <td style="padding: 12px 0; border-bottom: 1px solid #e5e7eb;">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+            <tr>
+              <td width="32" style="vertical-align: top;">
+                <span style="display: inline-block; width: 24px; height: 24px; background-color: #EEF2FF; border-radius: 50%; color: #4F46E5; font-size: 12px; font-weight: 600; text-align: center; line-height: 24px;">
+                  <%= index + 1 %>
+                </span>
+              </td>
+              <td style="vertical-align: top;">
+                <p style="margin: 0 0 2px; font-size: 14px; font-weight: 500; color: #111827;">
+                  <%= msg[:title] %>
+                </p>
+                <p style="margin: 0; font-size: 13px; color: #6b7280;">
+                  <%= msg[:opens] %> opens
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+
+<!-- CTA Button -->
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+  <tr>
+    <td align="center">
+      <a href="<%= dashboard_url %>" style="display: inline-block; padding: 14px 32px; background-color: #4F46E5; color: #ffffff; font-size: 16px; font-weight: 600; text-decoration: none; border-radius: 8px;">
+        View Full Dashboard
+      </a>
+    </td>
+  </tr>
+</table>
+
+<!-- Footer note -->
+<p style="margin: 32px 0 0; font-size: 13px; color: #9ca3af; text-align: center;">
+  You're receiving this weekly digest because you have messages with tracking enabled.
+</p>
