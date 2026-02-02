@@ -27,6 +27,6 @@ class MessagesController < ApplicationController
   private
 
   def message_params
-    params.require(:message).permit(:content, :password, :max_read_count, :expires_at)
+    params.require(:message).permit(:title, :content, :password, :max_read_count, :expires_at)
   end
 end

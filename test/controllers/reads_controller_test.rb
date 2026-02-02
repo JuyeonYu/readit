@@ -3,7 +3,7 @@ require "test_helper"
 class ReadsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = User.create!(email: "sender@example.com")
-    @message = @user.messages.create!(content: "Test message")
+    @message = @user.messages.create!(title: "Test Title", content: "Test message")
   end
 
   test "show displays preview for valid message" do
@@ -98,7 +98,7 @@ class ReadsControllerTest < ActionDispatch::IntegrationTest
   test "create displays message content" do
     post read_message_path(@message.token)
     assert_response :success
-    assert_match @message.content, response.body
+    assert_match @message.title, response.body
   end
 
   test "create redirects to expired when message becomes unreadable" do

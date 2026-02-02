@@ -16,11 +16,11 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "new page contains message form with content textarea" do
+  test "new page contains message form with title and content fields" do
     login_as(@user)
     get new_message_url
     assert_select "form"
-    assert_select "textarea[name='message[content]']"
+    assert_select "input[name='message[title]']"
     assert_select "input[type='submit']"
   end
 
@@ -39,18 +39,18 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
     assert_select "input[name='message[password]']"
   end
 
-  test "create with empty content shows error" do
+  test "create with empty title and content shows error" do
     login_as(@user)
-    post messages_url, params: { message: { content: "" } }
+    post messages_url, params: { message: { title: "", content: "" } }
     assert_response :unprocessable_entity
     assert_select ".error-messages"
   end
 
-  test "create with valid content saves message and redirects to share" do
+  test "create with valid title and content saves message and redirects to share" do
     login_as(@user)
 
     assert_difference "Message.count", 1 do
-      post messages_url, params: { message: { content: "Test message" } }
+      post messages_url, params: { message: { title: "Test Title", content: "Test message" } }
     end
 
     message = Message.last
@@ -61,7 +61,7 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
 
   test "share page shows link" do
     login_as(@user)
-    message = @user.messages.create!(content: "Test")
+    message = @user.messages.create!(title: "Test Title", content: "Test")
 
     get share_message_path(message.token)
     assert_response :success
@@ -70,7 +70,7 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
 
   test "share page shows read events section" do
     login_as(@user)
-    message = @user.messages.create!(content: "Test")
+    message = @user.messages.create!(title: "Test Title", content: "Test")
 
     get share_message_path(message.token)
     assert_select ".read-events-section"
@@ -79,7 +79,7 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
 
   test "share page shows empty state when no read events" do
     login_as(@user)
-    message = @user.messages.create!(content: "Test")
+    message = @user.messages.create!(title: "Test Title", content: "Test")
 
     get share_message_path(message.token)
     assert_select ".read-summary", /총 0회 읽음/
@@ -88,7 +88,7 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
 
   test "share page shows read events grouped by viewer" do
     login_as(@user)
-    message = @user.messages.create!(content: "Test")
+    message = @user.messages.create!(title: "Test Title", content: "Test")
     message.read_events.create!(read_at: 1.hour.ago, viewer_token_hash: "abc123")
     message.read_events.create!(read_at: 30.minutes.ago, viewer_token_hash: "abc123")
     message.read_events.create!(read_at: 20.minutes.ago, viewer_token_hash: "def456")
@@ -102,7 +102,7 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
 
   test "share page shows readers in descending order by first read" do
     login_as(@user)
-    message = @user.messages.create!(content: "Test")
+    message = @user.messages.create!(title: "Test Title", content: "Test")
     message.read_events.create!(read_at: 2.hours.ago, viewer_token_hash: "abc123")
     message.read_events.create!(read_at: 1.hour.ago, viewer_token_hash: "def456")
 

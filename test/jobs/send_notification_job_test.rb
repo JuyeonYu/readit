@@ -5,7 +5,7 @@ class SendNotificationJobTest < ActiveJob::TestCase
 
   setup do
     @user = User.create!(email: "sender@example.com")
-    @message = @user.messages.create!(content: "Test message")
+    @message = @user.messages.create!(title: "Test Title", content: "Test message")
     @viewer_hash = "abc123"
   end
 

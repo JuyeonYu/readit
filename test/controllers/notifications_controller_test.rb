@@ -31,7 +31,7 @@ class NotificationsControllerTest < ActionDispatch::IntegrationTest
 
   test "index page shows notifications list" do
     login_as(@user)
-    message = @user.messages.create!(content: "Test message")
+    message = @user.messages.create!(title: "Test Title", content: "Test message")
     message.notifications.create!(
       notification_type: :email,
       recipient: @user.email,
@@ -47,7 +47,7 @@ class NotificationsControllerTest < ActionDispatch::IntegrationTest
 
   test "index page shows notification status" do
     login_as(@user)
-    message = @user.messages.create!(content: "Test message")
+    message = @user.messages.create!(title: "Test Title", content: "Test message")
     message.notifications.create!(
       notification_type: :email,
       recipient: @user.email,
@@ -62,7 +62,7 @@ class NotificationsControllerTest < ActionDispatch::IntegrationTest
 
   test "index page shows notification type" do
     login_as(@user)
-    message = @user.messages.create!(content: "Test message")
+    message = @user.messages.create!(title: "Test Title", content: "Test message")
     message.notifications.create!(
       notification_type: :email,
       recipient: @user.email,
@@ -77,7 +77,7 @@ class NotificationsControllerTest < ActionDispatch::IntegrationTest
 
   test "index page links to message share page" do
     login_as(@user)
-    message = @user.messages.create!(content: "Test message")
+    message = @user.messages.create!(title: "Test Title", content: "Test message")
     message.notifications.create!(
       notification_type: :email,
       recipient: @user.email,
@@ -92,7 +92,7 @@ class NotificationsControllerTest < ActionDispatch::IntegrationTest
 
   test "notifications are shown in descending order" do
     login_as(@user)
-    message = @user.messages.create!(content: "Test message")
+    message = @user.messages.create!(title: "Test Title", content: "Test message")
     older = message.notifications.create!(
       notification_type: :email,
       recipient: @user.email,

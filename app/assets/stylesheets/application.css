@@ -255,6 +255,22 @@ body {
   box-shadow: 0 0 0 3px rgba(74, 144, 164, 0.15);
 }
 
+/* Trix Editor */
+trix-editor {
+  min-height: 300px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: calc(var(--spacing-unit) * 0.75);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+trix-editor:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(74, 144, 164, 0.15);
+}
+
 .form-actions {
   margin-top: var(--spacing-unit);
 }

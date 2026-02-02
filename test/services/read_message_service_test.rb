@@ -4,7 +4,7 @@ class ReadMessageServiceTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
   setup do
     @user = User.create!(email: "test@example.com")
-    @message = @user.messages.create!(content: "Test message")
+    @message = @user.messages.create!(title: "Test Title", content: "Test message")
     @viewer_token_hash = Digest::SHA256.hexdigest(SecureRandom.hex(32))
   end
 

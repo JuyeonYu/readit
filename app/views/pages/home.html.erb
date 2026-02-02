@@ -22,7 +22,7 @@
             <li class="message-item">
               <%= link_to share_message_path(message.token), class: "message-link" do %>
                 <div class="message-preview">
-                  <p class="message-excerpt"><%= truncate(message.content, length: 80) %></p>
+                  <p class="message-excerpt"><%= truncate(message.title, length: 80) %></p>
                   <div class="message-meta">
                     <span class="read-count"><%= message.unique_reader_count %>명 / <%= message.read_count %>회</span>
                     <span class="created-at"><%= time_ago_in_words(message.created_at) %> 전</span>

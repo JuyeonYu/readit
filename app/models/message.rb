@@ -7,6 +7,7 @@ class Message < ApplicationRecord
   has_secure_password validations: false
 
   validates :token, presence: true, uniqueness: true
+  validates :title, presence: true
   validates :content, presence: true
   validates :expires_at, comparison: { greater_than: -> { Time.current } },
             if: -> { expires_at.present? && will_save_change_to_expires_at? }
