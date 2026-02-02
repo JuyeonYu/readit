@@ -1,0 +1,477 @@
+<% content_for(:title) { "Pricing - MessageOpen" } %>
+
+<div class="min-h-screen bg-gray-50">
+  <!-- Navigation -->
+  <nav class="bg-white border-b border-gray-100">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <%= link_to root_path, class: "flex items-center gap-2" do %>
+          <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <span class="font-semibold text-gray-900">MessageOpen</span>
+        <% end %>
+        <div class="flex items-center gap-4">
+          <% if logged_in? %>
+            <%= link_to "Dashboard", dashboard_path, class: "text-sm text-gray-600 hover:text-gray-900" %>
+          <% else %>
+            <%= link_to "Log in", login_path, class: "text-sm text-gray-600 hover:text-gray-900" %>
+            <%= link_to "Start Free", login_path, class: "bg-primary-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-700 transition-colors" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="pt-16 pb-12 px-4 sm:px-6 lg:px-8 text-center">
+    <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">Simple, Transparent Pricing</h1>
+    <p class="text-xl text-gray-600 max-w-2xl mx-auto mb-8">Start free. Upgrade when you need more. No hidden fees, ever.</p>
+
+    <!-- Billing Toggle -->
+    <div class="inline-flex items-center gap-3 bg-white rounded-full p-1.5 shadow-sm border border-gray-200" data-controller="pricing-toggle">
+      <button
+        type="button"
+        data-pricing-toggle-target="monthlyBtn"
+        data-action="click->pricing-toggle#selectMonthly"
+        class="px-4 py-2 rounded-full text-sm font-medium transition-colors bg-primary-600 text-white"
+      >
+        Monthly
+      </button>
+      <button
+        type="button"
+        data-pricing-toggle-target="yearlyBtn"
+        data-action="click->pricing-toggle#selectYearly"
+        class="px-4 py-2 rounded-full text-sm font-medium transition-colors text-gray-600 hover:text-gray-900"
+      >
+        Yearly <span class="text-green-600 text-xs ml-1">Save 17%</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Pricing Cards -->
+  <section class="pb-20 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-5xl mx-auto">
+      <div class="grid md:grid-cols-3 gap-8 items-start" data-controller="pricing-toggle">
+        <!-- Free Plan -->
+        <div class="bg-white rounded-2xl border border-gray-200 p-8 hover:shadow-lg transition-shadow">
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-1">Free</h3>
+            <p class="text-sm text-gray-500">For getting started</p>
+          </div>
+
+          <div class="mb-6">
+            <div class="flex items-baseline">
+              <span class="text-5xl font-bold text-gray-900">$0</span>
+              <span class="text-gray-500 ml-2">/ month</span>
+            </div>
+            <p class="text-sm text-gray-500 mt-1">Forever free</p>
+          </div>
+
+          <div class="border-t border-gray-100 pt-6 mb-8">
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-gray-700">10 messages per month</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-gray-700">Email notifications</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-gray-700">Basic analytics</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-gray-700">7-day history</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-gray-700">Password protection</span>
+              </li>
+            </ul>
+          </div>
+
+          <%= link_to login_path, class: "block w-full text-center py-3 px-4 border-2 border-primary-600 text-primary-600 rounded-xl font-medium hover:bg-primary-50 transition-colors" do %>
+            Start Free
+          <% end %>
+          <p class="text-xs text-gray-500 text-center mt-3">No credit card required</p>
+        </div>
+
+        <!-- Pro Plan (Featured) -->
+        <div class="bg-white rounded-2xl border-2 border-primary-500 p-8 shadow-xl relative transform md:-translate-y-4">
+          <!-- Badge -->
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+            <span class="bg-primary-600 text-white text-sm font-medium px-4 py-1 rounded-full">Most Popular</span>
+          </div>
+
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-1">Pro</h3>
+            <p class="text-sm text-gray-500">For professionals</p>
+          </div>
+
+          <div class="mb-6">
+            <div class="flex items-baseline">
+              <span class="text-5xl font-bold text-gray-900" data-pricing-toggle-target="proPrice">$12</span>
+              <span class="text-gray-500 ml-2">/ month</span>
+            </div>
+            <p class="text-sm text-gray-500 mt-1" data-pricing-toggle-target="proBilling">Billed monthly</p>
+          </div>
+
+          <div class="border-t border-gray-100 pt-6 mb-8">
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-gray-700 font-medium">Unlimited messages</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-gray-700">Detailed analytics</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-gray-700">1-year history</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-gray-700">Custom branding</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-gray-700">Priority support</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-gray-700">API access</span>
+              </li>
+            </ul>
+          </div>
+
+          <%= link_to login_path, class: "block w-full text-center py-4 px-4 bg-primary-600 text-white rounded-xl font-medium hover:bg-primary-700 transition-colors shadow-sm" do %>
+            Try 14 Days Free
+          <% end %>
+          <p class="text-xs text-gray-500 text-center mt-3">Then $12/mo. Cancel anytime.</p>
+        </div>
+
+        <!-- Team Plan -->
+        <div class="bg-white rounded-2xl border border-gray-200 p-8 hover:shadow-lg transition-shadow">
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-1">Team</h3>
+            <p class="text-sm text-gray-500">For growing teams</p>
+          </div>
+
+          <div class="mb-6">
+            <div class="flex items-baseline">
+              <span class="text-5xl font-bold text-gray-900" data-pricing-toggle-target="teamPrice">$39</span>
+              <span class="text-gray-500 ml-2">/ month</span>
+            </div>
+            <p class="text-sm text-gray-500 mt-1">5 members included</p>
+          </div>
+
+          <div class="border-t border-gray-100 pt-6 mb-8">
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-gray-700">Everything in Pro</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-gray-700">Team collaboration</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-gray-700">Shared message library</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-gray-700">Team analytics</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-gray-700">Admin controls</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-gray-700">SSO (coming soon)</span>
+              </li>
+            </ul>
+          </div>
+
+          <a href="mailto:sales@messageopen.io" class="block w-full text-center py-3 px-4 border-2 border-gray-300 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition-colors">
+            Contact Sales
+          </a>
+          <p class="text-xs text-gray-500 text-center mt-3">+$7/mo per extra member</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Badges -->
+  <section class="pb-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto flex flex-wrap justify-center gap-8 text-sm text-gray-500">
+      <div class="flex items-center gap-2">
+        <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+        </svg>
+        14-day money back guarantee
+      </div>
+      <div class="flex items-center gap-2">
+        <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+        </svg>
+        Cancel anytime
+      </div>
+      <div class="flex items-center gap-2">
+        <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+        </svg>
+        Secure payments via Stripe
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white border-t border-gray-100">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold text-gray-900 text-center mb-12">Frequently Asked Questions</h2>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- FAQ Item 1 -->
+        <div>
+          <h3 class="font-semibold text-gray-900 mb-2">Can I change plans anytime?</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">Yes! You can upgrade, downgrade, or cancel your plan at any time. Changes take effect immediately, and we'll prorate any charges.</p>
+        </div>
+
+        <!-- FAQ Item 2 -->
+        <div>
+          <h3 class="font-semibold text-gray-900 mb-2">What happens when I hit the free limit?</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">You'll receive a friendly notification. Your existing messages will continue to work, but you won't be able to create new ones until next month or you upgrade.</p>
+        </div>
+
+        <!-- FAQ Item 3 -->
+        <div>
+          <h3 class="font-semibold text-gray-900 mb-2">Do you offer refunds?</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">Yes, we offer a 14-day money-back guarantee. If you're not satisfied, contact us within 14 days for a full refund, no questions asked.</p>
+        </div>
+
+        <!-- FAQ Item 4 -->
+        <div>
+          <h3 class="font-semibold text-gray-900 mb-2">Can I cancel anytime?</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">Absolutely. There are no contracts or commitments. Cancel anytime from your account settings, and you'll retain access until the end of your billing period.</p>
+        </div>
+
+        <!-- FAQ Item 5 -->
+        <div>
+          <h3 class="font-semibold text-gray-900 mb-2">Is there a student discount?</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">Yes! Students and educators get 50% off Pro plans. Just email us from your .edu address and we'll set it up.</p>
+        </div>
+
+        <!-- FAQ Item 6 -->
+        <div>
+          <h3 class="font-semibold text-gray-900 mb-2">What payment methods do you accept?</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">We accept all major credit cards (Visa, Mastercard, American Express) through Stripe. For Team plans, we also offer invoicing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Table -->
+  <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold text-gray-900 text-center mb-12">Compare Plans</h2>
+
+      <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+        <table class="w-full">
+          <thead>
+            <tr class="border-b border-gray-200">
+              <th class="text-left py-4 px-6 font-medium text-gray-500">Features</th>
+              <th class="text-center py-4 px-4 font-semibold text-gray-900">Free</th>
+              <th class="text-center py-4 px-4 font-semibold text-primary-600 bg-primary-50">Pro</th>
+              <th class="text-center py-4 px-4 font-semibold text-gray-900">Team</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            <tr>
+              <td class="py-4 px-6 text-gray-700">Messages per month</td>
+              <td class="text-center py-4 px-4 text-gray-600">10</td>
+              <td class="text-center py-4 px-4 text-gray-900 bg-primary-50 font-medium">Unlimited</td>
+              <td class="text-center py-4 px-4 text-gray-600">Unlimited</td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="py-4 px-6 text-gray-700">Email notifications</td>
+              <td class="text-center py-4 px-4"><svg class="w-5 h-5 text-green-500 mx-auto" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></td>
+              <td class="text-center py-4 px-4 bg-primary-50"><svg class="w-5 h-5 text-green-500 mx-auto" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></td>
+              <td class="text-center py-4 px-4"><svg class="w-5 h-5 text-green-500 mx-auto" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></td>
+            </tr>
+            <tr>
+              <td class="py-4 px-6 text-gray-700">History retention</td>
+              <td class="text-center py-4 px-4 text-gray-600">7 days</td>
+              <td class="text-center py-4 px-4 text-gray-900 bg-primary-50 font-medium">1 year</td>
+              <td class="text-center py-4 px-4 text-gray-600">Unlimited</td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="py-4 px-6 text-gray-700">Detailed analytics</td>
+              <td class="text-center py-4 px-4"><svg class="w-5 h-5 text-gray-300 mx-auto" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg></td>
+              <td class="text-center py-4 px-4 bg-primary-50"><svg class="w-5 h-5 text-green-500 mx-auto" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></td>
+              <td class="text-center py-4 px-4"><svg class="w-5 h-5 text-green-500 mx-auto" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></td>
+            </tr>
+            <tr>
+              <td class="py-4 px-6 text-gray-700">Custom branding</td>
+              <td class="text-center py-4 px-4"><svg class="w-5 h-5 text-gray-300 mx-auto" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg></td>
+              <td class="text-center py-4 px-4 bg-primary-50"><svg class="w-5 h-5 text-green-500 mx-auto" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></td>
+              <td class="text-center py-4 px-4"><svg class="w-5 h-5 text-green-500 mx-auto" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="py-4 px-6 text-gray-700">API access</td>
+              <td class="text-center py-4 px-4"><svg class="w-5 h-5 text-gray-300 mx-auto" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg></td>
+              <td class="text-center py-4 px-4 bg-primary-50"><svg class="w-5 h-5 text-green-500 mx-auto" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></td>
+              <td class="text-center py-4 px-4"><svg class="w-5 h-5 text-green-500 mx-auto" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></td>
+            </tr>
+            <tr>
+              <td class="py-4 px-6 text-gray-700">Team collaboration</td>
+              <td class="text-center py-4 px-4"><svg class="w-5 h-5 text-gray-300 mx-auto" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg></td>
+              <td class="text-center py-4 px-4 bg-primary-50"><svg class="w-5 h-5 text-gray-300 mx-auto" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg></td>
+              <td class="text-center py-4 px-4"><svg class="w-5 h-5 text-green-500 mx-auto" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="py-4 px-6 text-gray-700">Priority support</td>
+              <td class="text-center py-4 px-4"><svg class="w-5 h-5 text-gray-300 mx-auto" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg></td>
+              <td class="text-center py-4 px-4 bg-primary-50"><svg class="w-5 h-5 text-green-500 mx-auto" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></td>
+              <td class="text-center py-4 px-4"><svg class="w-5 h-5 text-green-500 mx-auto" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-4 sm:px-6 lg:px-8 bg-primary-600">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-3xl font-bold text-white mb-4">Still have questions?</h2>
+      <p class="text-primary-100 text-lg mb-8">We're here to help. Reach out and we'll get back to you within 24 hours.</p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="mailto:hello@messageopen.io" class="inline-flex items-center justify-center gap-2 bg-white text-primary-600 px-8 py-4 rounded-xl font-medium hover:bg-primary-50 transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+          Email Us
+        </a>
+        <a href="#" class="inline-flex items-center justify-center gap-2 border-2 border-white/30 text-white px-8 py-4 rounded-xl font-medium hover:bg-white/10 transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          Schedule a Demo
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-400 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <span class="font-semibold text-white">MessageOpen</span>
+        </div>
+
+        <nav class="flex flex-wrap justify-center gap-6 text-sm">
+          <%= link_to "Home", root_path, class: "hover:text-white transition-colors" %>
+          <%= link_to "Pricing", pricing_path, class: "hover:text-white transition-colors" %>
+          <a href="mailto:support@messageopen.io" class="hover:text-white transition-colors">Support</a>
+          <a href="#" class="hover:text-white transition-colors">Privacy</a>
+          <a href="#" class="hover:text-white transition-colors">Terms</a>
+        </nav>
+
+        <!-- Payment logos -->
+        <div class="flex items-center gap-3 text-gray-500">
+          <span class="text-xs">Secured by</span>
+          <svg class="h-6" viewBox="0 0 60 25" fill="currentColor">
+            <path d="M59.64 14.28h-8.06c.19 1.93 1.6 2.55 3.2 2.55 1.64 0 2.96-.37 4.05-.95v3.32a12.4 12.4 0 0 1-4.56.88c-4.5 0-7.14-2.57-7.14-7.1 0-3.95 2.37-7.26 6.46-7.26 3.79 0 6.08 2.74 6.08 6.7 0 .64-.04 1.5-.03 1.86zM53.96 9.1c-1.3 0-2.24 1.03-2.37 2.78h4.61c0-1.76-.89-2.79-2.24-2.79zm-13.99-1.43c1.3 0 2.52.45 3.44 1.24l-1.15 2.57a3.25 3.25 0 0 0-2.05-.78c-1.52 0-2.34 1.1-2.34 3.17s.85 3.25 2.43 3.25c.78 0 1.55-.32 2.14-.85l1.14 2.62c-.96.84-2.34 1.34-3.77 1.34-3.36 0-5.73-2.5-5.73-6.36 0-3.85 2.5-6.2 5.89-6.2zm-9.32 10.7h4.22V6.1h-4.22v12.27zm-1.54-6.29c0 4.26-2.82 6.54-6.96 6.54H17.1V5.99h5.05c4.14 0 6.96 2.21 6.96 6.09zm-4.2.08c0-2.09-1.17-3.02-2.98-3.02H21.2v6.19h1.73c1.8 0 2.98-1.01 2.98-3.17zM12.26 5.79c1.35 0 2.15.92 2.15 2.12s-.8 2.12-2.15 2.12c-1.35 0-2.15-.92-2.15-2.12s.8-2.12 2.15-2.12z"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm">
+        <p>&copy; 2025 MessageOpen. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- Pricing Toggle Script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const monthlyBtn = document.querySelector('[data-pricing-toggle-target="monthlyBtn"]');
+  const yearlyBtn = document.querySelector('[data-pricing-toggle-target="yearlyBtn"]');
+  const proPrice = document.querySelector('[data-pricing-toggle-target="proPrice"]');
+  const proBilling = document.querySelector('[data-pricing-toggle-target="proBilling"]');
+  const teamPrice = document.querySelector('[data-pricing-toggle-target="teamPrice"]');
+
+  if (!monthlyBtn || !yearlyBtn) return;
+
+  monthlyBtn.addEventListener('click', function() {
+    monthlyBtn.classList.add('bg-primary-600', 'text-white');
+    monthlyBtn.classList.remove('text-gray-600');
+    yearlyBtn.classList.remove('bg-primary-600', 'text-white');
+    yearlyBtn.classList.add('text-gray-600');
+
+    if (proPrice) proPrice.textContent = '$12';
+    if (proBilling) proBilling.textContent = 'Billed monthly';
+    if (teamPrice) teamPrice.textContent = '$39';
+  });
+
+  yearlyBtn.addEventListener('click', function() {
+    yearlyBtn.classList.add('bg-primary-600', 'text-white');
+    yearlyBtn.classList.remove('text-gray-600');
+    monthlyBtn.classList.remove('bg-primary-600', 'text-white');
+    monthlyBtn.classList.add('text-gray-600');
+
+    if (proPrice) proPrice.textContent = '$10';
+    if (proBilling) proBilling.textContent = '$120/year (save $24)';
+    if (teamPrice) teamPrice.textContent = '$33';
+  });
+});
+</script>

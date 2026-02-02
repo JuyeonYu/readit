@@ -10,6 +10,13 @@ Rails.application.routes.draw do
   get "login/verify/:token" => "sessions#verify", as: :verify_login
   delete "logout" => "sessions#destroy"
 
+  # Dashboard
+  get "dashboard" => "dashboard#index", as: :dashboard
+  get "dashboard/message/:token" => "dashboard#show", as: :dashboard_message
+
+  # Pricing
+  get "pricing" => "pricing#index", as: :pricing
+
   # Messages
   resources :messages, only: %i[new create]
   get "share/:token" => "messages#share", as: :share_message
