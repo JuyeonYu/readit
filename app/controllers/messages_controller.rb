@@ -43,24 +43,16 @@ class MessagesController < ApplicationController
   end
 
   def set_usage_stats
-    @message_limit = 10
-    @messages_this_month = current_user.messages.where("created_at >= ?", Time.current.beginning_of_month).count
-    @usage_percentage = [(@messages_this_month.to_f / @message_limit) * 100, 100].min.round
-    @is_free_plan = true # TODO: Replace with actual plan check
+    @message_limit = current_user.message_limit
+    @messages_this_month = current_user.messages_this_month
+    @is_free_plan = current_user.free?
+    @usage_percentage = @is_free_plan ? [(@messages_this_month.to_f / @message_limit) * 100, 100].min.round : 0
   end
 
   def check_message_limit
-    return unless is_free_plan?
+    return unless current_user.free?
+    return unless current_user.at_message_limit?
 
-    message_limit = 10
-    messages_this_month = current_user.messages.where("created_at >= ?", Time.current.beginning_of_month).count
-
-    if messages_this_month >= message_limit
-      redirect_to dashboard_path, alert: "You've reached your monthly message limit. Upgrade to Pro for unlimited messages."
-    end
-  end
-
-  def is_free_plan?
-    true # TODO: Replace with actual plan check
+    redirect_to dashboard_path, alert: "You've reached your monthly message limit. Upgrade to Pro for unlimited messages."
   end
 end
