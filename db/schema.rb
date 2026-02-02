@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_02_072932) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_02_143924) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -104,10 +104,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_02_072932) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.datetime "cancelled_at"
     t.datetime "created_at", null: false
+    t.datetime "current_period_end"
     t.string "email", null: false
+    t.string "lemon_squeezy_customer_id"
+    t.string "lemon_squeezy_subscription_id"
+    t.string "plan", default: "free"
+    t.string "subscription_status"
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["lemon_squeezy_customer_id"], name: "index_users_on_lemon_squeezy_customer_id"
+    t.index ["lemon_squeezy_subscription_id"], name: "index_users_on_lemon_squeezy_subscription_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

@@ -17,6 +17,18 @@ Rails.application.routes.draw do
   # Pricing
   get "pricing" => "pricing#index", as: :pricing
 
+  # Checkout
+  post "checkout" => "checkout#create", as: :checkout
+  get "checkout/success" => "checkout#success", as: :checkout_success
+  get "checkout/cancel" => "checkout#cancel", as: :checkout_cancel
+
+  # Billing management
+  get "billing" => "billing#show", as: :billing
+  post "billing/portal" => "billing#portal", as: :billing_portal
+
+  # Webhooks
+  post "webhooks/lemon_squeezy" => "webhooks#lemon_squeezy"
+
   # Messages
   resources :messages, only: %i[new create]
   get "share/:token" => "messages#share", as: :share_message
