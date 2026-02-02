@@ -3,6 +3,11 @@ Rails.application.routes.draw do
 
   root "pages#home"
 
+  # Legal pages
+  get "privacy" => "pages#privacy", as: :privacy
+  get "terms" => "pages#terms", as: :terms
+  get "refund" => "pages#refund", as: :refund
+
   # Authentication
   get "login" => "sessions#new"
   post "login" => "sessions#create"

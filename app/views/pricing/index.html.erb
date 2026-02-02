@@ -173,8 +173,23 @@
             </ul>
           </div>
 
-          <%= link_to login_path, class: "block w-full text-center py-4 px-4 bg-primary-600 text-white rounded-xl font-semibold hover:bg-primary-700 transition-colors shadow-sm text-lg" do %>
-            Try Free for 14 Days
+          <% if logged_in? %>
+            <% monthly_variant_id = Rails.application.config.lemon_squeezy[:pro_monthly_variant_id] %>
+            <% yearly_variant_id = Rails.application.config.lemon_squeezy[:pro_yearly_variant_id] %>
+            <div x-show="!yearly">
+              <%= button_to checkout_path(variant_id: monthly_variant_id), method: :post, class: "block w-full text-center py-4 px-4 bg-primary-600 text-white rounded-xl font-semibold hover:bg-primary-700 transition-colors shadow-sm text-lg cursor-pointer" do %>
+                Start Pro Monthly
+              <% end %>
+            </div>
+            <div x-show="yearly" x-cloak>
+              <%= button_to checkout_path(variant_id: yearly_variant_id), method: :post, class: "block w-full text-center py-4 px-4 bg-primary-600 text-white rounded-xl font-semibold hover:bg-primary-700 transition-colors shadow-sm text-lg cursor-pointer" do %>
+                Start Pro Yearly
+              <% end %>
+            </div>
+          <% else %>
+            <%= link_to login_path, class: "block w-full text-center py-4 px-4 bg-primary-600 text-white rounded-xl font-semibold hover:bg-primary-700 transition-colors shadow-sm text-lg" do %>
+              Try Free for 14 Days
+            <% end %>
           <% end %>
           <p class="text-xs text-gray-500 text-center mt-3">No credit card required</p>
         </div>
@@ -437,31 +452,5 @@
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="bg-gray-900 text-gray-400 py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-6xl mx-auto">
-      <div class="flex flex-col md:flex-row justify-between items-center gap-8">
-        <%= link_to root_path, class: "flex items-center gap-2" do %>
-          <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-            </svg>
-          </div>
-          <span class="font-semibold text-white">MessageOpen</span>
-        <% end %>
-
-        <nav class="flex flex-wrap justify-center gap-6 text-sm">
-          <%= link_to "Home", root_path, class: "hover:text-white transition-colors" %>
-          <%= link_to "Pricing", pricing_path, class: "hover:text-white transition-colors" %>
-          <a href="mailto:hello@messageopen.com" class="hover:text-white transition-colors">Contact</a>
-        </nav>
-
-        <p class="text-sm">Need a custom plan? <a href="mailto:hello@messageopen.com" class="text-primary-400 hover:text-primary-300">Contact us</a></p>
-      </div>
-
-      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm">
-        <p>&copy; <%= Time.current.year %> MessageOpen. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
+  <%= render "shared/footer" %>
 </div>

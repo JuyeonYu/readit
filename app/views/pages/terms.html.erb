@@ -1,0 +1,141 @@
+<% content_for(:title) { "Terms of Service - MessageOpen" } %>
+
+<div class="min-h-screen bg-gray-50 py-12">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="mb-8">
+      <%= link_to root_path, class: "inline-flex items-center text-sm text-gray-500 hover:text-gray-700 mb-4" do %>
+        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        Back to Home
+      <% end %>
+      <h1 class="text-4xl font-bold text-gray-900 mb-2">Terms of Service</h1>
+      <p class="text-gray-500">Last updated: <%= Date.current.strftime("%B %d, %Y") %></p>
+    </div>
+
+    <!-- Content -->
+    <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-8 sm:p-10 prose prose-gray max-w-none">
+      <p class="lead text-lg text-gray-600">
+        Welcome to MessageOpen. By using our service, you agree to these Terms of Service. Please read them carefully.
+      </p>
+
+      <h2>1. Acceptance of Terms</h2>
+      <p>By accessing or using MessageOpen ("Service"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the Service.</p>
+
+      <h2>2. Description of Service</h2>
+      <p>MessageOpen is a message sharing platform that provides read receipt tracking. We offer:</p>
+      <ul>
+        <li>Creation and sharing of trackable messages</li>
+        <li>Read receipt notifications when recipients open your messages</li>
+        <li>Password protection and expiration settings for messages</li>
+        <li>Analytics and tracking features (varies by plan)</li>
+      </ul>
+
+      <h2>3. Account Registration</h2>
+      <p>To use MessageOpen, you must:</p>
+      <ul>
+        <li>Provide a valid email address</li>
+        <li>Be at least 16 years of age</li>
+        <li>Provide accurate and complete information</li>
+        <li>Keep your account credentials secure</li>
+      </ul>
+      <p>You are responsible for all activity that occurs under your account.</p>
+
+      <h2>4. Subscription and Payment</h2>
+      <h3>Free Plan</h3>
+      <ul>
+        <li>Limited to 10 messages per month</li>
+        <li>7-day message history</li>
+        <li>Basic features included</li>
+      </ul>
+
+      <h3>Pro Plan</h3>
+      <ul>
+        <li>Unlimited messages</li>
+        <li>1-year message history</li>
+        <li>Advanced analytics and features</li>
+        <li>Billed monthly or yearly via Lemon Squeezy</li>
+      </ul>
+
+      <h3>Billing</h3>
+      <ul>
+        <li>Subscriptions renew automatically unless cancelled</li>
+        <li>Prices are in USD and may change with notice</li>
+        <li>You may cancel at any time from your billing settings</li>
+        <li>Cancellation takes effect at the end of your billing period</li>
+      </ul>
+
+      <h2>5. Acceptable Use</h2>
+      <p>You agree NOT to use MessageOpen to:</p>
+      <ul>
+        <li>Send spam, harassment, or unsolicited messages</li>
+        <li>Share illegal, harmful, or offensive content</li>
+        <li>Violate any applicable laws or regulations</li>
+        <li>Infringe on intellectual property rights</li>
+        <li>Attempt to gain unauthorized access to our systems</li>
+        <li>Interfere with the operation of the Service</li>
+        <li>Engage in any fraudulent or deceptive activity</li>
+      </ul>
+      <p>We reserve the right to terminate accounts that violate these terms.</p>
+
+      <h2>6. User Content</h2>
+      <p>You retain ownership of the content you create and share through MessageOpen. By using our Service, you grant us a limited license to:</p>
+      <ul>
+        <li>Store and display your content as necessary to provide the Service</li>
+        <li>Process your content for read tracking purposes</li>
+      </ul>
+      <p>You are solely responsible for the content you share and its consequences.</p>
+
+      <h2>7. Intellectual Property</h2>
+      <p>MessageOpen and its original content, features, and functionality are owned by us and are protected by copyright, trademark, and other intellectual property laws.</p>
+
+      <h2>8. Limitation of Liability</h2>
+      <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW:</p>
+      <ul>
+        <li>MessageOpen is provided "AS IS" and "AS AVAILABLE" without warranties of any kind</li>
+        <li>We do not guarantee that the Service will be uninterrupted, secure, or error-free</li>
+        <li>We are not liable for any indirect, incidental, special, consequential, or punitive damages</li>
+        <li>Our total liability shall not exceed the amount you paid us in the 12 months preceding the claim</li>
+      </ul>
+
+      <h2>9. Indemnification</h2>
+      <p>You agree to indemnify and hold harmless MessageOpen and its operators from any claims, damages, or expenses arising from:</p>
+      <ul>
+        <li>Your use of the Service</li>
+        <li>Your violation of these Terms</li>
+        <li>Your violation of any third-party rights</li>
+        <li>Content you share through the Service</li>
+      </ul>
+
+      <h2>10. Termination</h2>
+      <p>We may terminate or suspend your account at any time, with or without cause, with or without notice. Upon termination:</p>
+      <ul>
+        <li>Your right to use the Service ceases immediately</li>
+        <li>Your data may be deleted according to our retention policies</li>
+        <li>Any outstanding subscription fees may be non-refundable (see Refund Policy)</li>
+      </ul>
+      <p>You may also delete your account at any time by contacting us.</p>
+
+      <h2>11. Dispute Resolution</h2>
+      <p>Any disputes arising from these Terms or your use of the Service shall be resolved through good-faith negotiation. If negotiation fails, disputes shall be resolved through binding arbitration or in the courts of applicable jurisdiction.</p>
+
+      <h2>12. Changes to Terms</h2>
+      <p>We reserve the right to modify these Terms at any time. We will notify users of material changes via email or through the Service. Continued use after changes constitutes acceptance of the new Terms.</p>
+
+      <h2>13. Severability</h2>
+      <p>If any provision of these Terms is found to be unenforceable, the remaining provisions will continue in full force and effect.</p>
+
+      <h2>14. Entire Agreement</h2>
+      <p>These Terms, together with our Privacy Policy and Refund Policy, constitute the entire agreement between you and MessageOpen regarding the Service.</p>
+
+      <h2>15. Contact Us</h2>
+      <p>If you have any questions about these Terms, please contact us at:</p>
+      <p>
+        <strong>Email:</strong> <a href="mailto:hello@messageopen.com">hello@messageopen.com</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<%= render "shared/footer" %>

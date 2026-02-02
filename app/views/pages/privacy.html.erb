@@ -1,0 +1,119 @@
+<% content_for(:title) { "Privacy Policy - MessageOpen" } %>
+
+<div class="min-h-screen bg-gray-50 py-12">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="mb-8">
+      <%= link_to root_path, class: "inline-flex items-center text-sm text-gray-500 hover:text-gray-700 mb-4" do %>
+        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        Back to Home
+      <% end %>
+      <h1 class="text-4xl font-bold text-gray-900 mb-2">Privacy Policy</h1>
+      <p class="text-gray-500">Last updated: <%= Date.current.strftime("%B %d, %Y") %></p>
+    </div>
+
+    <!-- Content -->
+    <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-8 sm:p-10 prose prose-gray max-w-none">
+      <p class="lead text-lg text-gray-600">
+        MessageOpen ("we", "our", or "us") respects your privacy and is committed to protecting your personal data. This Privacy Policy explains how we collect, use, and safeguard your information when you use our service.
+      </p>
+
+      <h2>1. Information We Collect</h2>
+      <p>We collect the following types of information:</p>
+
+      <h3>Account Information</h3>
+      <ul>
+        <li>Email address (required for account creation and login)</li>
+        <li>Login tokens and session data</li>
+      </ul>
+
+      <h3>Usage Information</h3>
+      <ul>
+        <li>Messages you create and share through our service</li>
+        <li>Read receipts and tracking data for your messages</li>
+        <li>Service usage logs and analytics</li>
+      </ul>
+
+      <h3>Payment Information</h3>
+      <ul>
+        <li>Subscription status and billing history</li>
+        <li>Payment processing is handled by Lemon Squeezy. We do not store your credit card information directly.</li>
+      </ul>
+
+      <h2>2. How We Use Your Information</h2>
+      <p>We use your information to:</p>
+      <ul>
+        <li>Provide, maintain, and improve our service</li>
+        <li>Send you login links and account notifications</li>
+        <li>Process payments and manage subscriptions</li>
+        <li>Send read receipt notifications for your messages</li>
+        <li>Respond to your inquiries and provide customer support</li>
+        <li>Detect and prevent fraud or abuse</li>
+      </ul>
+
+      <h2>3. Data Sharing</h2>
+      <p>We do not sell your personal information. We may share your data with:</p>
+      <ul>
+        <li><strong>Lemon Squeezy:</strong> Our payment processor, to handle subscriptions and billing</li>
+        <li><strong>Service Providers:</strong> Third-party services that help us operate (hosting, email delivery)</li>
+        <li><strong>Legal Requirements:</strong> When required by law or to protect our rights</li>
+      </ul>
+
+      <h2>4. Data Retention</h2>
+      <p>We retain your data as follows:</p>
+      <ul>
+        <li><strong>Account data:</strong> Until you delete your account</li>
+        <li><strong>Messages:</strong> According to your plan (7 days for Free, 1 year for Pro) or until manually deleted</li>
+        <li><strong>Usage logs:</strong> Up to 90 days for security and analytics purposes</li>
+      </ul>
+
+      <h2>5. Your Rights (GDPR)</h2>
+      <p>If you are in the European Economic Area (EEA), you have the following rights:</p>
+      <ul>
+        <li><strong>Access:</strong> Request a copy of your personal data</li>
+        <li><strong>Rectification:</strong> Request correction of inaccurate data</li>
+        <li><strong>Erasure:</strong> Request deletion of your data ("right to be forgotten")</li>
+        <li><strong>Portability:</strong> Request transfer of your data in a machine-readable format</li>
+        <li><strong>Objection:</strong> Object to processing of your data</li>
+        <li><strong>Restriction:</strong> Request restriction of processing</li>
+      </ul>
+      <p>To exercise any of these rights, please contact us at <a href="mailto:hello@messageopen.com">hello@messageopen.com</a>.</p>
+
+      <h2>6. Data Security</h2>
+      <p>We implement appropriate technical and organizational measures to protect your data, including:</p>
+      <ul>
+        <li>Encryption in transit (HTTPS/TLS)</li>
+        <li>Secure authentication via magic links</li>
+        <li>Regular security reviews and updates</li>
+      </ul>
+      <p>However, no method of transmission over the Internet is 100% secure. We cannot guarantee absolute security.</p>
+
+      <h2>7. Cookies</h2>
+      <p>We use essential cookies to:</p>
+      <ul>
+        <li>Keep you logged in to your account</li>
+        <li>Remember your preferences</li>
+      </ul>
+      <p>We do not use third-party tracking cookies for advertising purposes.</p>
+
+      <h2>8. International Data Transfers</h2>
+      <p>Your data may be processed in countries outside your residence. We ensure appropriate safeguards are in place for any international transfers.</p>
+
+      <h2>9. Children's Privacy</h2>
+      <p>MessageOpen is not intended for users under 16 years of age. We do not knowingly collect data from children under 16.</p>
+
+      <h2>10. Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. We will notify you of any material changes by posting the new policy on this page and updating the "Last updated" date.</p>
+
+      <h2>11. Contact Us</h2>
+      <p>If you have any questions about this Privacy Policy or our data practices, please contact us at:</p>
+      <p>
+        <strong>Email:</strong> <a href="mailto:hello@messageopen.com">hello@messageopen.com</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<%= render "shared/footer" %>
