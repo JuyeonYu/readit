@@ -1,0 +1,65 @@
+<% content_for :preheader do %>
+  You're all set up. Create your first message now.
+<% end %>
+
+<!-- Heading -->
+<h1 style="margin: 0 0 24px; font-size: 24px; font-weight: 700; color: #111827;">
+  Welcome to MessageOpen!
+</h1>
+
+<p style="margin: 0 0 24px; font-size: 16px; color: #374151; line-height: 1.6;">
+  Hi <%= @name %>,
+</p>
+
+<p style="margin: 0 0 24px; font-size: 16px; color: #374151; line-height: 1.6;">
+  Welcome to MessageOpen! You're all set up and ready to go.
+</p>
+
+<p style="margin: 0 0 16px; font-size: 16px; color: #374151; line-height: 1.6;">
+  Here's what you can do:
+</p>
+
+<ul style="margin: 0 0 24px; padding: 0 0 0 20px; font-size: 16px; color: #374151; line-height: 1.8;">
+  <li>Create messages with rich text formatting</li>
+  <li>Share links across any channel (email, Slack, WhatsApp, etc.)</li>
+  <li>Get notified instantly when they're opened</li>
+</ul>
+
+<!-- Plan info -->
+<div style="background-color: #f9fafb; border-radius: 8px; padding: 16px; margin-bottom: 32px;">
+  <p style="margin: 0; font-size: 14px; color: #6b7280;">
+    You're on the <strong style="color: #111827;">Free plan</strong> with 10 messages/month.
+  </p>
+</div>
+
+<!-- CTA Button -->
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin-bottom: 32px;">
+  <tr>
+    <td align="center">
+      <a href="<%= new_message_url %>" style="display: inline-block; padding: 14px 32px; background-color: #4F46E5; color: #ffffff; font-size: 16px; font-weight: 600; text-decoration: none; border-radius: 8px;">
+        Create Your First Message
+      </a>
+    </td>
+  </tr>
+</table>
+
+<!-- Pro mention -->
+<p style="margin: 0 0 8px; font-size: 14px; color: #6b7280;">
+  Need unlimited messages?
+</p>
+<p style="margin: 0 0 32px; font-size: 14px;">
+  <a href="<%= pricing_url %>" style="color: #4F46E5; text-decoration: none; font-weight: 500;">Check out Pro &rarr;</a>
+</p>
+
+<!-- Divider -->
+<hr style="border: none; border-top: 1px solid #e5e7eb; margin: 32px 0;">
+
+<!-- Sign off -->
+<p style="margin: 0; font-size: 14px; color: #6b7280; line-height: 1.6;">
+  Questions? Just reply to this email. I'm here to help.
+</p>
+
+<p style="margin: 16px 0 0; font-size: 14px; color: #374151;">
+  Best,<br>
+  The MessageOpen Team
+</p>

@@ -7,6 +7,12 @@ class DashboardController < ApplicationController
     # Calculate stats
     @total_messages = @messages.count
     @messages_this_month = @messages.where("created_at >= ?", Time.current.beginning_of_month).count
+
+    # Usage tracking for upgrade prompts (Free plan: 10 messages/month)
+    @message_limit = 10
+    @usage_percentage = [(@messages_this_month.to_f / @message_limit) * 100, 100].min.round
+    @days_until_reset = (Time.current.end_of_month.to_date - Time.current.to_date).to_i + 1
+    @is_free_plan = true # TODO: Replace with actual plan check when billing is implemented
     @total_opens = @messages.sum(:read_count)
     @opens_today = current_user.messages.joins(:read_events)
                                .where("read_events.read_at >= ?", Time.current.beginning_of_day)

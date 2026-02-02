@@ -1,5 +1,7 @@
 class MessagesController < ApplicationController
   before_action :require_login
+  before_action :check_message_limit, only: %i[new create]
+  before_action :set_usage_stats, only: [:new]
 
   def new
     @message = current_user.messages.build
@@ -15,8 +17,12 @@ class MessagesController < ApplicationController
     end
 
     if @message.save
+      # Send limit warning/reached emails if applicable
+      OnboardingService.new(current_user).after_message_created
+
       redirect_to share_message_path(@message.token)
     else
+      set_usage_stats
       render :new, status: :unprocessable_entity
     end
   end
@@ -34,5 +40,27 @@ class MessagesController < ApplicationController
 
   def message_params
     params.require(:message).permit(:title, :content, :password, :max_read_count, :expires_at)
+  end
+
+  def set_usage_stats
+    @message_limit = 10
+    @messages_this_month = current_user.messages.where("created_at >= ?", Time.current.beginning_of_month).count
+    @usage_percentage = [(@messages_this_month.to_f / @message_limit) * 100, 100].min.round
+    @is_free_plan = true # TODO: Replace with actual plan check
+  end
+
+  def check_message_limit
+    return unless is_free_plan?
+
+    message_limit = 10
+    messages_this_month = current_user.messages.where("created_at >= ?", Time.current.beginning_of_month).count
+
+    if messages_this_month >= message_limit
+      redirect_to dashboard_path, alert: "You've reached your monthly message limit. Upgrade to Pro for unlimited messages."
+    end
+  end
+
+  def is_free_plan?
+    true # TODO: Replace with actual plan check
   end
 end

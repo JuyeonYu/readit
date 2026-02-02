@@ -16,6 +16,20 @@
           <% end %>
         </div>
         <div class="flex items-center gap-4">
+          <% if @is_free_plan %>
+            <%
+              badge_color = if @usage_percentage >= 100
+                'bg-red-100 text-red-700'
+              elsif @usage_percentage >= 80
+                'bg-amber-100 text-amber-700'
+              else
+                'bg-gray-100 text-gray-600'
+              end
+            %>
+            <span class="text-xs font-medium px-2.5 py-1 rounded-full <%= badge_color %> hidden sm:block">
+              <%= @messages_this_month %>/<%= @message_limit %> messages
+            </span>
+          <% end %>
           <span class="text-sm text-gray-500 hidden sm:block"><%= current_user.email %></span>
           <%= link_to root_path, class: "text-sm text-gray-600 hover:text-gray-900" do %>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
