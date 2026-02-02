@@ -4,7 +4,7 @@
   <div class="message-content">
     <p class="message-sender"><%= @message.user.email %>님의 메시지</p>
     <div class="message-body">
-      <%= simple_format(@message.content) %>
+      <%= @message.content %>
     </div>
   </div>
 

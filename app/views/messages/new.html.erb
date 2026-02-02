@@ -15,7 +15,7 @@
 
     <div class="form-group">
       <%= f.label :content, "메시지 내용" %>
-      <%= f.text_area :content, rows: 8, placeholder: "여기에 메시지를 입력하세요..." %>
+      <%= f.rich_text_area :content %>
     </div>
 
     <p class="hint">메시지가 읽히면 <strong><%= current_user.email %></strong>으로 알림을 보내드려요</p>

@@ -2,6 +2,7 @@ class Message < ApplicationRecord
   belongs_to :user
   has_many :read_events, dependent: :destroy
   has_many :notifications, dependent: :destroy
+  has_rich_text :content
 
   has_secure_password validations: false
 
