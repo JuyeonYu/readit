@@ -5,7 +5,7 @@
     <div class="flash-alert"><%= flash[:alert] %></div>
   <% end %>
 
-  <h1>메시지가 도착했습니다</h1>
+  <h1><%= @message.title %></h1>
   <p class="subtitle"><%= @message.user.email %>님이 보낸 메시지입니다</p>
 
   <div class="preview-box">

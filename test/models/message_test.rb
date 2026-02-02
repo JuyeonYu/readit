@@ -12,86 +12,92 @@ class MessageTest < ActiveSupport::TestCase
   end
 
   test "should not save message without user" do
-    message = Message.new(content: "Test")
+    message = Message.new(title: "Test Title", content: "Test")
     assert_not message.save
     assert message.errors[:user].any?
   end
 
-  test "should save message with content and user" do
-    message = @user.messages.build(content: "Hello, this is a test message")
+  test "should save message with title, content and user" do
+    message = @user.messages.build(title: "Test Title", content: "Hello, this is a test message")
     assert message.save
   end
 
+  test "should not save message without title" do
+    message = @user.messages.build(content: "Test")
+    assert_not message.save
+    assert message.errors[:title].any?
+  end
+
   test "sender_email returns user email" do
-    message = @user.messages.create!(content: "Test")
+    message = @user.messages.create!(title: "Test Title", content: "Test")
     assert_equal @user.email, message.sender_email
   end
 
   test "should not save message with past expires_at" do
-    message = @user.messages.build(content: "Test", expires_at: 1.hour.ago)
+    message = @user.messages.build(title: "Test Title", content: "Test", expires_at: 1.hour.ago)
     assert_not message.save
   end
 
   test "should save message with future expires_at" do
-    message = @user.messages.build(content: "Test", expires_at: 1.hour.from_now)
+    message = @user.messages.build(title: "Test Title", content: "Test", expires_at: 1.hour.from_now)
     assert message.save
   end
 
   test "should not save message with short password" do
-    message = @user.messages.build(content: "Test", password: "12345")
+    message = @user.messages.build(title: "Test Title", content: "Test", password: "12345")
     assert_not message.save
     assert message.errors[:password].any?
   end
 
   test "should save message with valid password" do
-    message = @user.messages.build(content: "Test", password: "123456")
+    message = @user.messages.build(title: "Test Title", content: "Test", password: "123456")
     assert message.save
   end
 
   test "should save message with max_read_count" do
-    message = @user.messages.build(content: "Test", max_read_count: 1)
+    message = @user.messages.build(title: "Test Title", content: "Test", max_read_count: 1)
     assert message.save
     assert_equal 1, message.max_read_count
   end
 
   test "password is encrypted with has_secure_password" do
-    message = @user.messages.create!(content: "Test", password: "secret123")
+    message = @user.messages.create!(title: "Test Title", content: "Test", password: "secret123")
     assert message.password_digest.present?
     assert message.authenticate("secret123")
     assert_not message.authenticate("wrongpassword")
   end
 
   test "generates unique token on create" do
-    message = @user.messages.create!(content: "Test")
+    message = @user.messages.create!(title: "Test Title", content: "Test")
     assert message.token.present?
     assert_equal 32, message.token.length
   end
 
   test "token is unique" do
-    message1 = @user.messages.create!(content: "Test 1")
-    message2 = @user.messages.create!(content: "Test 2")
+    message1 = @user.messages.create!(title: "Title 1", content: "Test 1")
+    message2 = @user.messages.create!(title: "Title 2", content: "Test 2")
     assert_not_equal message1.token, message2.token
   end
 
   test "readable? returns true for active message" do
-    message = @user.messages.create!(content: "Test")
+    message = @user.messages.create!(title: "Test Title", content: "Test")
     assert message.readable?
   end
 
   test "readable? returns false when expired" do
-    message = @user.messages.create!(content: "Test")
+    message = @user.messages.create!(title: "Test Title", content: "Test")
     message.update_column(:expires_at, 1.hour.ago)
     assert_not message.readable?
   end
 
   test "readable? returns false when max_read_count reached" do
-    message = @user.messages.create!(content: "Test", max_read_count: 1)
+    message = @user.messages.create!(title: "Test Title", content: "Test", max_read_count: 1)
     message.update!(read_count: 1)
     assert_not message.readable?
   end
 
   test "readable? returns false when inactive" do
-    message = @user.messages.create!(content: "Test")
+    message = @user.messages.create!(title: "Test Title", content: "Test")
     message.update!(is_active: false)
     assert_not message.readable?
   end

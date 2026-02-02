@@ -45,8 +45,8 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
 
   test "home page shows message list when logged in with messages" do
     login_as(@user)
-    @user.messages.create!(content: "Test message 1")
-    @user.messages.create!(content: "Test message 2")
+    @user.messages.create!(title: "Title 1", content: "Test message 1")
+    @user.messages.create!(title: "Title 2", content: "Test message 2")
 
     get root_url
     assert_select ".message-list"
@@ -74,7 +74,7 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
 
   test "home page shows message read count" do
     login_as(@user)
-    message = @user.messages.create!(content: "Test message")
+    message = @user.messages.create!(title: "Test Title", content: "Test message")
     message.read_events.create!(viewer_token_hash: "abc123", read_at: Time.current)
     message.read_events.create!(viewer_token_hash: "abc123", read_at: Time.current)
     message.read_events.create!(viewer_token_hash: "def456", read_at: Time.current)
@@ -86,7 +86,7 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
 
   test "home page shows password badge for password-protected message" do
     login_as(@user)
-    @user.messages.create!(content: "Secret message", password: "secret123")
+    @user.messages.create!(title: "Secret Title", content: "Secret message", password: "secret123")
 
     get root_url
     assert_select ".password-badge", "비밀번호"
@@ -94,7 +94,7 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
 
   test "home page shows limit badge for read-limited message" do
     login_as(@user)
-    @user.messages.create!(content: "One-time message", max_read_count: 1)
+    @user.messages.create!(title: "One-time Title", content: "One-time message", max_read_count: 1)
 
     get root_url
     assert_select ".limit-badge", /제한: 1회/

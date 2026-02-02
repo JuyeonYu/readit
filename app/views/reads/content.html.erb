@@ -1,8 +1,9 @@
-<% content_for(:title) { "메시지 - 읽었어?" } %>
+<% content_for(:title) { "#{@message.title} - 읽었어?" } %>
 
 <main class="container">
   <div class="message-content">
     <p class="message-sender"><%= @message.user.email %>님의 메시지</p>
+    <h2 class="message-title"><%= @message.title %></h2>
     <div class="message-body">
       <%= @message.content %>
     </div>

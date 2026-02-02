@@ -16,7 +16,7 @@
               <span class="notification-type"><%= notification_type_label(notification.notification_type) %></span>
             </div>
             <p class="notification-message">
-              <%= link_to truncate(notification.message.content, length: 50), share_message_path(notification.message.token) %>
+              <%= link_to truncate(notification.message.title, length: 50), share_message_path(notification.message.token) %>
             </p>
             <div class="notification-meta">
               <span class="notification-recipient"><%= notification.recipient %></span>

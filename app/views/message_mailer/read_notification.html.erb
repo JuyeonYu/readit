@@ -3,8 +3,8 @@
 <p>보내신 메시지가 읽혔습니다.</p>
 
 <div style="background-color: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px; margin: 16px 0;">
-  <p style="margin: 0; color: #6b7280; font-size: 14px;">메시지 미리보기</p>
-  <p style="margin: 8px 0 0; color: #1f2937;"><%= truncate(@message.content, length: 100) %></p>
+  <p style="margin: 0; color: #6b7280; font-size: 14px;">메시지 제목</p>
+  <p style="margin: 8px 0 0; color: #1f2937;"><%= @message.title %></p>
 </div>
 
 <p>
