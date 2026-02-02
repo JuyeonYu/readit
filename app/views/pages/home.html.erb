@@ -593,57 +593,143 @@
     </div>
   </section>
 
-  <!-- Pricing Teaser Section -->
+  <!-- Pricing Preview Section -->
   <section id="pricing" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
-    <div class="max-w-3xl mx-auto text-center">
-      <h2 class="text-3xl font-bold text-gray-900">Simple, transparent pricing</h2>
-      <p class="text-gray-600 mt-4 text-lg">Start free, upgrade when you're ready. No credit card required.</p>
+    <div class="max-w-5xl mx-auto" x-data="{ yearly: false }">
+      <!-- Section Header -->
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-900">Simple Pricing</h2>
+        <p class="text-gray-600 mt-4 text-lg">Start free. Upgrade when you need more.</p>
+      </div>
 
-      <div class="mt-12 bg-white rounded-2xl shadow-lg border border-gray-200 p-8 md:p-12">
-        <div class="inline-flex items-center gap-2 bg-green-50 text-green-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-          </svg>
-          Free forever plan available
+      <!-- Billing Toggle -->
+      <div class="flex justify-center mb-10">
+        <div class="inline-flex items-center gap-3 bg-white rounded-full p-1 shadow-sm border border-gray-200">
+          <button
+            @click="yearly = false"
+            :class="!yearly ? 'bg-primary-600 text-white' : 'text-gray-600 hover:text-gray-900'"
+            class="px-4 py-2 rounded-full text-sm font-medium transition-colors"
+          >
+            Monthly
+          </button>
+          <button
+            @click="yearly = true"
+            :class="yearly ? 'bg-primary-600 text-white' : 'text-gray-600 hover:text-gray-900'"
+            class="px-4 py-2 rounded-full text-sm font-medium transition-colors"
+          >
+            Yearly <span class="text-xs opacity-75">(Save 17%)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Pricing Cards -->
+      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+
+        <!-- Free Plan -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">Free</h3>
+          <div class="flex items-baseline gap-1 mb-1">
+            <span class="text-5xl font-bold text-gray-900">$0</span>
+          </div>
+          <p class="text-gray-500 text-sm mb-6">forever</p>
+
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-3 text-gray-600">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              10 messages/month
+            </li>
+            <li class="flex items-center gap-3 text-gray-600">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              Basic tracking
+            </li>
+            <li class="flex items-center gap-3 text-gray-600">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              7-day history
+            </li>
+            <li class="flex items-center gap-3 text-gray-600">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              Email notifications
+            </li>
+          </ul>
+
+          <%= link_to login_path, class: "block w-full text-center px-6 py-3 rounded-lg font-medium border-2 border-primary-600 text-primary-600 hover:bg-primary-50 transition-colors" do %>
+            Get Started
+          <% end %>
+          <p class="text-center text-xs text-gray-500 mt-3">No credit card required</p>
         </div>
 
-        <div class="flex items-baseline justify-center gap-2 mb-4">
-          <span class="text-5xl font-bold text-gray-900">$0</span>
-          <span class="text-gray-500">/month to start</span>
+        <!-- Pro Plan (Featured) -->
+        <div class="bg-white rounded-xl shadow-lg border-2 border-primary-600 p-8 relative scale-[1.02] md:scale-105 origin-top">
+          <!-- Most Popular Badge -->
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+            <span class="inline-block bg-primary-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+              Most Popular
+            </span>
+          </div>
+
+          <h3 class="text-xl font-semibold text-gray-900 mb-2 mt-2">Pro</h3>
+          <div class="flex items-baseline gap-1 mb-1">
+            <span class="text-5xl font-bold text-gray-900" x-text="yearly ? '$10' : '$12'">$12</span>
+          </div>
+          <p class="text-gray-500 text-sm mb-6">
+            <span x-show="!yearly">/month</span>
+            <span x-show="yearly" x-cloak>per month, $120 billed yearly</span>
+          </p>
+
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-3 text-gray-600">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <strong class="text-gray-900">Unlimited</strong>&nbsp;messages
+            </li>
+            <li class="flex items-center gap-3 text-gray-600">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              Advanced analytics
+            </li>
+            <li class="flex items-center gap-3 text-gray-600">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              1-year history
+            </li>
+            <li class="flex items-center gap-3 text-gray-600">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              Priority support
+            </li>
+          </ul>
+
+          <%= link_to login_path, class: "block w-full text-center px-6 py-3 rounded-lg font-medium bg-primary-600 text-white hover:bg-primary-700 transition-colors shadow-sm" do %>
+            Try Free for 14 Days
+          <% end %>
+          <p class="text-center text-xs text-gray-500 mt-3">No credit card required</p>
         </div>
+      </div>
 
-        <ul class="text-left max-w-sm mx-auto space-y-3 mb-8">
-          <li class="flex items-center gap-3 text-gray-600">
-            <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-            </svg>
-            10 messages per month
-          </li>
-          <li class="flex items-center gap-3 text-gray-600">
-            <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-            </svg>
-            Email notifications
-          </li>
-          <li class="flex items-center gap-3 text-gray-600">
-            <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-            </svg>
-            Basic analytics
-          </li>
-          <li class="flex items-center gap-3 text-gray-600">
-            <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-            </svg>
-            Password protection
-          </li>
-        </ul>
+      <!-- Team Plan Link -->
+      <div class="text-center mt-10">
+        <p class="text-sm text-gray-500">
+          Need a team plan?
+          <a href="mailto:hello@messageopen.com" class="text-primary-600 hover:text-primary-700 font-medium">Contact us</a>
+        </p>
+      </div>
 
-        <%= link_to login_path, class: "inline-flex items-center justify-center gap-2 bg-primary-600 text-white px-8 py-4 rounded-lg font-medium text-lg hover:bg-primary-700 transition-colors w-full sm:w-auto" do %>
-          Get Started Free
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-          </svg>
+      <!-- Full Pricing Page Link -->
+      <div class="text-center mt-4">
+        <%= link_to pricing_path, class: "text-sm text-gray-500 hover:text-gray-700 underline underline-offset-2" do %>
+          View full pricing details →
         <% end %>
       </div>
     </div>
