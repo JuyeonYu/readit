@@ -6,16 +6,24 @@ class SessionsController < ApplicationController
     email = params[:email]&.strip&.downcase
 
     if email.blank?
-      flash.now[:alert] = "이메일을 입력해주세요"
+      flash.now[:alert] = "Please enter your email"
       return render :new, status: :unprocessable_entity
     end
 
-    user = User.find_or_create_by!(email: email)
+    user = User.find_by(email: email)
+    is_new_user = user.nil?
+
+    user ||= User.create!(email: email)
     login_token = user.login_tokens.create!
+
+    # Send welcome email for new users
+    if is_new_user
+      OnboardingMailer.welcome(user).deliver_later
+    end
 
     AuthMailer.magic_link(user, login_token).deliver_later
 
-    redirect_to login_sent_path, notice: "로그인 링크를 이메일로 보냈습니다"
+    redirect_to login_sent_path, notice: "Check your email for a login link"
   end
 
   def verify
@@ -25,9 +33,9 @@ class SessionsController < ApplicationController
       login_token.use!
       session[:user_id] = login_token.user_id
       redirect_path = session.delete(:return_to) || new_message_path
-      redirect_to redirect_path, notice: "로그인 되었습니다"
+      redirect_to redirect_path, notice: "You're now logged in"
     else
-      redirect_to login_path, alert: "유효하지 않거나 만료된 링크입니다"
+      redirect_to login_path, alert: "Invalid or expired login link"
     end
   end
 
@@ -36,6 +44,6 @@ class SessionsController < ApplicationController
 
   def destroy
     session.delete(:user_id)
-    redirect_to root_path, notice: "로그아웃 되었습니다"
+    redirect_to root_path, notice: "You've been logged out"
   end
 end

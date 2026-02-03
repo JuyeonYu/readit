@@ -1,0 +1,32 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Social Media Preview (1200x630) -->
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#F9FAFB"/>
+
+  <!-- Subtle grid pattern -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#E5E7EB" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grid)" opacity="0.5"/>
+
+  <!-- Logo mark (centered, larger) -->
+  <g transform="translate(440, 140)">
+    <!-- Envelope body -->
+    <path d="M32 88V208C32 216.837 39.163 224 48 224H272C280.837 224 288 216.837 288 208V88" stroke="#4F46E5" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+    <!-- Envelope fold -->
+    <path d="M32 88L160 160L288 88" stroke="#4F46E5" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+    <!-- Arrow up -->
+    <path d="M160 32L112 80M160 32L208 80M160 32V128" stroke="#4F46E5" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="600" y="480" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="48" font-weight="600" fill="#111827" text-anchor="middle">MessageOpen</text>
+
+  <!-- Tagline -->
+  <text x="600" y="530" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="24" fill="#6B7280" text-anchor="middle">Know when your messages are read</text>
+</svg>

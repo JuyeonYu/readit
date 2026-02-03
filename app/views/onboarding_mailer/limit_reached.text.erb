@@ -1,0 +1,28 @@
+You've reached your monthly limit
+==================================
+
+Hi <%= @name %>,
+
+You've used all 10 free messages this month.
+
+Your existing messages still work fine, but you won't be able to create new ones until <%= @reset_date.strftime("%B %d, %Y") %>.
+
+Want to keep going? Upgrade to Pro:
+
+UPGRADE TO PRO - $12/MONTH:
+<%= pricing_url %>
+
+What you get:
+[x] Unlimited messages
+[x] Advanced analytics
+[x] 1-year history
+[x] 14-day free trial
+
+Or just wait for your limit to reset on <%= @reset_date.strftime("%B %d") %>.
+
+Best,
+The MessageOpen Team
+
+--
+MessageOpen
+Know when your messages are read

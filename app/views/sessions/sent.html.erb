@@ -1,13 +1,67 @@
-<% content_for(:title) { "이메일 전송 완료 - 읽었어?" } %>
+<% content_for(:title) { "Check Your Email - MessageOpen" } %>
 
-<main class="container text-center">
-  <h1>이메일을 확인하세요</h1>
-  <p class="subtitle">로그인 링크를 이메일로 보냈습니다</p>
+<div class="min-h-screen bg-gray-50 flex flex-col">
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-center items-center h-16">
+        <%= link_to root_path, class: "flex items-center gap-2" do %>
+          <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <span class="font-semibold text-gray-900">MessageOpen</span>
+        <% end %>
+      </div>
+    </div>
+  </header>
 
-  <div class="info-box">
-    <p>이메일에 있는 링크를 클릭하면 로그인됩니다.</p>
-    <p>링크는 15분 동안 유효합니다.</p>
-  </div>
+  <!-- Main Content -->
+  <main class="flex-1 flex items-center justify-center px-4 py-12">
+    <div class="w-full max-w-md text-center">
+      <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
+        <!-- Icon -->
+        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+          <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+        </div>
 
-  <p class="hint">이메일이 오지 않나요? 스팸 폴더를 확인해보세요.</p>
-</main>
+        <h1 class="text-2xl font-bold text-gray-900 mb-2">Check your email</h1>
+        <p class="text-gray-600 mb-6">We sent a login link to your email address</p>
+
+        <!-- Info Box -->
+        <div class="bg-gray-50 rounded-xl p-4 text-left mb-6">
+          <ul class="space-y-3 text-sm text-gray-600">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-primary-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              Click the link in the email to sign in
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-primary-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              The link expires in 15 minutes
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-primary-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
+              </svg>
+              Check your spam folder if you don't see it
+            </li>
+          </ul>
+        </div>
+
+        <%= link_to login_path, class: "text-sm text-primary-600 hover:text-primary-700 font-medium" do %>
+          <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+          Use a different email
+        <% end %>
+      </div>
+    </div>
+  </main>
+</div>

@@ -1,12 +1,71 @@
-<% content_for(:title) { "만료된 메시지 - 읽었어?" } %>
+<% content_for(:title) { "Message Unavailable - MessageOpen" } %>
 
-<main class="container text-center">
-  <h1>메시지를 볼 수 없습니다</h1>
-  <p class="subtitle">이 메시지는 만료되었거나 더 이상 읽을 수 없습니다</p>
+<div class="min-h-screen bg-gray-50">
+  <!-- Minimal Header -->
+  <header class="bg-white/80 backdrop-blur-sm border-b border-gray-100">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 py-4">
+      <div class="flex items-center justify-between">
+        <%= link_to root_path, class: "flex items-center gap-2" do %>
+          <div class="w-6 h-6 bg-primary-600 rounded flex items-center justify-center">
+            <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <span class="text-sm font-medium text-gray-700">MessageOpen</span>
+        <% end %>
+        <span class="text-xs text-gray-500">Secure message sharing</span>
+      </div>
+    </div>
+  </header>
 
-  <div class="info-box">
-    <p>메시지가 만료되었거나 읽기 횟수를 초과했을 수 있습니다.</p>
-  </div>
+  <!-- Main Content -->
+  <main class="px-4 py-12 sm:py-20">
+    <div class="max-w-md mx-auto text-center">
+      <!-- Icon -->
+      <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+        <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+      </div>
 
-  <%= link_to "홈으로 돌아가기", root_path, class: "btn-secondary" %>
-</main>
+      <!-- Message -->
+      <h1 class="text-2xl font-bold text-gray-900 mb-3">Message Unavailable</h1>
+      <p class="text-gray-600 mb-8">This message is no longer accessible. It may have expired or reached its view limit.</p>
+
+      <!-- Info Card -->
+      <div class="bg-white rounded-xl border border-gray-200 p-6 text-left mb-8">
+        <p class="text-sm font-medium text-gray-700 mb-3">This can happen when:</p>
+        <ul class="space-y-2 text-sm text-gray-600">
+          <li class="flex items-start gap-2">
+            <svg class="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            The message's expiration date has passed
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            The view limit has been reached
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+            </svg>
+            The sender removed the message
+          </li>
+        </ul>
+      </div>
+
+      <!-- CTA -->
+      <p class="text-sm text-gray-500 mb-4">Need to contact the sender? Ask them to share a new link.</p>
+
+      <div class="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-200 shadow-sm">
+        <span class="text-sm text-gray-600">Want to send secure messages?</span>
+        <a href="<%= root_url %>" class="text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors">
+          Try MessageOpen →
+        </a>
+      </div>
+    </div>
+  </main>
+</div>

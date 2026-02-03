@@ -1,0 +1,13 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- MessageOpen Logo: Envelope with open flap forming upward arrow -->
+  <!-- Clean geometric design, works at any size -->
+
+  <!-- Envelope body -->
+  <path d="M16 44V104C16 108.418 19.582 112 24 112H104C108.418 112 112 108.418 112 104V44" stroke="#4F46E5" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Envelope bottom fold -->
+  <path d="M16 44L64 80L112 44" stroke="#4F46E5" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Open flap / Arrow pointing up (the "open" concept) -->
+  <path d="M64 16L40 40M64 16L88 40M64 16V64" stroke="#4F46E5" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,11 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- MessageOpen Logo - Alternative: Letter M with open door concept -->
+  <!-- Even more geometric and abstract -->
+
+  <!-- M shape that doubles as envelope/door -->
+  <path d="M24 112V32L64 64L104 32V112" stroke="#4F46E5" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Open indicator - small arrow/door opening at top -->
+  <path d="M64 16V48" stroke="#4F46E5" stroke-width="10" stroke-linecap="round"/>
+  <path d="M48 32L64 16L80 32" stroke="#4F46E5" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>

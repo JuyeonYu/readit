@@ -1,69 +1,251 @@
-<% content_for(:title) { "링크 공유 - 읽었어?" } %>
+<% content_for(:title) { "#{@message.title} - MessageOpen" } %>
 
-<main class="container">
-  <div class="text-center">
-    <h1>링크가 생성되었습니다</h1>
-    <p class="subtitle">아래 링크를 복사해서 공유하세요</p>
-
-    <div class="share-link-box">
-      <code id="share-link"><%= read_message_url(@message.token) %></code>
-      <button type="button" class="btn-secondary" onclick="copyLink()">복사</button>
-    </div>
-
-    <p class="hint">이 링크를 받은 사람이 메시지를 읽으면 알림을 받습니다</p>
-  </div>
-
-  <section class="message-content-section">
-    <h2>메시지 내용</h2>
-    <div class="message-content">
-      <h3 class="message-title"><%= @message.title %></h3>
-      <div class="message-body">
-        <%= @message.content %>
+<div class="min-h-screen bg-gray-50">
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center gap-8">
+          <%= link_to root_path, class: "flex items-center gap-2" do %>
+            <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
+            </div>
+            <span class="font-semibold text-gray-900">MessageOpen</span>
+          <% end %>
+        </div>
+        <div class="flex items-center gap-4">
+          <span class="text-sm text-gray-500 hidden sm:block"><%= current_user.email %></span>
+          <%= link_to dashboard_path, class: "p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors", title: "Dashboard" do %>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+            </svg>
+          <% end %>
+          <%= link_to notifications_path, class: "p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors", title: "Notifications" do %>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+            </svg>
+          <% end %>
+        </div>
       </div>
     </div>
-  </section>
+  </header>
 
-  <section class="read-events-section">
-    <h2>읽음 기록</h2>
-    <p class="read-summary"><strong><%= @message.unique_reader_count %></strong>명이 총 <strong><%= @message.read_count %></strong>회 읽음</p>
-    <p class="read-summary-hint">* 브라우저 쿠키 기준이므로 같은 사람도 다른 기기/브라우저에서는 별도로 집계됩니다</p>
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Success Banner -->
+    <% if flash[:notice] || @message.read_count == 0 %>
+      <div class="mb-8 bg-green-50 border border-green-200 rounded-xl p-6 text-center">
+        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+        </div>
+        <h2 class="text-xl font-bold text-green-900 mb-2">Link Generated!</h2>
+        <p class="text-green-700">Your message is ready to share. Copy the link below.</p>
+      </div>
+    <% end %>
 
-    <% if @grouped_reads.any? %>
-      <ul class="read-events-list">
-        <% @grouped_reads.each_with_index do |(viewer_hash, events), index| %>
-          <li class="read-event-group">
-            <div class="reader-header">
-              <span class="reader-number">#<%= @grouped_reads.size - index %></span>
-              <span class="reader-count"><%= events.size %>회 읽음</span>
-            </div>
-            <ul class="reader-times">
-              <% events.reverse.each do |event| %>
-                <li>
-                  <span class="read-event-time"><%= format_datetime(event.read_at) %></span>
-                  <span class="read-event-ago">(<%= time_ago_in_words(event.read_at) %> 전)</span>
+    <!-- Share Link Card -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-semibold text-gray-900">Shareable Link</h2>
+        <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-green-50 text-green-700 text-xs font-medium rounded-full">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+          Active
+        </span>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-3">
+        <div class="flex-1 bg-gray-50 border border-gray-200 rounded-lg px-4 py-3">
+          <code id="share-link" class="text-sm font-mono text-gray-900 break-all"><%= read_message_url(@message.token) %></code>
+        </div>
+        <button
+          type="button"
+          onclick="copyLink()"
+          id="copy-btn"
+          class="inline-flex items-center justify-center gap-2 bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors whitespace-nowrap"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+          </svg>
+          <span id="copy-text">Copy Link</span>
+        </button>
+      </div>
+
+      <!-- Share Options -->
+      <div class="mt-6 pt-6 border-t border-gray-100">
+        <p class="text-sm text-gray-500 mb-3">Share via</p>
+        <div class="flex flex-wrap gap-3">
+          <a href="mailto:?subject=<%= ERB::Util.url_encode(@message.title) %>&body=<%= ERB::Util.url_encode("Check out this message: #{read_message_url(@message.token)}") %>"
+             class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm text-gray-700 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+            Email
+          </a>
+          <a href="https://wa.me/?text=<%= ERB::Util.url_encode("#{@message.title}: #{read_message_url(@message.token)}") %>"
+             target="_blank"
+             class="inline-flex items-center gap-2 px-4 py-2 bg-green-100 hover:bg-green-200 rounded-lg text-sm text-green-700 transition-colors">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            </svg>
+            WhatsApp
+          </a>
+          <a href="slack://channel?team=&id=&message=<%= ERB::Util.url_encode(read_message_url(@message.token)) %>"
+             class="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 hover:bg-purple-200 rounded-lg text-sm text-purple-700 transition-colors">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/>
+            </svg>
+            Slack
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Two Column Layout -->
+    <div class="grid lg:grid-cols-2 gap-6">
+      <!-- Message Content -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+          <h3 class="font-semibold text-gray-900">Message Content</h3>
+          <% if @message.password_digest.present? %>
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-purple-50 text-purple-700 text-xs font-medium rounded-full">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+              </svg>
+              Password Protected
+            </span>
+          <% end %>
+        </div>
+        <div class="p-6">
+          <h4 class="font-medium text-gray-900 mb-3"><%= @message.title %></h4>
+          <div class="prose prose-sm max-w-none text-gray-600">
+            <%= @message.content %>
+          </div>
+        </div>
+        <% if @message.expires_at.present? || @message.max_read_count.present? %>
+          <div class="px-6 py-3 bg-gray-50 border-t border-gray-100 flex flex-wrap gap-2">
+            <% if @message.expires_at.present? %>
+              <% if @message.expires_at.future? %>
+                <span class="inline-flex items-center gap-1 text-xs text-amber-700">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  Expires <%= format_date_short(@message.expires_at) %>
+                </span>
+              <% else %>
+                <span class="inline-flex items-center gap-1 text-xs text-red-700">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  Expired
+                </span>
+              <% end %>
+            <% end %>
+            <% if @message.max_read_count.present? %>
+              <span class="inline-flex items-center gap-1 text-xs text-blue-700">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                One-time read
+              </span>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Read Analytics -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-100">
+          <h3 class="font-semibold text-gray-900">Read Analytics</h3>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-2 divide-x divide-gray-100 border-b border-gray-100">
+          <div class="p-6 text-center">
+            <p class="text-3xl font-bold text-primary-600"><%= @message.unique_reader_count %></p>
+            <p class="text-sm text-gray-500">Unique Readers</p>
+          </div>
+          <div class="p-6 text-center">
+            <p class="text-3xl font-bold text-gray-900"><%= @message.read_count %></p>
+            <p class="text-sm text-gray-500">Total Views</p>
+          </div>
+        </div>
+
+        <!-- Read History -->
+        <div class="p-6">
+          <% if @grouped_reads.any? %>
+            <p class="text-sm text-gray-500 mb-4">Recent activity</p>
+            <ul class="space-y-3 max-h-64 overflow-y-auto">
+              <% @grouped_reads.each_with_index do |(viewer_hash, events), index| %>
+                <li class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                  <div class="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span class="text-sm font-medium text-primary-600">#<%= @grouped_reads.size - index %></span>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-gray-900"><%= events.size %> view<%= events.size > 1 ? 's' : '' %></p>
+                    <p class="text-xs text-gray-500">
+                      Last read <%= time_ago_in_words(events.last.read_at) %> ago
+                    </p>
+                  </div>
                 </li>
               <% end %>
             </ul>
-          </li>
-        <% end %>
-      </ul>
-    <% else %>
-      <div class="empty-state">
-        <p>아직 아무도 읽지 않았습니다.</p>
+          <% else %>
+            <div class="text-center py-8">
+              <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                </svg>
+              </div>
+              <p class="text-sm text-gray-500">No one has read this message yet</p>
+              <p class="text-xs text-gray-400 mt-1">Share the link to start tracking</p>
+            </div>
+          <% end %>
+        </div>
       </div>
-    <% end %>
-  </section>
+    </div>
 
-  <div class="text-center">
-    <%= link_to "← 홈으로", root_path, class: "btn-secondary" %>
-  </div>
-</main>
+    <!-- Actions -->
+    <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+      <%= link_to new_message_path, class: "inline-flex items-center justify-center gap-2 bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors" do %>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+        </svg>
+        Create Another Message
+      <% end %>
+      <%= link_to root_path, class: "inline-flex items-center justify-center gap-2 text-gray-600 hover:text-gray-900 px-6 py-3 rounded-lg font-medium transition-colors" do %>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+        </svg>
+        Back to Dashboard
+      <% end %>
+    </div>
+  </main>
+</div>
 
 <script>
 function copyLink() {
   const link = document.getElementById('share-link').textContent;
+  const btn = document.getElementById('copy-btn');
+  const btnText = document.getElementById('copy-text');
+
   navigator.clipboard.writeText(link).then(() => {
-    alert('링크가 복사되었습니다');
+    // Show success state
+    btn.classList.remove('bg-primary-600', 'hover:bg-primary-700');
+    btn.classList.add('bg-green-600', 'hover:bg-green-700');
+    btnText.textContent = 'Copied!';
+
+    // Reset after 2 seconds
+    setTimeout(() => {
+      btn.classList.remove('bg-green-600', 'hover:bg-green-700');
+      btn.classList.add('bg-primary-600', 'hover:bg-primary-700');
+      btnText.textContent = 'Copy Link';
+    }, 2000);
   });
 }
 </script>

@@ -1,14 +1,49 @@
-<p>안녕하세요,</p>
+<% content_for :preheader do %>
+  Your login link for MessageOpen (expires in 15 minutes)
+<% end %>
 
-<p>아래 버튼을 클릭하여 로그인하세요:</p>
+<!-- Heading -->
+<h1 style="margin: 0 0 8px; font-size: 24px; font-weight: 700; color: #111827;">
+  Sign in to MessageOpen
+</h1>
 
-<p>
-  <%= link_to "로그인하기", @login_url, style: "display: inline-block; padding: 12px 24px; background-color: #2563eb; color: white; text-decoration: none; border-radius: 6px;" %>
+<p style="margin: 0 0 32px; font-size: 16px; color: #6b7280; line-height: 1.6;">
+  Click the button below to sign in to your account. This link will expire in 15 minutes.
 </p>
 
-<p>또는 이 링크를 복사하여 브라우저에 붙여넣으세요:</p>
-<p><%= @login_url %></p>
+<!-- CTA Button -->
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin-bottom: 32px;">
+  <tr>
+    <td align="center">
+      <a href="<%= @login_url %>" style="display: inline-block; padding: 14px 32px; background-color: #4F46E5; color: #ffffff; font-size: 16px; font-weight: 600; text-decoration: none; border-radius: 8px;">
+        Sign in to MessageOpen
+      </a>
+    </td>
+  </tr>
+</table>
 
-<p>이 링크는 15분 동안 유효합니다.</p>
+<!-- Alternative link -->
+<p style="margin: 0 0 8px; font-size: 14px; color: #6b7280;">
+  Or copy and paste this link into your browser:
+</p>
 
-<p>감사합니다,<br>읽었어? 팀</p>
+<p style="margin: 0 0 32px; font-size: 13px; color: #4F46E5; word-break: break-all;">
+  <%= @login_url %>
+</p>
+
+<!-- Divider -->
+<hr style="border: none; border-top: 1px solid #e5e7eb; margin: 32px 0;">
+
+<!-- Security note -->
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+  <tr>
+    <td width="24" style="vertical-align: top; padding-right: 12px;">
+      <span style="color: #9ca3af; font-size: 16px;">&#128274;</span>
+    </td>
+    <td style="vertical-align: top;">
+      <p style="margin: 0; font-size: 13px; color: #9ca3af; line-height: 1.5;">
+        If you didn't request this email, you can safely ignore it. Someone may have entered your email address by mistake.
+      </p>
+    </td>
+  </tr>
+</table>

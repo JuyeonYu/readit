@@ -1,0 +1,97 @@
+<% content_for(:title) { "Refund Policy - MessageOpen" } %>
+
+<div class="min-h-screen bg-gray-50 py-12">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="mb-8">
+      <%= link_to root_path, class: "inline-flex items-center text-sm text-gray-500 hover:text-gray-700 mb-4" do %>
+        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        Back to Home
+      <% end %>
+      <h1 class="text-4xl font-bold text-gray-900 mb-2">Refund Policy</h1>
+      <p class="text-gray-500">Last updated: <%= Date.current.strftime("%B %d, %Y") %></p>
+    </div>
+
+    <!-- Content -->
+    <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-8 sm:p-10 prose prose-gray max-w-none">
+      <p class="lead text-lg text-gray-600">
+        We want you to be satisfied with MessageOpen. This Refund Policy explains when and how you can request a refund.
+      </p>
+
+      <h2>7-Day Money-Back Guarantee</h2>
+      <p>We offer a <strong>7-day money-back guarantee</strong> for all new Pro subscriptions. If you're not satisfied with MessageOpen Pro for any reason, you can request a full refund within 7 days of your initial purchase.</p>
+
+      <div class="bg-green-50 border border-green-200 rounded-lg p-4 my-6 not-prose">
+        <div class="flex">
+          <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+          <div>
+            <h4 class="font-semibold text-green-800">No Questions Asked</h4>
+            <p class="text-green-700 text-sm mt-1">Within the 7-day period, we'll process your refund without requiring any explanation.</p>
+          </div>
+        </div>
+      </div>
+
+      <h2>Eligible Refunds</h2>
+      <p>You are eligible for a refund if:</p>
+      <ul>
+        <li>You request a refund within <strong>7 days</strong> of your initial Pro subscription purchase</li>
+        <li>This is your first purchase of a Pro subscription</li>
+      </ul>
+
+      <h2>Non-Refundable Situations</h2>
+      <p>Refunds are generally <strong>not available</strong> for:</p>
+      <ul>
+        <li>Requests made after 7 days from purchase</li>
+        <li>Subscription renewals (monthly or yearly)</li>
+        <li>Accounts terminated due to Terms of Service violations</li>
+        <li>Partial month/year usage after the 7-day period</li>
+        <li>Previous refunds already granted on your account</li>
+      </ul>
+
+      <h2>How to Request a Refund</h2>
+      <p>To request a refund:</p>
+      <ol>
+        <li>Send an email to <a href="mailto:hello@messageopen.com">hello@messageopen.com</a></li>
+        <li>Include the email address associated with your account</li>
+        <li>Mention "Refund Request" in the subject line</li>
+      </ol>
+
+      <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 my-6 not-prose">
+        <h4 class="font-semibold text-gray-800 mb-2">Processing Time</h4>
+        <p class="text-gray-600 text-sm">Refunds are typically processed within <strong>5-10 business days</strong>. The time it takes for the refund to appear in your account depends on your payment method and financial institution.</p>
+      </div>
+
+      <h2>After Your Refund</h2>
+      <p>Once your refund is processed:</p>
+      <ul>
+        <li>Your Pro subscription will be cancelled immediately</li>
+        <li>Your account will revert to the Free plan</li>
+        <li>You will retain access to Free plan features</li>
+        <li>Pro-only data may be deleted according to Free plan limits</li>
+      </ul>
+
+      <h2>Cancellation vs. Refund</h2>
+      <p>Please note the difference:</p>
+      <ul>
+        <li><strong>Cancellation:</strong> Stops future billing. You keep Pro access until the end of your current billing period.</li>
+        <li><strong>Refund:</strong> Returns your payment. Pro access ends immediately.</li>
+      </ul>
+      <p>You can cancel your subscription at any time from the <a href="/billing">Billing</a> page without requesting a refund.</p>
+
+      <h2>Exceptions</h2>
+      <p>In exceptional circumstances (such as extended service outages or billing errors), we may offer refunds outside the standard policy at our discretion. Please contact us to discuss your situation.</p>
+
+      <h2>Contact Us</h2>
+      <p>If you have any questions about our Refund Policy, please contact us at:</p>
+      <p>
+        <strong>Email:</strong> <a href="mailto:hello@messageopen.com">hello@messageopen.com</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<%= render "shared/footer" %>

@@ -1,15 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title><%= content_for(:title) || "Readping" %></title>
+    <title><%= content_for(:title) || "MessageOpen" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Readping">
+    <meta name="application-name" content="MessageOpen">
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="description" content="Share messages via link and know when they're read. Works across any channel.">
+
+    <%# Favicon %>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon-16.svg">
+    <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32.svg">
+    <link rel="apple-touch-icon" href="/logo.svg">
+
+    <%# Open Graph %>
+    <meta property="og:title" content="<%= content_for(:title) || 'MessageOpen' %>">
+    <meta property="og:description" content="Share messages via link and know when they're read. Works across any channel.">
+    <meta property="og:image" content="<%= request.base_url %>/og-image.svg">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= yield :head %>
+
+    <%# Alpine.js for interactivity %>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>[x-cloak] { display: none !important; }</style>
+
+    <%# Tailwind CSS via CDN %>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                50: '#EEF2FF',
+                100: '#E0E7FF',
+                400: '#818CF8',
+                500: '#6366F1',
+                600: '#4F46E5',
+                700: '#4338CA',
+              },
+              success: {
+                500: '#34D399',
+                600: '#10B981',
+              },
+              accent: {
+                500: '#F59E0B',
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'system-ui', 'sans-serif'],
+              mono: ['JetBrains Mono', 'monospace'],
+            },
+          }
+        }
+      }
+    </script>
+
+    <%# Google Fonts %>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
     <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
@@ -21,20 +78,34 @@
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+    <style>
+      /* Smooth scrolling */
+      html { scroll-behavior: smooth; }
+
+      /* Custom animations */
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .animate-fade-in-up {
+        animation: fadeInUp 0.6s ease-out forwards;
+      }
+      .animation-delay-200 { animation-delay: 0.2s; }
+      .animation-delay-400 { animation-delay: 0.4s; }
+      .animation-delay-600 { animation-delay: 0.6s; }
+
+      /* Gradient text */
+      .gradient-text {
+        background: linear-gradient(135deg, #4F46E5 0%, #6366F1 50%, #818CF8 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+    </style>
   </head>
 
-  <body>
-    <% if logged_in? %>
-      <header class="global-header">
-        <div class="header-content">
-          <span class="user-email"><%= current_user.email %></span>
-          <nav class="header-nav">
-            <%= link_to "알림", notifications_path, class: "header-link" %>
-            <%= button_to "로그아웃", logout_path, method: :delete, class: "btn-logout" %>
-          </nav>
-        </div>
-      </header>
-    <% end %>
+  <body class="font-sans antialiased text-gray-900 bg-white">
     <%= yield %>
   </body>
 </html>

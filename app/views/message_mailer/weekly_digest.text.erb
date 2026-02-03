@@ -1,0 +1,24 @@
+Your Weekly Report
+==================
+
+Here's how your messages performed this week.
+
+STATS
+-----
+Messages sent: <%= @stats[:messages_sent] || 0 %>
+Total opens: <%= @stats[:total_opens] || 0 %>
+Open rate: <%= @stats[:open_rate] || 0 %>%
+
+<% if @stats[:top_messages].present? && @stats[:top_messages].any? %>
+TOP PERFORMING MESSAGES
+-----------------------
+<% @stats[:top_messages].each_with_index do |msg, index| %>
+<%= index + 1 %>. <%= msg[:title] %> - <%= msg[:opens] %> opens
+<% end %>
+<% end %>
+
+View full dashboard: <%= dashboard_url %>
+
+--
+MessageOpen
+Know when your messages are read
