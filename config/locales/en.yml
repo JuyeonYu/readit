@@ -1,31 +1,443 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  # Application-wide
+  app:
+    name: "MessageOpen"
+    tagline: "Know When Your Messages Are Read"
+    description: "Share messages via link and know when they're read. Works across any channel."
+    secure_message: "Secure message"
+    secure_message_sharing: "Secure message sharing"
+    copyright: "© 2025 MessageOpen. All rights reserved."
+
+  # Common UI elements
+  common:
+    logout: "Logout"
+    login: "Log in"
+    cancel: "Cancel"
+    back: "Back"
+    copy: "Copy"
+    copied: "Copied!"
+    active: "Active"
+    expired: "Expired"
+    protected: "Protected"
+    email: "Email"
+    secure: "Secure"
+    instant: "Instant"
+    ago: "ago"
+    characters: "characters"
+    never: "Never"
+    forever: "forever"
+    month: "/month"
+    support: "Support"
+
+  # Navigation
+  nav:
+    how_it_works: "How it Works"
+    features: "Features"
+    pricing: "Pricing"
+    dashboard: "Dashboard"
+    notifications: "Notifications"
+    start_free: "Start Free"
+    back_to_dashboard: "Back to Dashboard"
+    home: "Home"
+    get_started: "Get Started"
+
+  # Footer
+  footer:
+    tagline: "Know when your messages are read."
+    product: "Product"
+    legal: "Legal"
+    support_title: "Support"
+    privacy: "Privacy Policy"
+    terms: "Terms of Service"
+    refund: "Refund Policy"
+    contact: "Contact Us"
+    billing: "Billing"
+    privacy_short: "Privacy"
+    terms_short: "Terms"
+    refund_short: "Refund"
+    copyright: "© %{year} MessageOpen. All rights reserved."
+
+  # Errors & Validations
+  errors:
+    login_required: "Please log in to continue"
+    message_unreadable: "This message can no longer be read"
+
+  # Pages (Landing)
+  pages:
+    home:
+      title: "MessageOpen - Know When Your Messages Are Read"
+      hero:
+        title_line1: "Know When Your"
+        title_line2: "Messages Are Read"
+        subtitle: "Share messages across any channel. Get notified instantly when they're opened. Simple, reliable, and works everywhere."
+        cta_primary: "Start Free Trial"
+        cta_secondary: "See How It Works"
+      preview:
+        example_title: "Project Proposal - Q1 2025"
+        example_content: "Hi Sarah, here's the proposal we discussed..."
+        read_ago: "Read 2 minutes ago"
+        notification_title: "Message opened!"
+        notification_text: "Sarah just viewed your proposal"
+      problems:
+        title: "Sound familiar?"
+        problem1:
+          title: "Sent an important proposal?"
+          description: "You've put hours into crafting the perfect message, but have no idea if they even opened it."
+        problem2:
+          title: "Wondering if they saw it?"
+          description: "The uncertainty is frustrating. Did it go to spam? Did they ignore it? You just don't know."
+        problem3:
+          title: "Tired of following up?"
+          description: "Sending \"just checking in\" messages feels awkward and can damage relationships."
+      how_it_works:
+        title: "How MessageOpen Works"
+        subtitle: "Three simple steps to know when your messages are read"
+        step1:
+          title: "Create your message"
+          description: "Write your message with our rich text editor. Format it beautifully, add links, and make it professional."
+        step2:
+          title: "Share the link"
+          description: "Get a unique link and share it anywhere - email, Slack, WhatsApp, SMS, or any platform you use."
+        step3:
+          title: "Get notified"
+          description: "Receive instant notifications when your message is opened. Know exactly when they read it."
+          notification: "Message read!"
+          notification_time: "Just now"
+      features:
+        title: "Everything you need"
+        subtitle: "Powerful features to help you communicate with confidence"
+        multi_channel:
+          title: "Multi-channel sharing"
+          description: "Works with email, Slack, WhatsApp, SMS, and any platform that supports links."
+        realtime:
+          title: "Real-time notifications"
+          description: "Get instant email alerts the moment your message is opened."
+        analytics:
+          title: "Analytics dashboard"
+          description: "Track who viewed, when they viewed, and how many times."
+        rich_text:
+          title: "Rich text editor"
+          description: "Format your messages with bold, lists, links, and more."
+        password:
+          title: "Password protection"
+          description: "Secure sensitive messages with a password for added privacy."
+        expiration:
+          title: "Expiration dates"
+          description: "Set messages to expire after a specific date or time."
+        read_limits:
+          title: "Read limits"
+          description: "Limit how many times a message can be viewed."
+        no_signup:
+          title: "No signup for recipients"
+          description: "Recipients can view messages instantly without creating an account."
+      social_proof:
+        trusted: "Trusted by professionals"
+        title: "Join 500+ users who know when they're read"
+        testimonial1:
+          quote: "Finally, I know when clients actually read my proposals. No more awkward follow-up emails wondering if they saw it."
+          name: "Sarah Kim"
+          role: "Freelance Designer"
+        testimonial2:
+          quote: "I use it for all my sales follow-ups. Knowing when a prospect opens my message helps me time my calls perfectly."
+          name: "Mike Johnson"
+          role: "Sales Manager"
+        testimonial3:
+          quote: "The password protection feature is perfect for sending sensitive information. Simple yet secure."
+          name: "Emma Park"
+          role: "Consultant"
+      pricing:
+        title: "Simple Pricing"
+        subtitle: "Start free. Upgrade when you need more."
+        monthly: "Monthly"
+        yearly: "Yearly"
+        save: "(Save 17%)"
+        free:
+          name: "Free"
+          messages: "10 messages/month"
+          tracking: "Basic tracking"
+          history: "7-day history"
+          notifications: "Email notifications"
+          cta: "Get Started"
+          note: "No credit card required"
+        pro:
+          name: "Pro"
+          badge: "Most Popular"
+          yearly_note: "per month, $120 billed yearly"
+          messages: "Unlimited"
+          messages_suffix: "messages"
+          analytics: "Advanced analytics"
+          history: "1-year history"
+          support: "Priority support"
+          cta: "Try Free for 14 Days"
+          note: "No credit card required"
+        team:
+          question: "Need a team plan?"
+          link: "Contact us"
+        full_pricing: "View full pricing details →"
+      cta:
+        title: "Ready to try MessageOpen?"
+        subtitle: "Join thousands of professionals who communicate with confidence."
+        placeholder: "Enter your email"
+        button: "Start Free"
+        note: "No credit card required. Free plan available."
+
+  # Dashboard (logged-in home)
+  dashboard:
+    title: "Your Messages"
+    subtitle: "Track and manage all your shared messages"
+    new_message: "New Message"
+    empty:
+      title: "No messages yet"
+      subtitle: "Create your first message and share it with anyone."
+      cta: "Create Your First Message"
+    message:
+      readers: "readers"
+      views: "views"
+      expires: "Expires"
+      limit: "Limit:"
+    usage:
+      messages: "messages"
+
+  # Messages
+  messages:
+    new:
+      title: "Compose Message - MessageOpen"
+      header: "Compose Message"
+      subtitle: "Write your message and share it with anyone"
+      placeholder: "Write your message..."
+      generate_link: "Generate Link"
+      settings:
+        title: "Message Settings"
+        message_title:
+          label: "Message Title"
+          placeholder: "e.g., Project Proposal"
+        notify:
+          label: "Notify when opened"
+          description: "Get email when someone reads"
+        expire:
+          label: "Expire after"
+          day_1: "1 day"
+          day_7: "7 days"
+          day_30: "30 days"
+        one_time:
+          label: "One-time read"
+          description: "Message disappears after viewing"
+        password:
+          label: "Password protect"
+          description: "Require password to view"
+          placeholder: "Enter password (min 6 chars)"
+      link_preview:
+        title: "Link Preview"
+        subtitle: "How your link will appear when shared:"
+        secure_message: "Secure Message"
+        default_title: "Your Message Title"
+        description: "You've received a secure message. Click to view the content."
+        note: "This preview shows how your link appears in Slack, iMessage, KakaoTalk, and other apps."
+      notification_info:
+        title: "You'll be notified at"
+    share:
+      title: "%{message_title} - MessageOpen"
+      success:
+        title: "Link Generated!"
+        subtitle: "Your message is ready to share. Copy the link below."
+      shareable_link: "Shareable Link"
+      copy_link: "Copy Link"
+      share_via: "Share via"
+      whatsapp: "WhatsApp"
+      slack: "Slack"
+      message_content: "Message Content"
+      password_protected: "Password Protected"
+      one_time_read: "One-time read"
+      read_analytics: "Read Analytics"
+      unique_readers: "Unique Readers"
+      total_views: "Total Views"
+      recent_activity: "Recent activity"
+      view: "view"
+      views: "views"
+      last_read: "Last read"
+      empty:
+        title: "No one has read this message yet"
+        subtitle: "Share the link to start tracking"
+      actions:
+        create_another: "Create Another Message"
+
+  # Reads (recipient view)
+  reads:
+    show:
+      message_from: "Message from"
+      password_protected: "This message is password protected"
+      password_placeholder: "Enter password"
+      password_hint: "The sender shared this password with you separately"
+      view_button: "View Message"
+      message_ready: "Message ready to view"
+      notification_warning: "The sender will be notified when you open this message"
+    content:
+      shared_via: "Shared via MessageOpen"
+      read_confirmation: "Read confirmation sent to sender"
+      cta:
+        question: "Want to send secure messages?"
+        link: "Try MessageOpen free →"
+      footer: "MessageOpen • Secure message sharing with read receipts"
+    expired:
+      title: "Message Unavailable - MessageOpen"
+      heading: "Message Unavailable"
+      description: "This message is no longer accessible. It may have expired or reached its view limit."
+      reasons:
+        title: "This can happen when:"
+        expired: "The message's expiration date has passed"
+        limit: "The view limit has been reached"
+        removed: "The sender removed the message"
+      contact: "Need to contact the sender? Ask them to share a new link."
+      cta:
+        question: "Want to send secure messages?"
+        link: "Try MessageOpen →"
+
+  # Sessions (auth)
+  sessions:
+    new:
+      title: "Log In - MessageOpen"
+      heading: "Welcome back"
+      subtitle: "Enter your email to sign in or create an account"
+      email_label: "Email address"
+      email_placeholder: "you@example.com"
+      submit: "Send Magic Link"
+      note: "We'll send you a secure login link. No password needed."
+      benefits:
+        no_password: "No password"
+        secure: "Secure"
+        instant: "Instant"
+    sent:
+      title: "Check Your Email - MessageOpen"
+      heading: "Check your email"
+      subtitle: "We sent a login link to your email address"
+      instructions:
+        click: "Click the link in the email to sign in"
+        expires: "The link expires in 15 minutes"
+        spam: "Check your spam folder if you don't see it"
+      different_email: "Use a different email"
+
+  # Notifications
+  notifications:
+    index:
+      title: "Notifications - MessageOpen"
+      heading: "Notifications"
+      subtitle: "Email alerts sent when your messages are read"
+      empty:
+        title: "No notifications yet"
+        subtitle: "When someone reads your message, you'll receive an email notification and it will appear here."
+        cta: "Create a Message"
+    status:
+      sent: "Sent"
+      pending: "Pending"
+      failed: "Failed"
+    type:
+      email: "Email"
+
+  # Mailers
+  mailers:
+    read_notification:
+      subject: "Your message was read"
+    magic_link:
+      subject: "Your login link for MessageOpen"
+
+  # Pricing Page
+  pricing:
+    title: "Pricing - MessageOpen"
+    hero:
+      title: "Simple, Transparent Pricing"
+      subtitle: "Start free. Upgrade when you're ready. Cancel anytime."
+    toggle:
+      monthly: "Monthly"
+      yearly: "Yearly"
+      save: "Save 17%"
+    free:
+      name: "Free"
+      price: "$0"
+      period: "forever"
+      messages: "10 tracked messages/month"
+      tracking: "Basic open tracking"
+      history: "7-day message history"
+      notifications: "Email notifications"
+      editor: "Rich text editor"
+      password: "Password protection"
+      cta: "Get Started"
+      note: "No credit card required"
+    pro:
+      name: "Pro"
+      badge: "Most Popular"
+      monthly: "/month"
+      billed_monthly: "Billed monthly"
+      billed_yearly: "$120/year — save $24"
+      everything_plus: "Everything in Free, plus:"
+      unlimited: "Unlimited messages"
+      analytics: "Detailed analytics"
+      history: "1-year message history"
+      receipts: "Read receipts & stats"
+      branding: "Custom branding"
+      support: "Priority email support"
+      cta_monthly: "Start Pro Monthly"
+      cta_yearly: "Start Pro Yearly"
+      cta_trial: "Try Free for 14 Days"
+      note: "No credit card required"
+    team:
+      question: "Need a team plan?"
+      link: "Contact us"
+    trust:
+      money_back: "14-day money back"
+      cancel: "Cancel anytime"
+      secure: "Secure via Stripe"
+      accept: "We accept:"
+    compare:
+      title: "Compare Plans"
+      feature: "Feature"
+      tracked_messages: "Tracked messages"
+      ten_month: "10/month"
+      unlimited: "Unlimited"
+      message_history: "Message history"
+      seven_days: "7 days"
+      one_year: "1 year"
+      analytics: "Analytics"
+      basic: "Basic"
+      detailed: "Detailed"
+      open_tracking: "Open tracking"
+      email_notifications: "Email notifications"
+      rich_text_editor: "Rich text editor"
+      password_protection: "Password protection"
+      custom_branding: "Custom branding"
+      priority_support: "Priority support"
+    faq:
+      title: "Frequently Asked Questions"
+      q1:
+        question: "Can I change plans anytime?"
+        answer: "Yes, upgrade or downgrade anytime. Changes take effect immediately."
+      q2:
+        question: "What happens when I hit the free limit?"
+        answer: "Your existing messages still work, but you can't create new ones until next month or you upgrade to Pro."
+      q3:
+        question: "Do you offer refunds?"
+        answer: "Yes, 14-day money-back guarantee. No questions asked."
+      q4:
+        question: "Can I cancel anytime?"
+        answer: "Absolutely. Cancel anytime from your settings. No fees."
+      q5:
+        question: "Is there a team plan?"
+        answer_prefix: "Not yet! We're focused on individual users. Need team features? Email us at"
+      q6:
+        question: "What payment methods do you accept?"
+        answer: "All major credit cards via Stripe. Secure and safe."
+      q7:
+        question: "Do I need a credit card for free trial?"
+        answer: "Nope! Start with Free plan immediately. Only need card when upgrading to Pro."
+      q8:
+        question: "What's included in the free trial?"
+        answer: "Full Pro features for 14 days. No credit card required. Automatically reverts to Free plan after trial."
+    cta:
+      title: "Ready to get started?"
+      subtitle: "Join thousands of professionals who know when their messages are read."
+      button: "Start Free"
+      note: "No credit card required. Free forever."
+
+  # OG Meta
+  og:
+    message:
+      description: "%{email} sent you a secure message via MessageOpen. Click to view."

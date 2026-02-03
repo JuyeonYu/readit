@@ -7,7 +7,7 @@ class ReadMessageService
     ActiveRecord::Base.transaction do
       message.with_lock do
         unless message.readable?
-          return Result.new(success?: false, error: "더 이상 읽을 수 없습니다")
+          return Result.new(success?: false, error: I18n.t('errors.message_unreadable'))
         end
 
         message.increment_read_count!
@@ -20,7 +20,7 @@ class ReadMessageService
       end
     end
 
-    # 알림 발송 (비동기, 트랜잭션 밖)
+    # Send notification (async, outside transaction)
     if message.sender_email.present?
       SendNotificationJob.perform_later(message.id, viewer_token_hash)
     end

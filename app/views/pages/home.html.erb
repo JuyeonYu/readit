@@ -1,4 +1,4 @@
-<% content_for(:title) { "MessageOpen - Know When Your Messages Are Read" } %>
+<% content_for(:title) { t('pages.home.title') } %>
 
 <% if logged_in? %>
   <!-- Logged-in User Dashboard -->
@@ -14,23 +14,23 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                 </svg>
               </div>
-              <span class="font-semibold text-gray-900">MessageOpen</span>
+              <span class="font-semibold text-gray-900"><%= t('app.name') %></span>
             <% end %>
           </div>
           <div class="flex items-center gap-4">
             <span class="text-sm text-gray-600 hidden sm:block"><%= current_user.email %></span>
-            <%= link_to dashboard_path, class: "p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors", title: "Dashboard" do %>
+            <%= link_to dashboard_path, class: "p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors", title: t('nav.dashboard') do %>
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
               </svg>
             <% end %>
-            <%= link_to notifications_path, class: "p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors relative", title: "Notifications" do %>
+            <%= link_to notifications_path, class: "p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors relative", title: t('nav.notifications') do %>
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
               </svg>
             <% end %>
             <%= button_to logout_path, method: :delete, class: "text-sm text-gray-600 hover:text-gray-900 px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors" do %>
-              Logout
+              <%= t('common.logout') %>
             <% end %>
           </div>
         </div>
@@ -42,14 +42,14 @@
       <!-- Quick Action -->
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
         <div>
-          <h1 class="text-2xl font-bold text-gray-900">Your Messages</h1>
-          <p class="text-gray-600 mt-1">Track and manage all your shared messages</p>
+          <h1 class="text-2xl font-bold text-gray-900"><%= t('dashboard.title') %></h1>
+          <p class="text-gray-600 mt-1"><%= t('dashboard.subtitle') %></p>
         </div>
         <%= link_to new_message_path, class: "inline-flex items-center gap-2 bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors shadow-sm" do %>
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
           </svg>
-          New Message
+          <%= t('dashboard.new_message') %>
         <% end %>
       </div>
 
@@ -63,7 +63,7 @@
                   <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div class="flex-1 min-w-0">
                       <p class="text-gray-900 font-medium truncate"><%= truncate(message.title, length: 80) %></p>
-                      <p class="text-sm text-gray-500 mt-1"><%= time_ago_in_words(message.created_at) %> ago</p>
+                      <p class="text-sm text-gray-500 mt-1"><%= time_ago_in_words(message.created_at) %> <%= t('common.ago') %></p>
                     </div>
                     <div class="flex flex-wrap gap-2">
                       <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-green-50 text-green-700 text-xs font-medium rounded-full">
@@ -71,7 +71,7 @@
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                         </svg>
-                        <%= message.unique_reader_count %> readers / <%= message.read_count %> views
+                        <%= message.unique_reader_count %> <%= t('dashboard.message.readers') %> / <%= message.read_count %> <%= t('dashboard.message.views') %>
                       </span>
                       <% if message.expires_at.present? %>
                         <% if message.expires_at.future? %>
@@ -79,14 +79,14 @@
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
-                            Expires <%= format_date_short(message.expires_at) %>
+                            <%= t('dashboard.message.expires') %> <%= format_date_short(message.expires_at) %>
                           </span>
                         <% else %>
                           <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-red-50 text-red-700 text-xs font-medium rounded-full">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
-                            Expired
+                            <%= t('common.expired') %>
                           </span>
                         <% end %>
                       <% end %>
@@ -95,7 +95,7 @@
                           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                           </svg>
-                          Protected
+                          <%= t('common.protected') %>
                         </span>
                       <% end %>
                       <% if message.max_read_count.present? %>
@@ -103,7 +103,7 @@
                           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                           </svg>
-                          Limit: <%= message.max_read_count %>
+                          <%= t('dashboard.message.limit') %> <%= message.max_read_count %>
                         </span>
                       <% end %>
                     </div>
@@ -120,13 +120,13 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
             </svg>
           </div>
-          <h3 class="text-lg font-medium text-gray-900 mb-2">No messages yet</h3>
-          <p class="text-gray-600 mb-6">Create your first message and share it with anyone.</p>
+          <h3 class="text-lg font-medium text-gray-900 mb-2"><%= t('dashboard.empty.title') %></h3>
+          <p class="text-gray-600 mb-6"><%= t('dashboard.empty.subtitle') %></p>
           <%= link_to new_message_path, class: "inline-flex items-center gap-2 bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors" do %>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
             </svg>
-            Create Your First Message
+            <%= t('dashboard.empty.cta') %>
           <% end %>
         </div>
       <% end %>
@@ -146,16 +146,16 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
             </svg>
           </div>
-          <span class="font-semibold text-gray-900">MessageOpen</span>
+          <span class="font-semibold text-gray-900"><%= t('app.name') %></span>
         </div>
         <div class="hidden md:flex items-center gap-8">
-          <a href="#how-it-works" class="text-sm text-gray-600 hover:text-gray-900 transition-colors">How it Works</a>
-          <a href="#features" class="text-sm text-gray-600 hover:text-gray-900 transition-colors">Features</a>
-          <%= link_to "Pricing", pricing_path, class: "text-sm text-gray-600 hover:text-gray-900 transition-colors" %>
+          <a href="#how-it-works" class="text-sm text-gray-600 hover:text-gray-900 transition-colors"><%= t('nav.how_it_works') %></a>
+          <a href="#features" class="text-sm text-gray-600 hover:text-gray-900 transition-colors"><%= t('nav.features') %></a>
+          <%= link_to t('nav.pricing'), pricing_path, class: "text-sm text-gray-600 hover:text-gray-900 transition-colors" %>
         </div>
         <div class="flex items-center gap-3">
-          <%= link_to "Log in", login_path, class: "text-sm text-gray-600 hover:text-gray-900 transition-colors" %>
-          <%= link_to "Start Free", login_path, class: "bg-primary-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-700 transition-colors" %>
+          <%= link_to t('common.login'), login_path, class: "text-sm text-gray-600 hover:text-gray-900 transition-colors" %>
+          <%= link_to t('nav.start_free'), login_path, class: "bg-primary-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-700 transition-colors" %>
         </div>
       </div>
     </div>
@@ -165,15 +165,15 @@
   <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white">
     <div class="max-w-4xl mx-auto text-center">
       <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight animate-fade-in-up">
-        Know When Your<br>
-        <span class="gradient-text">Messages Are Read</span>
+        <%= t('pages.home.hero.title_line1') %><br>
+        <span class="gradient-text"><%= t('pages.home.hero.title_line2') %></span>
       </h1>
       <p class="mt-6 text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto animate-fade-in-up animation-delay-200">
-        Share messages across any channel. Get notified instantly when they're opened. Simple, reliable, and works everywhere.
+        <%= t('pages.home.hero.subtitle') %>
       </p>
       <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4 animate-fade-in-up animation-delay-400">
         <%= link_to login_path, class: "inline-flex items-center justify-center gap-2 bg-primary-600 text-white px-8 py-4 rounded-lg font-medium text-lg hover:bg-primary-700 transition-all shadow-lg shadow-primary-600/25 hover:shadow-xl hover:shadow-primary-600/30 hover:-translate-y-0.5" do %>
-          Start Free Trial
+          <%= t('pages.home.hero.cta_primary') %>
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
           </svg>
@@ -183,7 +183,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
           </svg>
-          See How It Works
+          <%= t('pages.home.hero.cta_secondary') %>
         </a>
       </div>
 
@@ -214,14 +214,14 @@
                     </svg>
                   </div>
                   <div class="flex-1">
-                    <h3 class="font-semibold text-gray-900">Project Proposal - Q1 2025</h3>
-                    <p class="text-gray-600 text-sm mt-1">Hi Sarah, here's the proposal we discussed...</p>
+                    <h3 class="font-semibold text-gray-900"><%= t('pages.home.preview.example_title') %></h3>
+                    <p class="text-gray-600 text-sm mt-1"><%= t('pages.home.preview.example_content') %></p>
                     <div class="mt-4 flex items-center gap-3">
                       <span class="inline-flex items-center gap-1.5 text-green-600 text-sm font-medium">
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                           <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                         </svg>
-                        Read 2 minutes ago
+                        <%= t('pages.home.preview.read_ago') %>
                       </span>
                     </div>
                   </div>
@@ -236,8 +236,8 @@
                     </svg>
                   </div>
                   <div>
-                    <p class="text-sm font-medium text-gray-900">Message opened!</p>
-                    <p class="text-xs text-gray-500 mt-0.5">Sarah just viewed your proposal</p>
+                    <p class="text-sm font-medium text-gray-900"><%= t('pages.home.preview.notification_title') %></p>
+                    <p class="text-xs text-gray-500 mt-0.5"><%= t('pages.home.preview.notification_text') %></p>
                   </div>
                 </div>
               </div>
@@ -252,40 +252,37 @@
   <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-16">
-        <h2 class="text-3xl font-bold text-gray-900">Sound familiar?</h2>
+        <h2 class="text-3xl font-bold text-gray-900"><%= t('pages.home.problems.title') %></h2>
       </div>
       <div class="grid md:grid-cols-3 gap-8">
-        <!-- Pain Point 1 -->
         <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100 text-center hover:shadow-md transition-shadow">
           <div class="w-14 h-14 bg-primary-50 rounded-xl flex items-center justify-center mx-auto mb-6">
             <svg class="w-7 h-7 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
             </svg>
           </div>
-          <h3 class="text-xl font-semibold text-gray-900 mb-3">Sent an important proposal?</h3>
-          <p class="text-gray-600">You've put hours into crafting the perfect message, but have no idea if they even opened it.</p>
+          <h3 class="text-xl font-semibold text-gray-900 mb-3"><%= t('pages.home.problems.problem1.title') %></h3>
+          <p class="text-gray-600"><%= t('pages.home.problems.problem1.description') %></p>
         </div>
 
-        <!-- Pain Point 2 -->
         <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100 text-center hover:shadow-md transition-shadow">
           <div class="w-14 h-14 bg-primary-50 rounded-xl flex items-center justify-center mx-auto mb-6">
             <svg class="w-7 h-7 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
           </div>
-          <h3 class="text-xl font-semibold text-gray-900 mb-3">Wondering if they saw it?</h3>
-          <p class="text-gray-600">The uncertainty is frustrating. Did it go to spam? Did they ignore it? You just don't know.</p>
+          <h3 class="text-xl font-semibold text-gray-900 mb-3"><%= t('pages.home.problems.problem2.title') %></h3>
+          <p class="text-gray-600"><%= t('pages.home.problems.problem2.description') %></p>
         </div>
 
-        <!-- Pain Point 3 -->
         <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100 text-center hover:shadow-md transition-shadow">
           <div class="w-14 h-14 bg-primary-50 rounded-xl flex items-center justify-center mx-auto mb-6">
             <svg class="w-7 h-7 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
             </svg>
           </div>
-          <h3 class="text-xl font-semibold text-gray-900 mb-3">Tired of following up?</h3>
-          <p class="text-gray-600">Sending "just checking in" messages feels awkward and can damage relationships.</p>
+          <h3 class="text-xl font-semibold text-gray-900 mb-3"><%= t('pages.home.problems.problem3.title') %></h3>
+          <p class="text-gray-600"><%= t('pages.home.problems.problem3.description') %></p>
         </div>
       </div>
     </div>
@@ -295,22 +292,18 @@
   <section id="how-it-works" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-16">
-        <h2 class="text-3xl font-bold text-gray-900">How MessageOpen Works</h2>
-        <p class="text-gray-600 mt-4 text-lg">Three simple steps to know when your messages are read</p>
+        <h2 class="text-3xl font-bold text-gray-900"><%= t('pages.home.how_it_works.title') %></h2>
+        <p class="text-gray-600 mt-4 text-lg"><%= t('pages.home.how_it_works.subtitle') %></p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-8 relative">
-        <!-- Connecting line (hidden on mobile) -->
         <div class="hidden md:block absolute top-24 left-1/6 right-1/6 h-0.5 bg-gradient-to-r from-primary-200 via-primary-400 to-primary-200"></div>
 
-        <!-- Step 1 -->
         <div class="relative">
           <div class="bg-white rounded-xl p-8 border border-gray-200 hover:border-primary-200 transition-colors relative z-10">
-            <div class="w-12 h-12 bg-primary-600 text-white rounded-xl flex items-center justify-center text-xl font-bold mb-6">
-              1
-            </div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-3">Create your message</h3>
-            <p class="text-gray-600 mb-6">Write your message with our rich text editor. Format it beautifully, add links, and make it professional.</p>
+            <div class="w-12 h-12 bg-primary-600 text-white rounded-xl flex items-center justify-center text-xl font-bold mb-6">1</div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3"><%= t('pages.home.how_it_works.step1.title') %></h3>
+            <p class="text-gray-600 mb-6"><%= t('pages.home.how_it_works.step1.description') %></p>
             <div class="bg-gray-50 rounded-lg p-4 border border-gray-100">
               <div class="flex items-center gap-2 mb-3 border-b border-gray-200 pb-2">
                 <div class="w-6 h-6 bg-gray-200 rounded"></div>
@@ -326,14 +319,11 @@
           </div>
         </div>
 
-        <!-- Step 2 -->
         <div class="relative">
           <div class="bg-white rounded-xl p-8 border border-gray-200 hover:border-primary-200 transition-colors relative z-10">
-            <div class="w-12 h-12 bg-primary-600 text-white rounded-xl flex items-center justify-center text-xl font-bold mb-6">
-              2
-            </div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-3">Share the link</h3>
-            <p class="text-gray-600 mb-6">Get a unique link and share it anywhere - email, Slack, WhatsApp, SMS, or any platform you use.</p>
+            <div class="w-12 h-12 bg-primary-600 text-white rounded-xl flex items-center justify-center text-xl font-bold mb-6">2</div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3"><%= t('pages.home.how_it_works.step2.title') %></h3>
+            <p class="text-gray-600 mb-6"><%= t('pages.home.how_it_works.step2.description') %></p>
             <div class="bg-gray-50 rounded-lg p-4 border border-gray-100">
               <div class="flex items-center gap-2 justify-center flex-wrap">
                 <div class="w-10 h-10 bg-white rounded-lg border border-gray-200 flex items-center justify-center">
@@ -361,14 +351,11 @@
           </div>
         </div>
 
-        <!-- Step 3 -->
         <div class="relative">
           <div class="bg-white rounded-xl p-8 border border-gray-200 hover:border-primary-200 transition-colors relative z-10">
-            <div class="w-12 h-12 bg-primary-600 text-white rounded-xl flex items-center justify-center text-xl font-bold mb-6">
-              3
-            </div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-3">Get notified</h3>
-            <p class="text-gray-600 mb-6">Receive instant notifications when your message is opened. Know exactly when they read it.</p>
+            <div class="w-12 h-12 bg-primary-600 text-white rounded-xl flex items-center justify-center text-xl font-bold mb-6">3</div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3"><%= t('pages.home.how_it_works.step3.title') %></h3>
+            <p class="text-gray-600 mb-6"><%= t('pages.home.how_it_works.step3.description') %></p>
             <div class="bg-gray-50 rounded-lg p-4 border border-gray-100">
               <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
@@ -377,8 +364,8 @@
                   </svg>
                 </div>
                 <div>
-                  <p class="text-sm font-medium text-gray-900">Message read!</p>
-                  <p class="text-xs text-gray-500">Just now</p>
+                  <p class="text-sm font-medium text-gray-900"><%= t('pages.home.how_it_works.step3.notification') %></p>
+                  <p class="text-xs text-gray-500"><%= t('pages.home.how_it_works.step3.notification_time') %></p>
                 </div>
               </div>
             </div>
@@ -392,97 +379,89 @@
   <section id="features" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-16">
-        <h2 class="text-3xl font-bold text-gray-900">Everything you need</h2>
-        <p class="text-gray-600 mt-4 text-lg">Powerful features to help you communicate with confidence</p>
+        <h2 class="text-3xl font-bold text-gray-900"><%= t('pages.home.features.title') %></h2>
+        <p class="text-gray-600 mt-4 text-lg"><%= t('pages.home.features.subtitle') %></p>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <!-- Feature 1 -->
         <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
           <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-4">
             <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
             </svg>
           </div>
-          <h3 class="font-semibold text-gray-900 mb-2">Multi-channel sharing</h3>
-          <p class="text-gray-600 text-sm">Works with email, Slack, WhatsApp, SMS, and any platform that supports links.</p>
+          <h3 class="font-semibold text-gray-900 mb-2"><%= t('pages.home.features.multi_channel.title') %></h3>
+          <p class="text-gray-600 text-sm"><%= t('pages.home.features.multi_channel.description') %></p>
         </div>
 
-        <!-- Feature 2 -->
         <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
           <div class="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center mb-4">
             <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
             </svg>
           </div>
-          <h3 class="font-semibold text-gray-900 mb-2">Real-time notifications</h3>
-          <p class="text-gray-600 text-sm">Get instant email alerts the moment your message is opened.</p>
+          <h3 class="font-semibold text-gray-900 mb-2"><%= t('pages.home.features.realtime.title') %></h3>
+          <p class="text-gray-600 text-sm"><%= t('pages.home.features.realtime.description') %></p>
         </div>
 
-        <!-- Feature 3 -->
         <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
           <div class="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center mb-4">
             <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
             </svg>
           </div>
-          <h3 class="font-semibold text-gray-900 mb-2">Analytics dashboard</h3>
-          <p class="text-gray-600 text-sm">Track who viewed, when they viewed, and how many times.</p>
+          <h3 class="font-semibold text-gray-900 mb-2"><%= t('pages.home.features.analytics.title') %></h3>
+          <p class="text-gray-600 text-sm"><%= t('pages.home.features.analytics.description') %></p>
         </div>
 
-        <!-- Feature 4 -->
         <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
           <div class="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center mb-4">
             <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
             </svg>
           </div>
-          <h3 class="font-semibold text-gray-900 mb-2">Rich text editor</h3>
-          <p class="text-gray-600 text-sm">Format your messages with bold, lists, links, and more.</p>
+          <h3 class="font-semibold text-gray-900 mb-2"><%= t('pages.home.features.rich_text.title') %></h3>
+          <p class="text-gray-600 text-sm"><%= t('pages.home.features.rich_text.description') %></p>
         </div>
 
-        <!-- Feature 5 -->
         <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
           <div class="w-12 h-12 bg-red-50 rounded-xl flex items-center justify-center mb-4">
             <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
             </svg>
           </div>
-          <h3 class="font-semibold text-gray-900 mb-2">Password protection</h3>
-          <p class="text-gray-600 text-sm">Secure sensitive messages with a password for added privacy.</p>
+          <h3 class="font-semibold text-gray-900 mb-2"><%= t('pages.home.features.password.title') %></h3>
+          <p class="text-gray-600 text-sm"><%= t('pages.home.features.password.description') %></p>
         </div>
 
-        <!-- Feature 6 -->
         <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
           <div class="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center mb-4">
             <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
           </div>
-          <h3 class="font-semibold text-gray-900 mb-2">Expiration dates</h3>
-          <p class="text-gray-600 text-sm">Set messages to expire after a specific date or time.</p>
+          <h3 class="font-semibold text-gray-900 mb-2"><%= t('pages.home.features.expiration.title') %></h3>
+          <p class="text-gray-600 text-sm"><%= t('pages.home.features.expiration.description') %></p>
         </div>
 
-        <!-- Feature 7 -->
         <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
           <div class="w-12 h-12 bg-teal-50 rounded-xl flex items-center justify-center mb-4">
             <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
             </svg>
           </div>
-          <h3 class="font-semibold text-gray-900 mb-2">Read limits</h3>
-          <p class="text-gray-600 text-sm">Limit how many times a message can be viewed.</p>
+          <h3 class="font-semibold text-gray-900 mb-2"><%= t('pages.home.features.read_limits.title') %></h3>
+          <p class="text-gray-600 text-sm"><%= t('pages.home.features.read_limits.description') %></p>
         </div>
 
-        <!-- Feature 8 -->
         <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
           <div class="w-12 h-12 bg-pink-50 rounded-xl flex items-center justify-center mb-4">
             <svg class="w-6 h-6 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
             </svg>
           </div>
-          <h3 class="font-semibold text-gray-900 mb-2">No signup for recipients</h3>
-          <p class="text-gray-600 text-sm">Recipients can view messages instantly without creating an account.</p>
+          <h3 class="font-semibold text-gray-900 mb-2"><%= t('pages.home.features.no_signup.title') %></h3>
+          <p class="text-gray-600 text-sm"><%= t('pages.home.features.no_signup.description') %></p>
         </div>
       </div>
     </div>
@@ -492,100 +471,67 @@
   <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-16">
-        <p class="text-primary-600 font-medium mb-2">Trusted by professionals</p>
-        <h2 class="text-3xl font-bold text-gray-900">Join 500+ users who know when they're read</h2>
+        <p class="text-primary-600 font-medium mb-2"><%= t('pages.home.social_proof.trusted') %></p>
+        <h2 class="text-3xl font-bold text-gray-900"><%= t('pages.home.social_proof.title') %></h2>
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <!-- Testimonial 1 -->
         <div class="bg-gray-50 rounded-xl p-8 border border-gray-100">
           <div class="flex items-center gap-1 mb-4">
-            <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-            </svg>
-            <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-            </svg>
-            <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-            </svg>
-            <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-            </svg>
-            <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-            </svg>
+            <% 5.times do %>
+              <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+              </svg>
+            <% end %>
           </div>
-          <p class="text-gray-600 mb-6">"Finally, I know when clients actually read my proposals. No more awkward follow-up emails wondering if they saw it."</p>
+          <p class="text-gray-600 mb-6">"<%= t('pages.home.social_proof.testimonial1.quote') %>"</p>
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
               <span class="text-primary-600 font-semibold">SK</span>
             </div>
             <div>
-              <p class="font-medium text-gray-900">Sarah Kim</p>
-              <p class="text-sm text-gray-500">Freelance Designer</p>
+              <p class="font-medium text-gray-900"><%= t('pages.home.social_proof.testimonial1.name') %></p>
+              <p class="text-sm text-gray-500"><%= t('pages.home.social_proof.testimonial1.role') %></p>
             </div>
           </div>
         </div>
 
-        <!-- Testimonial 2 -->
         <div class="bg-gray-50 rounded-xl p-8 border border-gray-100">
           <div class="flex items-center gap-1 mb-4">
-            <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-            </svg>
-            <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-            </svg>
-            <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-            </svg>
-            <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-            </svg>
-            <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-            </svg>
+            <% 5.times do %>
+              <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+              </svg>
+            <% end %>
           </div>
-          <p class="text-gray-600 mb-6">"I use it for all my sales follow-ups. Knowing when a prospect opens my message helps me time my calls perfectly."</p>
+          <p class="text-gray-600 mb-6">"<%= t('pages.home.social_proof.testimonial2.quote') %>"</p>
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
               <span class="text-green-600 font-semibold">MJ</span>
             </div>
             <div>
-              <p class="font-medium text-gray-900">Mike Johnson</p>
-              <p class="text-sm text-gray-500">Sales Manager</p>
+              <p class="font-medium text-gray-900"><%= t('pages.home.social_proof.testimonial2.name') %></p>
+              <p class="text-sm text-gray-500"><%= t('pages.home.social_proof.testimonial2.role') %></p>
             </div>
           </div>
         </div>
 
-        <!-- Testimonial 3 -->
         <div class="bg-gray-50 rounded-xl p-8 border border-gray-100">
           <div class="flex items-center gap-1 mb-4">
-            <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-            </svg>
-            <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-            </svg>
-            <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-            </svg>
-            <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-            </svg>
-            <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-            </svg>
+            <% 5.times do %>
+              <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+              </svg>
+            <% end %>
           </div>
-          <p class="text-gray-600 mb-6">"The password protection feature is perfect for sending sensitive information. Simple yet secure."</p>
+          <p class="text-gray-600 mb-6">"<%= t('pages.home.social_proof.testimonial3.quote') %>"</p>
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
               <span class="text-purple-600 font-semibold">EP</span>
             </div>
             <div>
-              <p class="font-medium text-gray-900">Emma Park</p>
-              <p class="text-sm text-gray-500">Consultant</p>
+              <p class="font-medium text-gray-900"><%= t('pages.home.social_proof.testimonial3.name') %></p>
+              <p class="text-sm text-gray-500"><%= t('pages.home.social_proof.testimonial3.role') %></p>
             </div>
           </div>
         </div>
@@ -596,92 +542,77 @@
   <!-- Pricing Preview Section -->
   <section id="pricing" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
     <div class="max-w-5xl mx-auto" x-data="{ yearly: false }">
-      <!-- Section Header -->
       <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-gray-900">Simple Pricing</h2>
-        <p class="text-gray-600 mt-4 text-lg">Start free. Upgrade when you need more.</p>
+        <h2 class="text-3xl font-bold text-gray-900"><%= t('pages.home.pricing.title') %></h2>
+        <p class="text-gray-600 mt-4 text-lg"><%= t('pages.home.pricing.subtitle') %></p>
       </div>
 
-      <!-- Billing Toggle -->
       <div class="flex justify-center mb-10">
         <div class="inline-flex items-center gap-3 bg-white rounded-full p-1 shadow-sm border border-gray-200">
-          <button
-            @click="yearly = false"
-            :class="!yearly ? 'bg-primary-600 text-white' : 'text-gray-600 hover:text-gray-900'"
-            class="px-4 py-2 rounded-full text-sm font-medium transition-colors"
-          >
-            Monthly
+          <button @click="yearly = false" :class="!yearly ? 'bg-primary-600 text-white' : 'text-gray-600 hover:text-gray-900'" class="px-4 py-2 rounded-full text-sm font-medium transition-colors">
+            <%= t('pages.home.pricing.monthly') %>
           </button>
-          <button
-            @click="yearly = true"
-            :class="yearly ? 'bg-primary-600 text-white' : 'text-gray-600 hover:text-gray-900'"
-            class="px-4 py-2 rounded-full text-sm font-medium transition-colors"
-          >
-            Yearly <span class="text-xs opacity-75">(Save 17%)</span>
+          <button @click="yearly = true" :class="yearly ? 'bg-primary-600 text-white' : 'text-gray-600 hover:text-gray-900'" class="px-4 py-2 rounded-full text-sm font-medium transition-colors">
+            <%= t('pages.home.pricing.yearly') %> <span class="text-xs opacity-75"><%= t('pages.home.pricing.save') %></span>
           </button>
         </div>
       </div>
 
-      <!-- Pricing Cards -->
       <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-
-        <!-- Free Plan -->
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
-          <h3 class="text-xl font-semibold text-gray-900 mb-2">Free</h3>
+          <h3 class="text-xl font-semibold text-gray-900 mb-2"><%= t('pages.home.pricing.free.name') %></h3>
           <div class="flex items-baseline gap-1 mb-1">
             <span class="text-5xl font-bold text-gray-900">$0</span>
           </div>
-          <p class="text-gray-500 text-sm mb-6">forever</p>
+          <p class="text-gray-500 text-sm mb-6"><%= t('common.forever') %></p>
 
           <ul class="space-y-3 mb-8">
             <li class="flex items-center gap-3 text-gray-600">
               <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
               </svg>
-              10 messages/month
+              <%= t('pages.home.pricing.free.messages') %>
             </li>
             <li class="flex items-center gap-3 text-gray-600">
               <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
               </svg>
-              Basic tracking
+              <%= t('pages.home.pricing.free.tracking') %>
             </li>
             <li class="flex items-center gap-3 text-gray-600">
               <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
               </svg>
-              7-day history
+              <%= t('pages.home.pricing.free.history') %>
             </li>
             <li class="flex items-center gap-3 text-gray-600">
               <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
               </svg>
-              Email notifications
+              <%= t('pages.home.pricing.free.notifications') %>
             </li>
           </ul>
 
           <%= link_to login_path, class: "block w-full text-center px-6 py-3 rounded-lg font-medium border-2 border-primary-600 text-primary-600 hover:bg-primary-50 transition-colors" do %>
-            Get Started
+            <%= t('pages.home.pricing.free.cta') %>
           <% end %>
-          <p class="text-center text-xs text-gray-500 mt-3">No credit card required</p>
+          <p class="text-center text-xs text-gray-500 mt-3"><%= t('pages.home.pricing.free.note') %></p>
         </div>
 
-        <!-- Pro Plan (Featured) -->
         <div class="bg-white rounded-xl shadow-lg border-2 border-primary-600 p-8 relative scale-[1.02] md:scale-105 origin-top">
-          <!-- Most Popular Badge -->
           <div class="absolute -top-3 left-1/2 -translate-x-1/2">
             <span class="inline-block bg-primary-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
-              Most Popular
+              <%= t('pages.home.pricing.pro.badge') %>
             </span>
           </div>
 
-          <h3 class="text-xl font-semibold text-gray-900 mb-2 mt-2">Pro</h3>
+          <h3 class="text-xl font-semibold text-gray-900 mb-2 mt-2"><%= t('pages.home.pricing.pro.name') %></h3>
           <div class="flex items-baseline gap-1 mb-1">
             <span class="text-5xl font-bold text-gray-900" x-text="yearly ? '$10' : '$12'">$12</span>
           </div>
           <p class="text-gray-500 text-sm mb-6">
-            <span x-show="!yearly">/month</span>
-            <span x-show="yearly" x-cloak>per month, $120 billed yearly</span>
+            <span x-show="!yearly"><%= t('common.month') %></span>
+            <span x-show="yearly" x-cloak><%= t('pages.home.pricing.pro.yearly_note') %></span>
           </p>
 
           <ul class="space-y-3 mb-8">
@@ -689,47 +620,45 @@
               <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
               </svg>
-              <strong class="text-gray-900">Unlimited</strong>&nbsp;messages
+              <strong class="text-gray-900"><%= t('pages.home.pricing.pro.messages') %></strong>&nbsp;<%= t('pages.home.pricing.pro.messages_suffix') %>
             </li>
             <li class="flex items-center gap-3 text-gray-600">
               <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
               </svg>
-              Advanced analytics
+              <%= t('pages.home.pricing.pro.analytics') %>
             </li>
             <li class="flex items-center gap-3 text-gray-600">
               <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
               </svg>
-              1-year history
+              <%= t('pages.home.pricing.pro.history') %>
             </li>
             <li class="flex items-center gap-3 text-gray-600">
               <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
               </svg>
-              Priority support
+              <%= t('pages.home.pricing.pro.support') %>
             </li>
           </ul>
 
           <%= link_to login_path, class: "block w-full text-center px-6 py-3 rounded-lg font-medium bg-primary-600 text-white hover:bg-primary-700 transition-colors shadow-sm" do %>
-            Try Free for 14 Days
+            <%= t('pages.home.pricing.pro.cta') %>
           <% end %>
-          <p class="text-center text-xs text-gray-500 mt-3">No credit card required</p>
+          <p class="text-center text-xs text-gray-500 mt-3"><%= t('pages.home.pricing.pro.note') %></p>
         </div>
       </div>
 
-      <!-- Team Plan Link -->
       <div class="text-center mt-10">
         <p class="text-sm text-gray-500">
-          Need a team plan?
-          <a href="mailto:hello@messageopen.com" class="text-primary-600 hover:text-primary-700 font-medium">Contact us</a>
+          <%= t('pages.home.pricing.team.question') %>
+          <a href="mailto:hello@messageopen.com" class="text-primary-600 hover:text-primary-700 font-medium"><%= t('pages.home.pricing.team.link') %></a>
         </p>
       </div>
 
-      <!-- Full Pricing Page Link -->
       <div class="text-center mt-4">
         <%= link_to pricing_path, class: "text-sm text-gray-500 hover:text-gray-700 underline underline-offset-2" do %>
-          View full pricing details →
+          <%= t('pages.home.pricing.full_pricing') %>
         <% end %>
       </div>
     </div>
@@ -738,21 +667,14 @@
   <!-- Final CTA Section -->
   <section class="py-20 px-4 sm:px-6 lg:px-8 bg-primary-600">
     <div class="max-w-3xl mx-auto text-center">
-      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Ready to try MessageOpen?</h2>
-      <p class="text-primary-100 text-lg mb-8">Join thousands of professionals who communicate with confidence.</p>
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4"><%= t('pages.home.cta.title') %></h2>
+      <p class="text-primary-100 text-lg mb-8"><%= t('pages.home.cta.subtitle') %></p>
 
-      <!-- Email Signup Form -->
       <%= form_with url: login_path, method: :get, class: "max-w-md mx-auto" do |f| %>
         <div class="flex flex-col sm:flex-row gap-3">
-          <input
-            type="email"
-            name="email"
-            placeholder="Enter your email"
-            class="flex-1 px-4 py-4 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50"
-            required
-          >
+          <input type="email" name="email" placeholder="<%= t('pages.home.cta.placeholder') %>" class="flex-1 px-4 py-4 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50" required>
           <button type="submit" class="inline-flex items-center justify-center gap-2 bg-white text-primary-600 px-6 py-4 rounded-lg font-medium hover:bg-primary-50 transition-colors whitespace-nowrap">
-            Start Free
+            <%= t('pages.home.cta.button') %>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
             </svg>
@@ -760,7 +682,7 @@
         </div>
       <% end %>
 
-      <p class="text-primary-200 text-sm mt-6">No credit card required. Free plan available.</p>
+      <p class="text-primary-200 text-sm mt-6"><%= t('pages.home.cta.note') %></p>
     </div>
   </section>
 
@@ -774,14 +696,14 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
             </svg>
           </div>
-          <span class="font-semibold text-white">MessageOpen</span>
+          <span class="font-semibold text-white"><%= t('app.name') %></span>
         </div>
 
         <nav class="flex flex-wrap justify-center gap-6 text-sm">
-          <a href="#how-it-works" class="hover:text-white transition-colors">How it Works</a>
-          <a href="#features" class="hover:text-white transition-colors">Features</a>
-          <%= link_to "Pricing", pricing_path, class: "hover:text-white transition-colors" %>
-          <a href="mailto:support@messageopen.io" class="hover:text-white transition-colors">Support</a>
+          <a href="#how-it-works" class="hover:text-white transition-colors"><%= t('nav.how_it_works') %></a>
+          <a href="#features" class="hover:text-white transition-colors"><%= t('nav.features') %></a>
+          <%= link_to t('nav.pricing'), pricing_path, class: "hover:text-white transition-colors" %>
+          <a href="mailto:support@messageopen.io" class="hover:text-white transition-colors"><%= t('common.support') %></a>
         </nav>
 
         <div class="flex items-center gap-4">
@@ -799,7 +721,7 @@
       </div>
 
       <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm">
-        <p>&copy; 2025 MessageOpen. All rights reserved.</p>
+        <p><%= t('app.copyright') %></p>
       </div>
     </div>
   </footer>

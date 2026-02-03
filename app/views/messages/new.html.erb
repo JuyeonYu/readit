@@ -1,4 +1,4 @@
-<% content_for(:title) { "Compose Message - MessageOpen" } %>
+<% content_for(:title) { t('messages.new.title') } %>
 
 <div class="min-h-screen bg-gray-50">
   <!-- Header -->
@@ -12,7 +12,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
               </svg>
             </div>
-            <span class="font-semibold text-gray-900">MessageOpen</span>
+            <span class="font-semibold text-gray-900"><%= t('app.name') %></span>
           <% end %>
         </div>
         <div class="flex items-center gap-4">
@@ -27,7 +27,7 @@
               end
             %>
             <span class="text-xs font-medium px-2.5 py-1 rounded-full <%= badge_color %> hidden sm:block">
-              <%= @messages_this_month %>/<%= @message_limit %> messages
+              <%= @messages_this_month %>/<%= @message_limit %> <%= t('dashboard.usage.messages') %>
             </span>
           <% end %>
           <span class="text-sm text-gray-500 hidden sm:block"><%= current_user.email %></span>
@@ -67,15 +67,15 @@
           <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
             <!-- Editor Header -->
             <div class="px-6 py-4 border-b border-gray-100">
-              <h1 class="text-lg font-semibold text-gray-900">Compose Message</h1>
-              <p class="text-sm text-gray-500 mt-1">Write your message and share it with anyone</p>
+              <h1 class="text-lg font-semibold text-gray-900"><%= t('messages.new.header') %></h1>
+              <p class="text-sm text-gray-500 mt-1"><%= t('messages.new.subtitle') %></p>
             </div>
 
             <!-- Rich Text Editor -->
             <div class="p-6">
               <div data-controller="trix-editor" class="trix-wrapper">
                 <%= f.rich_text_area :content,
-                    placeholder: "Write your message...",
+                    placeholder: t('messages.new.placeholder'),
                     class: "min-h-[400px] focus:outline-none",
                     data: { message_form_target: "content" } %>
               </div>
@@ -85,7 +85,7 @@
             <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 flex justify-between items-center">
               <div class="flex items-center gap-3">
                 <%= link_to root_path, class: "text-sm text-gray-600 hover:text-gray-900 transition-colors" do %>
-                  Cancel
+                  <%= t('common.cancel') %>
                 <% end %>
                 <span class="text-xs text-gray-400 hidden sm:block" data-message-form-target="saveStatus">
                   <!-- Auto-save status will appear here -->
@@ -95,7 +95,7 @@
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
                 </svg>
-                Generate Link
+                <%= t('messages.new.generate_link') %>
               </button>
             </div>
           </div>
@@ -105,29 +105,29 @@
         <div class="lg:col-span-2 space-y-6">
           <!-- Message Settings -->
           <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h2 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4">Message Settings</h2>
+            <h2 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4"><%= t('messages.new.settings.title') %></h2>
 
             <!-- Title Field -->
             <div class="space-y-4">
               <div>
                 <label for="message_title" class="block text-sm font-medium text-gray-700 mb-1">
-                  Message Title
+                  <%= t('messages.new.settings.message_title.label') %>
                 </label>
                 <%= f.text_field :title,
-                    placeholder: "e.g., Project Proposal",
+                    placeholder: t('messages.new.settings.message_title.placeholder'),
                     maxlength: 50,
                     class: "w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors",
                     data: { message_form_target: "title", action: "input->message-form#countChars" } %>
                 <p class="mt-1 text-xs text-gray-500">
-                  <span data-message-form-target="charCount">0</span>/50 characters
+                  <span data-message-form-target="charCount">0</span>/50 <%= t('common.characters') %>
                 </p>
               </div>
 
               <!-- Notification Toggle -->
               <div class="flex items-center justify-between py-3 border-t border-gray-100">
                 <div>
-                  <p class="text-sm font-medium text-gray-900">Notify when opened</p>
-                  <p class="text-xs text-gray-500">Get email when someone reads</p>
+                  <p class="text-sm font-medium text-gray-900"><%= t('messages.new.settings.notify.label') %></p>
+                  <p class="text-xs text-gray-500"><%= t('messages.new.settings.notify.description') %></p>
                 </div>
                 <label class="relative inline-flex items-center cursor-pointer">
                   <input type="checkbox" name="notify" checked class="sr-only peer">
@@ -137,20 +137,20 @@
 
               <!-- Expiration -->
               <div class="py-3 border-t border-gray-100">
-                <label class="block text-sm font-medium text-gray-900 mb-2">Expire after</label>
+                <label class="block text-sm font-medium text-gray-900 mb-2"><%= t('messages.new.settings.expire.label') %></label>
                 <select name="message[expires_in]" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white">
-                  <option value="">Never</option>
-                  <option value="1">1 day</option>
-                  <option value="7">7 days</option>
-                  <option value="30">30 days</option>
+                  <option value=""><%= t('common.never') %></option>
+                  <option value="1"><%= t('messages.new.settings.expire.day_1') %></option>
+                  <option value="7"><%= t('messages.new.settings.expire.day_7') %></option>
+                  <option value="30"><%= t('messages.new.settings.expire.day_30') %></option>
                 </select>
               </div>
 
               <!-- Read Limit -->
               <div class="flex items-center justify-between py-3 border-t border-gray-100">
                 <div>
-                  <p class="text-sm font-medium text-gray-900">One-time read</p>
-                  <p class="text-xs text-gray-500">Message disappears after viewing</p>
+                  <p class="text-sm font-medium text-gray-900"><%= t('messages.new.settings.one_time.label') %></p>
+                  <p class="text-xs text-gray-500"><%= t('messages.new.settings.one_time.description') %></p>
                 </div>
                 <label class="relative inline-flex items-center cursor-pointer">
                   <%= f.check_box :max_read_count,
@@ -164,8 +164,8 @@
               <div class="py-3 border-t border-gray-100" data-controller="password-toggle">
                 <div class="flex items-center justify-between mb-3">
                   <div>
-                    <p class="text-sm font-medium text-gray-900">Password protect</p>
-                    <p class="text-xs text-gray-500">Require password to view</p>
+                    <p class="text-sm font-medium text-gray-900"><%= t('messages.new.settings.password.label') %></p>
+                    <p class="text-xs text-gray-500"><%= t('messages.new.settings.password.description') %></p>
                   </div>
                   <label class="relative inline-flex items-center cursor-pointer">
                     <input type="checkbox" class="sr-only peer" data-password-toggle-target="checkbox" data-action="change->password-toggle#toggle">
@@ -174,7 +174,7 @@
                 </div>
                 <div class="hidden" data-password-toggle-target="field">
                   <%= f.password_field :password,
-                      placeholder: "Enter password (min 6 chars)",
+                      placeholder: t('messages.new.settings.password.placeholder'),
                       minlength: 6,
                       class: "w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors" %>
                 </div>
@@ -182,20 +182,60 @@
             </div>
           </div>
 
-          <!-- Link Preview -->
+          <!-- Link Preview (OG Style) -->
           <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h2 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4">Link Preview</h2>
-            <div class="bg-gray-50 rounded-lg p-4 border border-gray-100">
-              <p class="text-xs text-gray-500 mb-2">Your shareable link will look like:</p>
-              <code class="text-sm font-mono text-primary-600 break-all">
-                <%= request.base_url %>/m/<span class="text-gray-400">xyz123</span>
-              </code>
+            <h2 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4"><%= t('messages.new.link_preview.title') %></h2>
+            <p class="text-xs text-gray-500 mb-3"><%= t('messages.new.link_preview.subtitle') %></p>
+
+            <!-- OG Preview Card -->
+            <div class="border border-gray-200 rounded-lg overflow-hidden bg-white shadow-sm">
+              <!-- OG Image Area -->
+              <div class="bg-gradient-to-br from-primary-500 to-primary-600 h-32 flex items-center justify-center relative">
+                <div class="absolute inset-0 opacity-10">
+                  <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+                      <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" stroke-width="0.5"/>
+                    </pattern>
+                    <rect width="100" height="100" fill="url(#grid)"/>
+                  </svg>
+                </div>
+                <div class="text-center z-10">
+                  <div class="w-14 h-14 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center mx-auto mb-2">
+                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                  </div>
+                  <p class="text-white/80 text-xs font-medium"><%= t('messages.new.link_preview.secure_message') %></p>
+                </div>
+              </div>
+
+              <!-- OG Content -->
+              <div class="p-4">
+                <!-- Title (updates in real-time) -->
+                <h3 class="font-semibold text-gray-900 text-sm leading-snug mb-1" id="og-preview-title">
+                  <%= t('messages.new.link_preview.default_title') %>
+                </h3>
+                <!-- Description -->
+                <p class="text-xs text-gray-500 mb-2 line-clamp-2">
+                  <%= t('messages.new.link_preview.description') %>
+                </p>
+                <!-- Site Info -->
+                <div class="flex items-center gap-1.5 text-xs text-gray-400">
+                  <div class="w-4 h-4 bg-primary-600 rounded flex items-center justify-center flex-shrink-0">
+                    <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8"/>
+                    </svg>
+                  </div>
+                  <span class="truncate"><%= request.host %></span>
+                </div>
+              </div>
             </div>
-            <p class="text-xs text-gray-500 mt-3">
-              <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+            <p class="text-xs text-gray-500 mt-3 flex items-start gap-1.5">
+              <svg class="w-4 h-4 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>
-              Share this link via email, Slack, WhatsApp, or any channel
+              <span><%= t('messages.new.link_preview.note') %></span>
             </p>
           </div>
 
@@ -206,7 +246,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
               </svg>
               <div>
-                <p class="text-sm font-medium text-primary-900">You'll be notified at</p>
+                <p class="text-sm font-medium text-primary-900"><%= t('messages.new.notification_info.title') %></p>
                 <p class="text-sm text-primary-700"><%= current_user.email %></p>
               </div>
             </div>
@@ -237,16 +277,26 @@
       }
     });
 
-    // Character count for title
+    // Character count for title and OG preview update
     const titleInput = document.querySelector('[data-message-form-target="title"]');
     const charCount = document.querySelector('[data-message-form-target="charCount"]');
+    const ogPreviewTitle = document.getElementById('og-preview-title');
+    const defaultTitle = '<%= j t('messages.new.link_preview.default_title') %>';
 
     if (titleInput && charCount) {
       titleInput.addEventListener('input', function() {
         charCount.textContent = this.value.length;
+
+        // Update OG preview title
+        if (ogPreviewTitle) {
+          ogPreviewTitle.textContent = this.value.trim() || defaultTitle;
+        }
       });
       // Initialize
       charCount.textContent = titleInput.value.length;
+      if (ogPreviewTitle && titleInput.value.trim()) {
+        ogPreviewTitle.textContent = titleInput.value.trim();
+      }
     }
   });
 </script>

@@ -37,7 +37,7 @@ class ReadMessageServiceTest < ActiveSupport::TestCase
     result = ReadMessageService.call(@message, viewer_token_hash: @viewer_token_hash)
 
     assert_not result.success?
-    assert_equal "더 이상 읽을 수 없습니다", result.error
+    assert_equal I18n.t('errors.message_unreadable'), result.error
     assert_equal 0, @message.reload.read_count
   end
 

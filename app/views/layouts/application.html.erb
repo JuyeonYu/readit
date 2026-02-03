@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title><%= content_for(:title) || "MessageOpen" %></title>
+    <title><%= content_for(:title) || t('app.name') %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="MessageOpen">
+    <meta name="application-name" content="<%= t('app.name') %>">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="description" content="Share messages via link and know when they're read. Works across any channel.">
+    <meta name="description" content="<%= t('app.description') %>">
 
     <%# Favicon %>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -14,12 +14,17 @@
     <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32.svg">
     <link rel="apple-touch-icon" href="/logo.svg">
 
-    <%# Open Graph %>
-    <meta property="og:title" content="<%= content_for(:title) || 'MessageOpen' %>">
-    <meta property="og:description" content="Share messages via link and know when they're read. Works across any channel.">
-    <meta property="og:image" content="<%= request.base_url %>/og-image.svg">
+    <%# Open Graph - can be overridden with content_for %>
+    <meta property="og:title" content="<%= content_for?(:og_title) ? yield(:og_title) : (content_for(:title) || t('app.name')) %>">
+    <meta property="og:description" content="<%= content_for?(:og_description) ? yield(:og_description) : t('app.description') %>">
+    <meta property="og:image" content="<%= content_for?(:og_image) ? yield(:og_image) : "#{request.base_url}/og-image.png" %>">
+    <meta property="og:url" content="<%= request.original_url %>">
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="<%= t('app.name') %>">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<%= content_for?(:og_title) ? yield(:og_title) : (content_for(:title) || t('app.name')) %>">
+    <meta name="twitter:description" content="<%= content_for?(:og_description) ? yield(:og_description) : t('app.description') %>">
+    <meta name="twitter:image" content="<%= content_for?(:og_image) ? yield(:og_image) : "#{request.base_url}/og-image.png" %>">
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>

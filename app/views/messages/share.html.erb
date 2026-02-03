@@ -1,4 +1,4 @@
-<% content_for(:title) { "#{@message.title} - MessageOpen" } %>
+<% content_for(:title) { t('messages.share.title', message_title: @message.title) } %>
 
 <div class="min-h-screen bg-gray-50">
   <!-- Header -->
@@ -12,17 +12,17 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
               </svg>
             </div>
-            <span class="font-semibold text-gray-900">MessageOpen</span>
+            <span class="font-semibold text-gray-900"><%= t('app.name') %></span>
           <% end %>
         </div>
         <div class="flex items-center gap-4">
           <span class="text-sm text-gray-500 hidden sm:block"><%= current_user.email %></span>
-          <%= link_to dashboard_path, class: "p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors", title: "Dashboard" do %>
+          <%= link_to dashboard_path, class: "p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors", title: t('nav.dashboard') do %>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
             </svg>
           <% end %>
-          <%= link_to notifications_path, class: "p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors", title: "Notifications" do %>
+          <%= link_to notifications_path, class: "p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors", title: t('nav.notifications') do %>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
             </svg>
@@ -41,20 +41,20 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
           </svg>
         </div>
-        <h2 class="text-xl font-bold text-green-900 mb-2">Link Generated!</h2>
-        <p class="text-green-700">Your message is ready to share. Copy the link below.</p>
+        <h2 class="text-xl font-bold text-green-900 mb-2"><%= t('messages.share.success.title') %></h2>
+        <p class="text-green-700"><%= t('messages.share.success.subtitle') %></p>
       </div>
     <% end %>
 
     <!-- Share Link Card -->
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
       <div class="flex items-center justify-between mb-4">
-        <h2 class="text-lg font-semibold text-gray-900">Shareable Link</h2>
+        <h2 class="text-lg font-semibold text-gray-900"><%= t('messages.share.shareable_link') %></h2>
         <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-green-50 text-green-700 text-xs font-medium rounded-full">
           <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
           </svg>
-          Active
+          <%= t('common.active') %>
         </span>
       </div>
 
@@ -71,20 +71,20 @@
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
           </svg>
-          <span id="copy-text">Copy Link</span>
+          <span id="copy-text"><%= t('messages.share.copy_link') %></span>
         </button>
       </div>
 
       <!-- Share Options -->
       <div class="mt-6 pt-6 border-t border-gray-100">
-        <p class="text-sm text-gray-500 mb-3">Share via</p>
+        <p class="text-sm text-gray-500 mb-3"><%= t('messages.share.share_via') %></p>
         <div class="flex flex-wrap gap-3">
           <a href="mailto:?subject=<%= ERB::Util.url_encode(@message.title) %>&body=<%= ERB::Util.url_encode("Check out this message: #{read_message_url(@message.token)}") %>"
              class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm text-gray-700 transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
             </svg>
-            Email
+            <%= t('common.email') %>
           </a>
           <a href="https://wa.me/?text=<%= ERB::Util.url_encode("#{@message.title}: #{read_message_url(@message.token)}") %>"
              target="_blank"
@@ -92,14 +92,14 @@
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
             </svg>
-            WhatsApp
+            <%= t('messages.share.whatsapp') %>
           </a>
           <a href="slack://channel?team=&id=&message=<%= ERB::Util.url_encode(read_message_url(@message.token)) %>"
              class="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 hover:bg-purple-200 rounded-lg text-sm text-purple-700 transition-colors">
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
               <path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/>
             </svg>
-            Slack
+            <%= t('messages.share.slack') %>
           </a>
         </div>
       </div>
@@ -110,13 +110,13 @@
       <!-- Message Content -->
       <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
         <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
-          <h3 class="font-semibold text-gray-900">Message Content</h3>
+          <h3 class="font-semibold text-gray-900"><%= t('messages.share.message_content') %></h3>
           <% if @message.password_digest.present? %>
             <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-purple-50 text-purple-700 text-xs font-medium rounded-full">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
               </svg>
-              Password Protected
+              <%= t('messages.share.password_protected') %>
             </span>
           <% end %>
         </div>
@@ -134,14 +134,14 @@
                   <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                   </svg>
-                  Expires <%= format_date_short(@message.expires_at) %>
+                  <%= t('dashboard.message.expires') %> <%= format_date_short(@message.expires_at) %>
                 </span>
               <% else %>
                 <span class="inline-flex items-center gap-1 text-xs text-red-700">
                   <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                   </svg>
-                  Expired
+                  <%= t('common.expired') %>
                 </span>
               <% end %>
             <% end %>
@@ -150,7 +150,7 @@
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
-                One-time read
+                <%= t('messages.share.one_time_read') %>
               </span>
             <% end %>
           </div>
@@ -160,25 +160,25 @@
       <!-- Read Analytics -->
       <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
         <div class="px-6 py-4 border-b border-gray-100">
-          <h3 class="font-semibold text-gray-900">Read Analytics</h3>
+          <h3 class="font-semibold text-gray-900"><%= t('messages.share.read_analytics') %></h3>
         </div>
 
         <!-- Stats -->
         <div class="grid grid-cols-2 divide-x divide-gray-100 border-b border-gray-100">
           <div class="p-6 text-center">
             <p class="text-3xl font-bold text-primary-600"><%= @message.unique_reader_count %></p>
-            <p class="text-sm text-gray-500">Unique Readers</p>
+            <p class="text-sm text-gray-500"><%= t('messages.share.unique_readers') %></p>
           </div>
           <div class="p-6 text-center">
             <p class="text-3xl font-bold text-gray-900"><%= @message.read_count %></p>
-            <p class="text-sm text-gray-500">Total Views</p>
+            <p class="text-sm text-gray-500"><%= t('messages.share.total_views') %></p>
           </div>
         </div>
 
         <!-- Read History -->
         <div class="p-6">
           <% if @grouped_reads.any? %>
-            <p class="text-sm text-gray-500 mb-4">Recent activity</p>
+            <p class="text-sm text-gray-500 mb-4"><%= t('messages.share.recent_activity') %></p>
             <ul class="space-y-3 max-h-64 overflow-y-auto">
               <% @grouped_reads.each_with_index do |(viewer_hash, events), index| %>
                 <li class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
@@ -186,9 +186,9 @@
                     <span class="text-sm font-medium text-primary-600">#<%= @grouped_reads.size - index %></span>
                   </div>
                   <div class="flex-1 min-w-0">
-                    <p class="text-sm font-medium text-gray-900"><%= events.size %> view<%= events.size > 1 ? 's' : '' %></p>
+                    <p class="text-sm font-medium text-gray-900"><%= events.size %> <%= events.size > 1 ? t('messages.share.views') : t('messages.share.view') %></p>
                     <p class="text-xs text-gray-500">
-                      Last read <%= time_ago_in_words(events.last.read_at) %> ago
+                      <%= t('messages.share.last_read') %> <%= time_ago_in_words(events.last.read_at) %> <%= t('common.ago') %>
                     </p>
                   </div>
                 </li>
@@ -202,8 +202,8 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                 </svg>
               </div>
-              <p class="text-sm text-gray-500">No one has read this message yet</p>
-              <p class="text-xs text-gray-400 mt-1">Share the link to start tracking</p>
+              <p class="text-sm text-gray-500"><%= t('messages.share.empty.title') %></p>
+              <p class="text-xs text-gray-400 mt-1"><%= t('messages.share.empty.subtitle') %></p>
             </div>
           <% end %>
         </div>
@@ -216,13 +216,13 @@
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
         </svg>
-        Create Another Message
+        <%= t('messages.share.actions.create_another') %>
       <% end %>
       <%= link_to root_path, class: "inline-flex items-center justify-center gap-2 text-gray-600 hover:text-gray-900 px-6 py-3 rounded-lg font-medium transition-colors" do %>
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
         </svg>
-        Back to Dashboard
+        <%= t('nav.back_to_dashboard') %>
       <% end %>
     </div>
   </main>
@@ -238,13 +238,13 @@ function copyLink() {
     // Show success state
     btn.classList.remove('bg-primary-600', 'hover:bg-primary-700');
     btn.classList.add('bg-green-600', 'hover:bg-green-700');
-    btnText.textContent = 'Copied!';
+    btnText.textContent = '<%= j t('common.copied') %>';
 
     // Reset after 2 seconds
     setTimeout(() => {
       btn.classList.remove('bg-green-600', 'hover:bg-green-700');
       btn.classList.add('bg-primary-600', 'hover:bg-primary-700');
-      btnText.textContent = 'Copy Link';
+      btnText.textContent = '<%= j t('messages.share.copy_link') %>';
     }, 2000);
   });
 }

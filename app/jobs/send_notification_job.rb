@@ -5,10 +5,10 @@ class SendNotificationJob < ApplicationJob
     message = Message.find(message_id)
     return unless message.sender_email.present?
 
-    # idempotency_key 생성 (읽은 사람당 1회만)
+    # Generate idempotency_key (once per unique viewer)
     idempotency_key = "message:#{message_id}:viewer:#{viewer_token_hash}"
 
-    # 중복 방지 (find_or_create_by)
+    # Prevent duplicates (find_or_create_by)
     notification = message.notifications.find_or_create_by!(
       idempotency_key: idempotency_key
     ) do |n|
@@ -17,10 +17,10 @@ class SendNotificationJob < ApplicationJob
       n.status = :pending
     end
 
-    # 이미 발송됐으면 skip
+    # Skip if already sent
     return if notification.sent?
 
-    # 메일 발송
+    # Send email
     begin
       MessageMailer.read_notification(message).deliver_now
       notification.update!(status: :sent, sent_at: Time.current)

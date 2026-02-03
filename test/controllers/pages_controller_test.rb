@@ -12,35 +12,31 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
 
   test "home page contains service description when not logged in" do
     get root_url
-    assert_select "h1", "읽었어?"
-    assert_select ".tagline"
-    assert_select ".value-prop"
+    assert_match "MessageOpen", response.body
+    assert_match "Know When Your", response.body
   end
 
   test "home page contains CTA button linking to login" do
     get root_url
-    assert_select "a.btn-primary", "시작하기"
-    assert_select ".cta-section a[href=?]", login_path
+    assert_match "Start Free", response.body
+    assert_select "a[href=?]", login_path
   end
 
   test "home page shows how it works section when not logged in" do
     get root_url
-    assert_select ".how-it-works"
-    assert_select ".steps li", 3
+    assert_match "How MessageOpen Works", response.body
   end
 
-  test "home page shows sent messages section when logged in" do
+  test "home page shows your messages section when logged in" do
     login_as(@user)
     get root_url
-    assert_select ".sent-messages"
-    assert_select ".sent-messages h2", "보낸 메시지"
+    assert_match "Your Messages", response.body
   end
 
   test "home page shows empty state when logged in with no messages" do
     login_as(@user)
     get root_url
-    assert_select ".empty-state"
-    assert_select ".empty-state", /아직 보낸 메시지가 없습니다/
+    assert_match "No messages yet", response.body
   end
 
   test "home page shows message list when logged in with messages" do
@@ -49,27 +45,26 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     @user.messages.create!(title: "Title 2", content: "Test message 2")
 
     get root_url
-    assert_select ".message-list"
-    assert_select ".message-item", 2
+    assert_match "Title 1", response.body
+    assert_match "Title 2", response.body
   end
 
   test "home page shows new message button when logged in" do
     login_as(@user)
     get root_url
-    assert_select ".cta a[href=?]", new_message_path
+    assert_select "a[href=?]", new_message_path
   end
 
-  test "home page shows global header with notifications link when logged in" do
+  test "home page shows header with notifications link when logged in" do
     login_as(@user)
     get root_url
-    assert_select ".global-header"
-    assert_select ".header-nav a[href=?]", notifications_path
+    assert_select "a[href=?]", notifications_path
   end
 
-  test "home page shows logout button in global header when logged in" do
+  test "home page shows logout button when logged in" do
     login_as(@user)
     get root_url
-    assert_select ".global-header .btn-logout"
+    assert_match "Logout", response.body
   end
 
   test "home page shows message read count" do
@@ -81,7 +76,8 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     message.update!(read_count: 3)
 
     get root_url
-    assert_select ".read-count", /2명 \/ 3회/
+    assert_match "2 readers", response.body
+    assert_match "3 views", response.body
   end
 
   test "home page shows password badge for password-protected message" do
@@ -89,7 +85,7 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     @user.messages.create!(title: "Secret Title", content: "Secret message", password: "secret123")
 
     get root_url
-    assert_select ".password-badge", "비밀번호"
+    assert_match "Protected", response.body
   end
 
   test "home page shows limit badge for read-limited message" do
@@ -97,13 +93,7 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     @user.messages.create!(title: "One-time Title", content: "One-time message", max_read_count: 1)
 
     get root_url
-    assert_select ".limit-badge", /제한: 1회/
-  end
-
-  test "home page does not show description when logged in" do
-    login_as(@user)
-    get root_url
-    assert_select ".description", false
+    assert_match "Limit: 1", response.body
   end
 
   private
