@@ -295,13 +295,27 @@ en:
   # Sessions (auth)
   sessions:
     new:
-      title: "Log In - MessageOpen"
-      heading: "Welcome back"
-      subtitle: "Enter your email to sign in or create an account"
+      # Default / signup intent
+      signup:
+        title: "Get Started - MessageOpen"
+        heading: "Get started free"
+        subtitle: "Enter your email to get started"
+        submit: "Send me a magic link →"
+        note: "No password needed. We'll email you a link to get started."
+        toggle_text: "Already have an account?"
+        toggle_link: "Log in"
+      # Login intent
+      login:
+        title: "Log In - MessageOpen"
+        heading: "Welcome back"
+        subtitle: "Enter your email to log in"
+        submit: "Send me a magic link →"
+        note: "No password needed. We'll email you a login link."
+        toggle_text: "Don't have an account?"
+        toggle_link: "Get started free"
+      # Shared
       email_label: "Email address"
       email_placeholder: "you@example.com"
-      submit: "Send Magic Link"
-      note: "We'll send you a secure login link. No password needed."
       benefits:
         no_password: "No password"
         secure: "Secure"

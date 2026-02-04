@@ -1,4 +1,7 @@
-<% content_for(:title) { t('sessions.new.title') } %>
+<% intent = params[:intent] == 'login' ? 'login' : 'signup' %>
+<% opposite_intent = intent == 'login' ? 'signup' : 'login' %>
+
+<% content_for(:title) { t("sessions.new.#{intent}.title") } %>
 
 <div class="min-h-screen bg-gray-50 flex flex-col">
   <!-- Header -->
@@ -21,8 +24,8 @@
   <main class="flex-1 flex items-center justify-center px-4 py-12">
     <div class="w-full max-w-sm">
       <div class="text-center mb-8">
-        <h1 class="text-2xl font-bold text-gray-900 mb-2"><%= t('sessions.new.heading') %></h1>
-        <p class="text-gray-600"><%= t('sessions.new.subtitle') %></p>
+        <h1 class="text-2xl font-bold text-gray-900 mb-2"><%= t("sessions.new.#{intent}.heading") %></h1>
+        <p class="text-gray-600"><%= t("sessions.new.#{intent}.subtitle") %></p>
       </div>
 
       <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-6">
@@ -40,13 +43,23 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
             </svg>
-            <%= t('sessions.new.submit') %>
+            <%= t("sessions.new.#{intent}.submit") %>
           </button>
         <% end %>
 
         <p class="mt-4 text-xs text-center text-gray-500">
-          <%= t('sessions.new.note') %>
+          <%= t("sessions.new.#{intent}.note") %>
         </p>
+
+        <!-- Toggle Link -->
+        <div class="mt-4 pt-4 border-t border-gray-100 text-center">
+          <p class="text-sm text-gray-600">
+            <%= t("sessions.new.#{intent}.toggle_text") %>
+            <%= link_to t("sessions.new.#{intent}.toggle_link"),
+                login_path(intent: opposite_intent),
+                class: "text-primary-600 hover:text-primary-700 font-medium ml-1" %>
+          </p>
+        </div>
       </div>
 
       <!-- Benefits -->
