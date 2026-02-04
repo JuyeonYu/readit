@@ -36,7 +36,7 @@ en:
     pricing: "Pricing"
     dashboard: "Dashboard"
     notifications: "Notifications"
-    start_free: "Start Free"
+    start_free: "Get Started Free"
     back_to_dashboard: "Back to Dashboard"
     home: "Home"
     get_started: "Get Started"
@@ -67,10 +67,11 @@ en:
     home:
       title: "MessageOpen - Know When Your Messages Are Read"
       hero:
-        title_line1: "Know When Your"
-        title_line2: "Messages Are Read"
-        subtitle: "Share messages across any channel. Get notified instantly when they're opened. Simple, reliable, and works everywhere."
-        cta_primary: "Start Free Trial"
+        title_line1: "Stop Guessing."
+        title_line2_prefix: "Know Exactly When"
+        title_line2_highlight: "Your Message Is Read."
+        subtitle: "Send any message as a link. Get notified the moment it's opened — whether you share it via email, Slack, text, or any channel. No app install needed for your recipient."
+        cta_primary: "Send Your First Message Free"
         cta_secondary: "See How It Works"
       preview:
         example_title: "Project Proposal - Q1 2025"
@@ -103,6 +104,21 @@ en:
           description: "Receive instant notifications when your message is opened. Know exactly when they read it."
           notification: "Message read!"
           notification_time: "Just now"
+      use_cases:
+        title: "Built for How You Work"
+        subtitle: "See how professionals like you use MessageOpen every day."
+        freelancers:
+          title: "For Freelancers"
+          description: "Send proposals and project updates as links. Know the moment your client opens them — so you follow up with confidence, not anxiety."
+          example: "Your proposal was read 5 min ago"
+        sales:
+          title: "For Sales & Outreach"
+          description: "Share pricing sheets, pitch decks, or one-pagers via any channel. Get notified instantly so you can call while your prospect is still engaged."
+          example: "Pricing sheet opened — 2nd view today"
+        recruiters:
+          title: "For Recruiters"
+          description: "Send offer letters and role descriptions securely. See when candidates open them — no app install or signup needed on their end."
+          example: "Offer letter read 3 times"
       features:
         title: "Everything you need"
         subtitle: "Powerful features to help you communicate with confidence"
@@ -114,7 +130,7 @@ en:
           description: "Get instant email alerts the moment your message is opened."
         analytics:
           title: "Analytics dashboard"
-          description: "Track who viewed, when they viewed, and how many times."
+          description: "See who viewed, when they viewed, and how many times."
         rich_text:
           title: "Rich text editor"
           description: "Format your messages with bold, lists, links, and more."
@@ -154,10 +170,10 @@ en:
         free:
           name: "Free"
           messages: "10 messages/month"
-          tracking: "Basic tracking"
+          tracking: "Basic open alerts"
           history: "7-day history"
           notifications: "Email notifications"
-          cta: "Get Started"
+          cta: "Get Started Free"
           note: "No credit card required"
         pro:
           name: "Pro"
@@ -168,17 +184,38 @@ en:
           analytics: "Advanced analytics"
           history: "1-year history"
           support: "Priority support"
-          cta: "Try Free for 14 Days"
+          cta: "Start Pro — Free for 14 Days"
           note: "No credit card required"
         team:
           question: "Need a team plan?"
           link: "Contact us"
         full_pricing: "View full pricing details →"
+      faq:
+        title: "Frequently Asked Questions"
+        subtitle: "Everything you need to know before getting started."
+        q1:
+          question: "How does MessageOpen work?"
+          answer: "Write your message in our editor, and we generate a unique link. Share that link anywhere — email, Slack, WhatsApp, SMS, or any platform. When your recipient clicks the link and reads your message, you get an instant notification."
+        q2:
+          question: "Does the recipient need to install anything or create an account?"
+          answer: "No. Recipients simply click the link and read your message in their browser. No app download, no signup, no extra steps. It works just like opening any web page."
+        q3:
+          question: "Can the recipient tell that I'll be notified when they read it?"
+          answer: "The recipient sees a clean, professional message page — similar to a shared Google Doc or Notion page. There are no intrusive banners or alerts. It's designed to feel natural and respectful."
+        q4:
+          question: "Is my message content secure?"
+          answer: "Yes. All messages are encrypted in transit. You can also add password protection so only the intended recipient can view your message, and set expiration dates to auto-delete messages after a specific time."
+        q5:
+          question: "What's included in the free plan?"
+          answer: "The free plan includes 10 messages per month with basic read notifications and 7-day message history. No credit card required, and it's free forever — not a trial."
+        q6:
+          question: "Can I use MessageOpen with my existing tools?"
+          answer: "Absolutely. MessageOpen works alongside any tool you already use. Just paste your message link into email, Slack, WhatsApp, LinkedIn, SMS, or any platform that supports links. No integrations to set up."
       cta:
         title: "Ready to try MessageOpen?"
-        subtitle: "Join thousands of professionals who communicate with confidence."
+        subtitle: "Send messages with confidence. Know when they're read."
         placeholder: "Enter your email"
-        button: "Start Free"
+        button: "Get Started Free →"
         note: "No credit card required. Free plan available."
 
   # Dashboard (logged-in home)
