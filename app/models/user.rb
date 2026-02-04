@@ -41,7 +41,7 @@ class User < ApplicationRecord
   end
 
   def message_limit
-    pro? ? Float::INFINITY : 10
+    pro? ? Float::INFINITY : 2
   end
 
   def at_message_limit?

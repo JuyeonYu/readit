@@ -32,7 +32,7 @@ class SessionsController < ApplicationController
     if login_token
       login_token.use!
       session[:user_id] = login_token.user_id
-      redirect_path = session.delete(:return_to) || new_message_path
+      redirect_path = session.delete(:return_to) || root_path
       redirect_to redirect_path, notice: "You're now logged in"
     else
       redirect_to login_path, alert: "Invalid or expired login link"
