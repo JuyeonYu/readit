@@ -549,8 +549,16 @@
 <!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const ctx = document.getElementById('opensChart').getContext('2d');
+document.addEventListener('turbo:load', function() {
+  const canvas = document.getElementById('opensChart');
+  if (!canvas) return;
+
+  // Destroy existing chart instance if any
+  if (window.opensChartInstance) {
+    window.opensChartInstance.destroy();
+  }
+
+  const ctx = canvas.getContext('2d');
 
   // Prepare data for last 7 days
   const labels = [];
@@ -565,7 +573,7 @@ document.addEventListener('DOMContentLoaded', function() {
     data.push(opensData[dateStr] || 0);
   }
 
-  new Chart(ctx, {
+  window.opensChartInstance = new Chart(ctx, {
     type: 'line',
     data: {
       labels: labels,
