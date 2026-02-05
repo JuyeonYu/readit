@@ -1,7 +1,7 @@
 <% content_for(:title) { "#{@message.title} - #{t('app.name')}" } %>
 <% content_for(:og_title) { @message.title } %>
 <% content_for(:og_description) { t('og.message.description', email: @message.user.email) } %>
-<% content_for(:og_image) { "#{request.base_url}/og-message.png" } %>
+<% content_for(:og_image) { "#{display_base_url}/og-message.png" } %>
 
 <div class="min-h-screen bg-gray-50">
   <!-- Minimal Header -->

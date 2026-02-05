@@ -17,14 +17,14 @@
     <%# Open Graph - can be overridden with content_for %>
     <meta property="og:title" content="<%= content_for?(:og_title) ? yield(:og_title) : (content_for(:title) || t('app.name')) %>">
     <meta property="og:description" content="<%= content_for?(:og_description) ? yield(:og_description) : t('app.description') %>">
-    <meta property="og:image" content="<%= content_for?(:og_image) ? yield(:og_image) : "#{request.base_url}/og-image.png" %>">
+    <meta property="og:image" content="<%= content_for?(:og_image) ? yield(:og_image) : "#{display_base_url}/og-image.png" %>">
     <meta property="og:url" content="<%= request.original_url %>">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="<%= t('app.name') %>">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="<%= content_for?(:og_title) ? yield(:og_title) : (content_for(:title) || t('app.name')) %>">
     <meta name="twitter:description" content="<%= content_for?(:og_description) ? yield(:og_description) : t('app.description') %>">
-    <meta name="twitter:image" content="<%= content_for?(:og_image) ? yield(:og_image) : "#{request.base_url}/og-image.png" %>">
+    <meta name="twitter:image" content="<%= content_for?(:og_image) ? yield(:og_image) : "#{display_base_url}/og-image.png" %>">
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>

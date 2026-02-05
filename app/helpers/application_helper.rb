@@ -1,4 +1,25 @@
 module ApplicationHelper
+  # Screenshot mode helpers - replaces dev URLs with production URLs
+  def screenshot_mode?
+    Rails.configuration.x.screenshot_mode rescue false
+  end
+
+  def display_host
+    screenshot_mode? ? Rails.configuration.x.production_host : request.host
+  end
+
+  def display_base_url
+    screenshot_mode? ? Rails.configuration.x.production_url : request.base_url
+  end
+
+  def display_message_url(token)
+    if screenshot_mode?
+      "#{Rails.configuration.x.production_url}/m/#{token}"
+    else
+      read_message_url(token)
+    end
+  end
+
   def notification_status_label(status)
     I18n.t("notifications.status.#{status}", default: status.to_s.titleize)
   end
