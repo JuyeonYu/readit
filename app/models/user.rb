@@ -41,7 +41,8 @@ class User < ApplicationRecord
   end
 
   def message_limit
-    pro? ? Float::INFINITY : 2
+    return Float::INFINITY if pro?
+    Rails.env.development? ? 10 : 2
   end
 
   def at_message_limit?
@@ -49,15 +50,25 @@ class User < ApplicationRecord
   end
 
   # Subscription management
-  def activate_subscription!(customer_id:, subscription_id:, current_period_end:)
+  def activate_subscription!(customer_id:, subscription_id:, variant_id: nil, current_period_end:)
     update!(
       lemon_squeezy_customer_id: customer_id,
       lemon_squeezy_subscription_id: subscription_id,
+      variant_id: variant_id,
       subscription_status: "active",
       plan: "pro",
       current_period_end: current_period_end,
       cancelled_at: nil
     )
+  end
+
+  # Plan type based on variant_id
+  def pro_monthly?
+    pro? && variant_id == Rails.application.config.lemon_squeezy[:pro_monthly_variant_id]
+  end
+
+  def pro_yearly?
+    pro? && variant_id == Rails.application.config.lemon_squeezy[:pro_yearly_variant_id]
   end
 
   def cancel_subscription!

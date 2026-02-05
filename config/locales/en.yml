@@ -413,6 +413,8 @@ en:
       password: "Password protection"
       cta: "Get Started"
       note: "No credit card required"
+      current_plan: "Current Plan"
+      downgrade_not_available: "Downgrade via Billing"
     pro:
       name: "Pro"
       badge: "Most Popular"
@@ -430,6 +432,8 @@ en:
       cta_yearly: "Start Pro Yearly"
       cta_trial: "Try Free for 14 Days"
       note: "No credit card required"
+      current_plan: "Current Plan"
+      manage_subscription: "Manage your subscription"
     team:
       question: "Need a team plan?"
       link: "Contact us"

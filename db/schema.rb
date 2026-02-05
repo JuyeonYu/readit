@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_02_143924) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_05_141311) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -113,6 +113,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_02_143924) do
     t.string "plan", default: "free"
     t.string "subscription_status"
     t.datetime "updated_at", null: false
+    t.string "variant_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["lemon_squeezy_customer_id"], name: "index_users_on_lemon_squeezy_customer_id"
     t.index ["lemon_squeezy_subscription_id"], name: "index_users_on_lemon_squeezy_subscription_id"

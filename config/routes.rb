@@ -19,8 +19,11 @@ Rails.application.routes.draw do
   get "dashboard" => "dashboard#index", as: :dashboard
   get "dashboard/message/:token" => "dashboard#show", as: :dashboard_message
 
-  # Pricing
+  # Pricing & Upgrade
   get "pricing" => "pricing#index", as: :pricing
+  get "upgrade" => "pricing#index", as: :upgrade
+  get "upgrade/monthly" => "checkout#monthly", as: :upgrade_monthly
+  get "upgrade/yearly" => "checkout#yearly", as: :upgrade_yearly
 
   # Checkout
   post "checkout" => "checkout#create", as: :checkout

@@ -45,6 +45,7 @@ class WebhooksController < ApplicationController
     user_email = attributes.dig("user_email")
     customer_id = attributes["customer_id"].to_s
     subscription_id = data["id"].to_s
+    variant_id = attributes["variant_id"].to_s
     current_period_end = Time.parse(attributes["renews_at"]) if attributes["renews_at"]
 
     user = User.find_by(email: user_email)
@@ -53,10 +54,11 @@ class WebhooksController < ApplicationController
     user.activate_subscription!(
       customer_id: customer_id,
       subscription_id: subscription_id,
+      variant_id: variant_id,
       current_period_end: current_period_end
     )
 
-    Rails.logger.info "Subscription created for user #{user.email}"
+    Rails.logger.info "Subscription created for user #{user.email} with variant #{variant_id}"
   end
 
   def handle_subscription_updated(event)
