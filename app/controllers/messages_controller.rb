@@ -1,7 +1,7 @@
 class MessagesController < ApplicationController
   before_action :require_login
   before_action :check_message_limit, only: %i[new create]
-  before_action :set_usage_stats, only: [:new]
+  before_action :set_usage_stats, only: [ :new ]
 
   def new
     @message = current_user.messages.build
@@ -46,7 +46,7 @@ class MessagesController < ApplicationController
     @message_limit = current_user.message_limit
     @messages_this_month = current_user.messages_this_month
     @is_free_plan = current_user.free?
-    @usage_percentage = @is_free_plan ? [(@messages_this_month.to_f / @message_limit) * 100, 100].min.round : 0
+    @usage_percentage = @is_free_plan ? [ (@messages_this_month.to_f / @message_limit) * 100, 100 ].min.round : 0
   end
 
   def check_message_limit

@@ -11,7 +11,7 @@ class DashboardController < ApplicationController
     # Usage tracking for upgrade prompts
     @message_limit = current_user.message_limit
     @is_free_plan = current_user.free?
-    @usage_percentage = @is_free_plan ? [(@messages_this_month.to_f / @message_limit) * 100, 100].min.round : 0
+    @usage_percentage = @is_free_plan ? [ (@messages_this_month.to_f / @message_limit) * 100, 100 ].min.round : 0
     @days_until_reset = (Time.current.end_of_month.to_date - Time.current.to_date).to_i + 1
     @total_opens = @messages.sum(:read_count)
     @opens_today = current_user.messages.joins(:read_events)
@@ -23,10 +23,10 @@ class DashboardController < ApplicationController
     @open_rate = @total_messages > 0 ? ((opened_messages.to_f / @total_messages) * 100).round : 0
 
     # Calculate average time to first open (in hours)
-    messages_with_opens = @messages.joins(:read_events)
-                                   .select("messages.*, MIN(read_events.read_at) as first_open_at")
-                                   .group("messages.id")
-                                   .to_a
+    messages_with_opens = current_user.messages.joins(:read_events)
+                                               .select("messages.*, MIN(read_events.read_at) as first_open_at")
+                                               .group("messages.id")
+                                               .to_a
 
     if messages_with_opens.any?
       total_hours = messages_with_opens.sum do |msg|

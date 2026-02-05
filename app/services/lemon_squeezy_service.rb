@@ -136,15 +136,15 @@ class LemonSqueezyService
       http.use_ssl = true
 
       request = case method
-                when :get
-                  Net::HTTP::Get.new(uri)
-                when :post
-                  Net::HTTP::Post.new(uri)
-                when :patch
-                  Net::HTTP::Patch.new(uri)
-                when :delete
-                  Net::HTTP::Delete.new(uri)
-                end
+      when :get
+        Net::HTTP::Get.new(uri)
+      when :post
+        Net::HTTP::Post.new(uri)
+      when :patch
+        Net::HTTP::Patch.new(uri)
+      when :delete
+        Net::HTTP::Delete.new(uri)
+      end
 
       request["Authorization"] = "Bearer #{api_key}"
       request["Accept"] = "application/vnd.api+json"
