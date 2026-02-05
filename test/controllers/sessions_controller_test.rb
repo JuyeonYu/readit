@@ -35,7 +35,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     token = user.login_tokens.create!
 
     get verify_login_url(token: token.token)
-    assert_redirected_to new_message_path
+    assert_redirected_to root_path
     assert_equal user.id, session[:user_id]
   end
 
