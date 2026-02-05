@@ -2,7 +2,7 @@ en:
   # Application-wide
   app:
     name: "MessageOpen"
-    tagline: "Know When Your Messages Are Read"
+    tagline: "Get notified when your messages are read"
     description: "Share messages via link and know when they're read. Works across any channel."
     secure_message: "Secure message"
     secure_message_sharing: "Secure message sharing"
@@ -67,7 +67,7 @@ en:
     home:
       title: "MessageOpen - Know When Your Messages Are Read"
       hero:
-        title_line1: "Stop Guessing."
+        title_line1: "Stop Checking."
         title_line2_prefix: "Know Exactly When"
         title_line2_highlight: "Your Message Is Read."
         subtitle: "Send any message as a link. Get notified the moment it's opened — whether you share it via email, Slack, text, or any channel. No app install needed for your recipient."
@@ -130,7 +130,7 @@ en:
           description: "Get instant email alerts the moment your message is opened."
         analytics:
           title: "Analytics dashboard"
-          description: "See who viewed, when they viewed, and how many times."
+          description: "See when your message was opened and how many times it was viewed."
         rich_text:
           title: "Rich text editor"
           description: "Format your messages with bold, lists, links, and more."
@@ -307,7 +307,7 @@ en:
       password_hint: "The sender shared this password with you separately"
       view_button: "View Message"
       message_ready: "Message ready to view"
-      notification_warning: "The sender will be notified when you open this message"
+      notification_warning: "The sender will be notified once this message is opened."
     content:
       shared_via: "Shared via MessageOpen"
       read_confirmation: "Read confirmation sent to sender"

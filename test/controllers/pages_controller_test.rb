@@ -18,7 +18,7 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
 
   test "home page contains CTA button linking to login" do
     get root_url
-    assert_match "Start Free", response.body
+    assert_match "Get Started", response.body
     assert_select "a[href=?]", login_path
   end
 
