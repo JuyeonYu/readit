@@ -34,7 +34,7 @@ msg1 = user.messages.create!(
   msg1.read_events.create!(
     viewer_token_hash: SecureRandom.hex(16),
     read_at: (3.days.ago + (i * 4).hours),
-    user_agent: ["Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)", "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0)", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"].sample
+    user_agent: [ "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)", "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0)", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)" ].sample
   )
 end
 
@@ -112,7 +112,7 @@ msg6.save!(validate: false)
   msg6.read_events.create!(
     viewer_token_hash: SecureRandom.hex(16),
     read_at: (3.days.ago + (i * 2).hours),
-    user_agent: ["Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)", "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0)", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)", "Mozilla/5.0 (Linux; Android 13)"].sample
+    user_agent: [ "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)", "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0)", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)", "Mozilla/5.0 (Linux; Android 13)" ].sample
   )
 end
 

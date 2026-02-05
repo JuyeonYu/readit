@@ -37,7 +37,7 @@ class ReadMessageServiceTest < ActiveSupport::TestCase
     result = ReadMessageService.call(@message, viewer_token_hash: @viewer_token_hash)
 
     assert_not result.success?
-    assert_equal I18n.t('errors.message_unreadable'), result.error
+    assert_equal I18n.t("errors.message_unreadable"), result.error
     assert_equal 0, @message.reload.read_count
   end
 
@@ -67,7 +67,7 @@ class ReadMessageServiceTest < ActiveSupport::TestCase
   end
 
   test "enqueues notification job on successful read" do
-    assert_enqueued_with(job: SendNotificationJob, args: [@message.id, @viewer_token_hash]) do
+    assert_enqueued_with(job: SendNotificationJob, args: [ @message.id, @viewer_token_hash ]) do
       ReadMessageService.call(@message, viewer_token_hash: @viewer_token_hash)
     end
   end

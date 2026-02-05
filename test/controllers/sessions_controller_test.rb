@@ -8,7 +8,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create user and login token on login" do
-    assert_difference ["User.count", "LoginToken.count"], 1 do
+    assert_difference [ "User.count", "LoginToken.count" ], 1 do
       post login_url, params: { email: "new@example.com" }
     end
     assert_redirected_to login_sent_path

@@ -7,7 +7,7 @@ class ReadMessageService
     ActiveRecord::Base.transaction do
       message.with_lock do
         unless message.readable?
-          return Result.new(success?: false, error: I18n.t('errors.message_unreadable'))
+          return Result.new(success?: false, error: I18n.t("errors.message_unreadable"))
         end
 
         message.increment_read_count!
