@@ -49,7 +49,6 @@
       </div>
     <% end %>
 
-    <!-- Header -->
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
       <div>
         <h1 class="text-2xl font-bold text-gray-900">Dashboard</h1>
@@ -63,9 +62,7 @@
       <% end %>
     </div>
 
-    <!-- Stats Grid -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-      <!-- Total Messages -->
       <div class="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow">
         <div class="flex items-center justify-between mb-3">
           <div class="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center">
@@ -86,7 +83,6 @@
         <p class="text-sm text-gray-500 mt-1">Total Messages</p>
       </div>
 
-      <!-- Open Rate -->
       <div class="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow">
         <div class="flex items-center justify-between mb-3">
           <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
@@ -94,18 +90,11 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
             </svg>
           </div>
-          <!-- Mini sparkline indicator -->
-          <div class="flex items-end gap-0.5 h-6">
-            <% 7.times do |i| %>
-              <div class="w-1 bg-green-200 rounded-full" style="height: <%= rand(40..100) %>%"></div>
-            <% end %>
-          </div>
         </div>
         <p class="text-3xl font-bold text-gray-900"><%= @open_rate %>%</p>
         <p class="text-sm text-gray-500 mt-1">Open Rate</p>
       </div>
 
-      <!-- Total Opens -->
       <div class="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow">
         <div class="flex items-center justify-between mb-3">
           <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
@@ -124,7 +113,6 @@
         <p class="text-sm text-gray-500 mt-1">Total Opens</p>
       </div>
 
-      <!-- Avg Time to Open -->
       <div class="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow">
         <div class="flex items-center justify-between mb-3">
           <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
@@ -144,7 +132,6 @@
       </div>
     </div>
 
-    <!-- Opens Chart -->
     <% if @opens_by_day.any? %>
       <div class="bg-white rounded-xl border border-gray-200 p-6 mb-8">
         <h3 class="text-lg font-semibold text-gray-900 mb-4">Opens Over Time</h3>
@@ -154,21 +141,12 @@
       </div>
     <% end %>
 
-    <!-- Recent Messages Table -->
     <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
       <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
         <h3 class="text-lg font-semibold text-gray-900">Recent Messages</h3>
-        <div class="flex items-center gap-2">
-          <select class="text-sm border border-gray-300 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
-            <option>All Status</option>
-            <option>Opened</option>
-            <option>Not Opened</option>
-          </select>
-        </div>
       </div>
 
       <% if @recent_messages.any? %>
-        <!-- Desktop Table -->
         <div class="hidden md:block overflow-x-auto">
           <table class="w-full">
             <thead class="bg-gray-50 border-b border-gray-200">
@@ -237,7 +215,6 @@
           </table>
         </div>
 
-        <!-- Mobile Cards -->
         <div class="md:hidden divide-y divide-gray-200">
           <% @recent_messages.each do |message| %>
             <%= link_to share_message_path(message.token), class: "block p-4 hover:bg-gray-50 transition-colors" do %>
@@ -265,7 +242,6 @@
           <% end %>
         </div>
       <% else %>
-        <!-- Empty State with Upgrade Prompt -->
         <div class="p-12 text-center">
           <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -297,7 +273,6 @@
       <% end %>
     </div>
 
-    <!-- Message Limit Modal (when at 100% usage) -->
     <% if @is_free_plan && @messages_this_month >= @message_limit %>
       <div
         x-show="showLimitModal"
@@ -310,10 +285,8 @@
         class="fixed inset-0 z-50 flex items-center justify-center p-4"
         @keydown.escape.window="showLimitModal = false"
       >
-        <!-- Backdrop -->
         <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" @click="showLimitModal = false"></div>
 
-        <!-- Modal -->
         <div
           x-show="showLimitModal"
           x-transition:enter="transition ease-out duration-300"
@@ -324,20 +297,17 @@
           x-transition:leave-end="opacity-0 scale-95"
           class="relative bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center"
         >
-          <!-- Icon -->
           <div class="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <svg class="w-8 h-8 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
             </svg>
           </div>
 
-          <!-- Content -->
           <h3 class="text-xl font-bold text-gray-900 mb-2">You've reached your limit</h3>
           <p class="text-gray-600 mb-6">
             You've used <%= @messages_this_month %>/<%= @message_limit %> messages this month.
           </p>
 
-          <!-- Features -->
           <div class="text-left bg-gray-50 rounded-xl p-4 mb-6">
             <p class="text-sm font-medium text-gray-700 mb-3">Upgrade to Pro for:</p>
             <ul class="space-y-2">
@@ -370,7 +340,6 @@
 
           <p class="text-lg font-semibold text-gray-900 mb-6">Just $12/month</p>
 
-          <!-- Buttons -->
           <div class="flex flex-col sm:flex-row gap-3">
             <%= link_to pricing_path, class: "flex-1 inline-flex items-center justify-center gap-2 bg-primary-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-primary-700 transition-colors" do %>
               Upgrade to Pro
@@ -383,7 +352,6 @@
             </button>
           </div>
 
-          <!-- Reset info -->
           <p class="text-xs text-gray-500 mt-4">
             Your limit resets in <%= @days_until_reset %> days
           </p>
@@ -394,7 +362,6 @@
 <% end %>
 
 <% if @opens_by_day.any? %>
-<!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 document.addEventListener('turbo:load', function() {
