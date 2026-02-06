@@ -1,4 +1,6 @@
 class LoginToken < ApplicationRecord
+  EXPIRATION_PERIOD = 15.minutes
+
   belongs_to :user
 
   validates :token, presence: true, uniqueness: true
@@ -24,6 +26,6 @@ class LoginToken < ApplicationRecord
   end
 
   def set_expiry
-    self.expires_at ||= 15.minutes.from_now
+    self.expires_at ||= EXPIRATION_PERIOD.from_now
   end
 end
