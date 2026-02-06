@@ -17,12 +17,10 @@
     </div>
   </nav>
 
-  <!-- Hero Section -->
   <section class="pt-16 pb-8 px-4 sm:px-6 lg:px-8 text-center">
     <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-4"><%= t('pricing.hero.title') %></h1>
     <p class="text-xl text-gray-600 max-w-2xl mx-auto mb-10"><%= t('pricing.hero.subtitle') %></p>
 
-    <!-- Billing Toggle -->
     <div class="inline-flex items-center bg-white rounded-full p-1.5 shadow-sm border border-gray-200">
       <button
         @click="yearly = false"
@@ -42,12 +40,10 @@
     </div>
   </section>
 
-  <!-- Pricing Cards -->
   <section class="pb-16 px-4 sm:px-6 lg:px-8">
     <div class="max-w-4xl mx-auto">
       <div class="grid md:grid-cols-2 gap-8 items-start">
 
-        <!-- Free Plan -->
         <div class="bg-white rounded-2xl border border-gray-200 p-8 md:p-10 shadow-sm hover:shadow-md transition-shadow">
           <h3 class="text-xl font-semibold text-gray-900 mb-4"><%= t('pricing.free.name') %></h3>
 
@@ -58,42 +54,14 @@
 
           <div class="border-t border-gray-100 pt-8 mb-8">
             <ul class="space-y-4">
-              <li class="flex items-start gap-3">
-                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                </svg>
-                <span class="text-gray-700"><%= t('pricing.free.messages') %></span>
-              </li>
-              <li class="flex items-start gap-3">
-                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                </svg>
-                <span class="text-gray-700"><%= t('pricing.free.tracking') %></span>
-              </li>
-              <li class="flex items-start gap-3">
-                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                </svg>
-                <span class="text-gray-700"><%= t('pricing.free.history') %></span>
-              </li>
-              <li class="flex items-start gap-3">
-                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                </svg>
-                <span class="text-gray-700"><%= t('pricing.free.notifications') %></span>
-              </li>
-              <li class="flex items-start gap-3">
-                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                </svg>
-                <span class="text-gray-700"><%= t('pricing.free.editor') %></span>
-              </li>
-              <li class="flex items-start gap-3">
-                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                </svg>
-                <span class="text-gray-700"><%= t('pricing.free.password') %></span>
-              </li>
+              <% %w[messages tracking history notifications editor password].each do |feature| %>
+                <li class="flex items-start gap-3">
+                  <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                  <span class="text-gray-700"><%= t("pricing.free.#{feature}") %></span>
+                </li>
+              <% end %>
             </ul>
           </div>
 
@@ -109,9 +77,7 @@
           <p class="text-xs text-gray-500 text-center mt-3"><%= t('pricing.free.note') %></p>
         </div>
 
-        <!-- Pro Plan (Featured) -->
         <div class="bg-white rounded-2xl border-2 border-primary-500 p-8 md:p-10 shadow-xl relative md:scale-105 origin-top">
-          <!-- Badge -->
           <div class="absolute -top-4 left-1/2 -translate-x-1/2">
             <span class="bg-primary-600 text-white text-sm font-semibold px-4 py-1.5 rounded-full shadow-sm">
               <%= t('pricing.pro.badge') %>
@@ -138,36 +104,14 @@
                 </svg>
                 <span class="text-gray-900 font-semibold"><%= t('pricing.pro.unlimited') %></span>
               </li>
-              <li class="flex items-start gap-3">
-                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                </svg>
-                <span class="text-gray-700"><%= t('pricing.pro.analytics') %></span>
-              </li>
-              <li class="flex items-start gap-3">
-                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                </svg>
-                <span class="text-gray-700"><%= t('pricing.pro.history') %></span>
-              </li>
-              <li class="flex items-start gap-3">
-                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                </svg>
-                <span class="text-gray-700"><%= t('pricing.pro.receipts') %></span>
-              </li>
-              <li class="flex items-start gap-3">
-                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                </svg>
-                <span class="text-gray-700"><%= t('pricing.pro.branding') %></span>
-              </li>
-              <li class="flex items-start gap-3">
-                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                </svg>
-                <span class="text-gray-700"><%= t('pricing.pro.support') %></span>
-              </li>
+              <% %w[analytics history receipts branding support].each do |feature| %>
+                <li class="flex items-start gap-3">
+                  <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                  <span class="text-gray-700"><%= t("pricing.pro.#{feature}") %></span>
+                </li>
+              <% end %>
             </ul>
           </div>
 
@@ -243,20 +187,16 @@
         </div>
       </div>
 
-      <!-- Payment Icons -->
       <div class="flex justify-center items-center gap-4 mt-6">
         <span class="text-xs text-gray-400"><%= t('pricing.trust.accept') %></span>
         <div class="flex items-center gap-3">
-          <!-- Visa -->
           <svg class="h-6 text-gray-400" viewBox="0 0 50 16" fill="currentColor">
             <path d="M19.13 1.52l-4.33 12.96h-2.82L9.62 4.79c-.12-.47-.23-.65-.6-.85-.61-.33-1.62-.64-2.51-.83l.06-.6h4.54c.58 0 1.1.39 1.23 1.06l1.12 5.97 2.77-7.03h2.9zm11.44 8.73c.01-3.41-4.72-3.6-4.69-5.12.01-.46.45-.95 1.42-1.08.48-.06 1.8-.11 3.3.57l.59-2.75a9 9 0 00-3.13-.57c-2.73 0-4.65 1.45-4.67 3.53-.02 1.54 1.37 2.4 2.42 2.91 1.08.52 1.44.86 1.44 1.33-.01.72-.86 1.04-1.66 1.05-1.4.02-2.21-.38-2.86-.68l-.5 2.37c.65.3 1.85.56 3.09.57 2.9 0 4.8-1.43 4.81-3.65l-.56.52zm7.2 4.23h2.55l-2.23-12.96h-2.35c-.53 0-.97.31-1.17.78l-4.12 12.18h2.88l.57-1.59h3.53l.33 1.59zm-3.07-3.77l1.45-4 .83 4h-2.28zm-11.58-9.19l-2.28 12.96H18.1l2.28-12.96h2.74z"/>
           </svg>
-          <!-- Mastercard -->
           <svg class="h-6 text-gray-400" viewBox="0 0 50 16" fill="currentColor">
             <circle cx="18" cy="8" r="7" fill-opacity="0.8"/>
             <circle cx="32" cy="8" r="7" fill-opacity="0.6"/>
           </svg>
-          <!-- Amex -->
           <svg class="h-5 text-gray-400" viewBox="0 0 50 16" fill="currentColor">
             <rect width="50" height="16" rx="2" fill-opacity="0.3"/>
             <text x="25" y="11" text-anchor="middle" font-size="8" font-weight="bold" fill="currentColor">AMEX</text>
@@ -266,10 +206,8 @@
     </div>
   </section>
 
-  <!-- Comparison Table -->
   <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white border-t border-gray-100">
     <div class="max-w-3xl mx-auto">
-      <!-- Toggle Header -->
       <button
         @click="showComparison = !showComparison"
         class="w-full flex items-center justify-center gap-2 text-gray-700 hover:text-gray-900 mb-8"
@@ -284,7 +222,6 @@
         </svg>
       </button>
 
-      <!-- Comparison Table -->
       <div x-show="showComparison" x-collapse x-cloak>
         <div class="bg-gray-50 rounded-2xl border border-gray-200 overflow-hidden">
           <table class="w-full">
