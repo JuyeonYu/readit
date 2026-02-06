@@ -1,6 +1,6 @@
 <% content_for(:title) { t('pricing.title') } %>
 
-<div class="min-h-screen bg-gray-50" x-data="{ yearly: false, showComparison: false }">
+<div class="min-h-screen bg-gray-50" x-data="{ yearly: false, showComparison: false, loading: false }">
   <!-- Navigation -->
   <nav class="bg-white border-b border-gray-100">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -187,13 +187,27 @@
               <%= link_to t('pricing.pro.manage_subscription'), billing_path, class: "text-primary-600 hover:underline" %>
             </p>
           <% elsif logged_in? %>
-            <% monthly_variant_id = Rails.application.config.lemon_squeezy[:pro_monthly_variant_id] %>
-            <% yearly_variant_id = Rails.application.config.lemon_squeezy[:pro_yearly_variant_id] %>
             <div x-show="!yearly">
-              <%= link_to t('pricing.pro.cta_monthly'), upgrade_monthly_path, data: { turbo: false }, class: "block w-full text-center py-4 px-4 bg-primary-600 text-white rounded-xl font-semibold hover:bg-primary-700 transition-colors shadow-sm text-lg cursor-pointer" %>
+              <a href="<%= upgrade_monthly_path %>" data-turbo="false" @click="loading = true"
+                 :class="loading && 'opacity-75 pointer-events-none'"
+                 class="block w-full text-center py-4 px-4 bg-primary-600 text-white rounded-xl font-semibold hover:bg-primary-700 transition-colors shadow-sm text-lg cursor-pointer">
+                <span x-show="!loading"><%= t('pricing.pro.cta_monthly') %></span>
+                <span x-show="loading" x-cloak class="inline-flex items-center justify-center gap-2">
+                  <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+                  <%= t('pricing.pro.cta_loading', default: 'Loading...') %>
+                </span>
+              </a>
             </div>
             <div x-show="yearly" x-cloak>
-              <%= link_to t('pricing.pro.cta_yearly'), upgrade_yearly_path, data: { turbo: false }, class: "block w-full text-center py-4 px-4 bg-primary-600 text-white rounded-xl font-semibold hover:bg-primary-700 transition-colors shadow-sm text-lg cursor-pointer" %>
+              <a href="<%= upgrade_yearly_path %>" data-turbo="false" @click="loading = true"
+                 :class="loading && 'opacity-75 pointer-events-none'"
+                 class="block w-full text-center py-4 px-4 bg-primary-600 text-white rounded-xl font-semibold hover:bg-primary-700 transition-colors shadow-sm text-lg cursor-pointer">
+                <span x-show="!loading"><%= t('pricing.pro.cta_yearly') %></span>
+                <span x-show="loading" x-cloak class="inline-flex items-center justify-center gap-2">
+                  <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+                  <%= t('pricing.pro.cta_loading', default: 'Loading...') %>
+                </span>
+              </a>
             </div>
             <p class="text-xs text-gray-500 text-center mt-3"><%= t('pricing.pro.note') %></p>
           <% else %>
