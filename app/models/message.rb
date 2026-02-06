@@ -33,6 +33,14 @@ class Message < ApplicationRecord
     read_events.distinct.count(:viewer_token_hash)
   end
 
+  def grouped_reads
+    read_events
+      .group_by(&:viewer_token_hash)
+      .transform_values { |events| events.sort_by(&:read_at) }
+      .sort_by { |_, events| events.first.read_at }
+      .reverse
+  end
+
   private
 
   def generate_token
