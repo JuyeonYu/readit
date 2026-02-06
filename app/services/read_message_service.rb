@@ -21,7 +21,7 @@ class ReadMessageService
     end
 
     # Send notification (async, outside transaction)
-    if message.sender_email.present?
+    if message.sender_email.present? && message.notify_on_read?
       SendNotificationJob.perform_later(message.id, viewer_token_hash)
     end
 

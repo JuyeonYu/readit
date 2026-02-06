@@ -1,4 +1,4 @@
-<% content_for(:title) { t('messages.new.title') } %>
+<% content_for(:title) { t('messages.edit.title') } %>
 
 <div class="min-h-screen bg-gray-50">
   <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
@@ -23,7 +23,7 @@
             </span>
           <% end %>
           <span class="text-sm text-gray-500 hidden sm:block"><%= current_user.email %></span>
-          <%= link_to root_path, class: "text-sm text-gray-600 hover:text-gray-900" do %>
+          <%= link_to share_message_path(@message.token), class: "text-sm text-gray-600 hover:text-gray-900" do %>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </svg>
@@ -34,7 +34,7 @@
   </header>
 
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <%= form_with model: @message, id: "message-form", data: { turbo_frame: "_top" } do |f| %>
+    <%= form_with model: @message, url: message_path(@message.token), method: :patch, id: "message-form", data: { turbo_frame: "_top" } do |f| %>
 
       <% if @message.errors.any? %>
         <div class="mb-6 bg-red-50 border border-red-200 rounded-xl p-4">
@@ -55,7 +55,7 @@
         <div class="lg:col-span-3">
           <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-100">
-              <h1 class="text-lg font-semibold text-gray-900"><%= t('messages.new.header') %></h1>
+              <h1 class="text-lg font-semibold text-gray-900"><%= t('messages.edit.header') %></h1>
               <p class="text-sm text-gray-500 mt-1"><%= t('messages.new.subtitle') %></p>
             </div>
 
@@ -70,18 +70,18 @@
 
             <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 flex justify-between items-center">
               <div class="flex items-center gap-3">
-                <%= link_to root_path, class: "text-sm text-gray-600 hover:text-gray-900 transition-colors" do %>
+                <%= link_to share_message_path(@message.token), class: "text-sm text-gray-600 hover:text-gray-900 transition-colors" do %>
                   <%= t('common.cancel') %>
                 <% end %>
                 <span id="content-char-count" class="text-xs text-gray-400 whitespace-nowrap">
-                  0/<%= number_with_delimiter(Message::CONTENT_MAX_LENGTH) %> <%= t('common.characters') %>
+                  <%= number_with_delimiter(@message.content_length) %>/<%= number_with_delimiter(Message::CONTENT_MAX_LENGTH) %> <%= t('common.characters') %>
                 </span>
               </div>
               <button type="submit" class="inline-flex items-center gap-2 bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors shadow-sm">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                 </svg>
-                <%= t('messages.new.generate_link') %>
+                <%= t('messages.edit.update') %>
               </button>
             </div>
           </div>
@@ -103,7 +103,7 @@
                     maxlength: Message::TITLE_MAX_LENGTH,
                     class: "w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors" %>
                 <p class="mt-1 text-xs text-gray-500">
-                  <span id="title-char-count">0</span>/<%= Message::TITLE_MAX_LENGTH %> <%= t('common.characters') %>
+                  <span id="title-char-count"><%= @message.title&.length || 0 %></span>/<%= Message::TITLE_MAX_LENGTH %> <%= t('common.characters') %>
                 </p>
               </div>
 
@@ -113,7 +113,7 @@
                   <p class="text-xs text-gray-500"><%= t('messages.new.settings.notify.description') %></p>
                 </div>
                 <label class="relative inline-flex items-center cursor-pointer">
-                  <%= f.check_box :notify_on_read, { checked: @message.notify_on_read.nil? ? true : @message.notify_on_read, class: "sr-only peer" }, true, false %>
+                  <%= f.check_box :notify_on_read, { checked: @message.notify_on_read, class: "sr-only peer" }, true, false %>
                   <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-100 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600"></div>
                 </label>
               </div>
@@ -125,13 +125,13 @@
                     <p class="text-xs text-gray-500"><%= t('messages.new.settings.password.description') %></p>
                   </div>
                   <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" class="sr-only peer" data-password-toggle-target="checkbox" data-action="change->password-toggle#toggle">
+                    <input type="checkbox" class="sr-only peer" data-password-toggle-target="checkbox" data-action="change->password-toggle#toggle" <%= 'checked' if @message.password_digest.present? %>>
                     <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-100 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600"></div>
                   </label>
                 </div>
-                <div class="hidden" data-password-toggle-target="field">
+                <div class="<%= 'hidden' unless @message.password_digest.present? %>" data-password-toggle-target="field">
                   <%= f.password_field :password,
-                      placeholder: t('messages.new.settings.password.placeholder'),
+                      placeholder: @message.password_digest.present? ? "Leave blank to keep current password" : t('messages.new.settings.password.placeholder'),
                       minlength: 6,
                       class: "w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors" %>
                 </div>
@@ -140,6 +140,22 @@
           </div>
 
           <!-- Pro Features -->
+          <%
+            # Calculate expires_in value from expires_at
+            expires_in_value = ""
+            if @message.expires_at.present? && @message.expires_at.future?
+              days_remaining = ((@message.expires_at - Time.current) / 1.day).ceil
+              expires_in_value = if days_remaining <= 1
+                "1"
+              elsif days_remaining <= 7
+                "7"
+              elsif days_remaining <= 30
+                "30"
+              else
+                ""
+              end
+            end
+          %>
           <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 <%= 'border-primary-200 bg-primary-50/30' if @is_free_plan %>">
             <div class="flex items-center justify-between mb-4">
               <h2 class="text-sm font-semibold text-gray-900 uppercase tracking-wider"><%= t('messages.new.settings.pro_features') %></h2>
@@ -169,10 +185,10 @@
                   <% end %>
                 <% else %>
                   <select name="message[expires_in]" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white">
-                    <option value=""><%= t('common.never') %></option>
-                    <option value="1"><%= t('messages.new.settings.expire.day_1') %></option>
-                    <option value="7"><%= t('messages.new.settings.expire.day_7') %></option>
-                    <option value="30"><%= t('messages.new.settings.expire.day_30') %></option>
+                    <option value="" <%= 'selected' if expires_in_value.blank? %>><%= t('common.never') %></option>
+                    <option value="1" <%= 'selected' if expires_in_value == "1" %>><%= t('messages.new.settings.expire.day_1') %></option>
+                    <option value="7" <%= 'selected' if expires_in_value == "7" %>><%= t('messages.new.settings.expire.day_7') %></option>
+                    <option value="30" <%= 'selected' if expires_in_value == "30" %>><%= t('messages.new.settings.expire.day_30') %></option>
                   </select>
                 <% end %>
               </div>
@@ -226,7 +242,7 @@
 
               <div class="p-4">
                 <h3 class="font-semibold text-gray-900 text-sm leading-snug mb-1" id="og-preview-title">
-                  <%= t('messages.new.link_preview.default_title') %>
+                  <%= @message.title.presence || t('messages.new.link_preview.default_title') %>
                 </h3>
                 <p class="text-xs text-gray-500 mb-2 line-clamp-2">
                   <%= t('messages.new.link_preview.description') %>
@@ -281,7 +297,7 @@
       // Check file size
       if (file.size > maxFileSize) {
         event.preventDefault();
-        alert(fileTooLargeMsg.replace('{size}', (maxFileSize / 1024 / 1024)));
+        alert(fileTooLargeMsg.replace('{size}', (maxFileSize / 1024 / 1024) + 'MB'));
         return;
       }
 

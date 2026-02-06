@@ -105,4 +105,193 @@ class ReadsControllerTest < ActionDispatch::IntegrationTest
     post read_message_path(@message.token)
     assert_redirected_to expired_message_path
   end
+
+  # One-time read integration tests
+  test "one-time read: first read succeeds" do
+    @message.update!(max_read_count: 1)
+
+    post read_message_path(@message.token)
+    assert_response :success
+    assert_equal 1, @message.reload.read_count
+  end
+
+  test "one-time read: second read fails after first read" do
+    @message.update!(max_read_count: 1)
+
+    # First read succeeds
+    post read_message_path(@message.token)
+    assert_response :success
+    assert_equal 1, @message.reload.read_count
+
+    # Second read redirects to expired
+    post read_message_path(@message.token)
+    assert_redirected_to expired_message_path
+    assert_equal 1, @message.reload.read_count  # Count should not increase
+  end
+
+  test "one-time read: preview page redirects to expired after message is read" do
+    @message.update!(max_read_count: 1)
+
+    # First read the message
+    post read_message_path(@message.token)
+    assert_response :success
+
+    # Preview page should redirect to expired
+    get read_message_path(@message.token)
+    assert_redirected_to expired_message_path
+  end
+
+  test "one-time read: different users cannot read after first read" do
+    @message.update!(max_read_count: 1)
+
+    # First user reads
+    post read_message_path(@message.token)
+    assert_response :success
+
+    # Clear cookies to simulate different user
+    reset!
+
+    # Different user tries to read - should redirect to expired
+    get read_message_path(@message.token)
+    assert_redirected_to expired_message_path
+  end
+
+  # Expire after integration tests
+  test "expire after: message is readable before expiration" do
+    @message.update!(expires_at: 1.hour.from_now)
+
+    get read_message_path(@message.token)
+    assert_response :success
+
+    post read_message_path(@message.token)
+    assert_response :success
+  end
+
+  test "expire after: message is not readable after expiration" do
+    @message.update!(expires_at: 1.hour.from_now)
+
+    # Read before expiration - should work
+    post read_message_path(@message.token)
+    assert_response :success
+
+    # Simulate time passing - message expires
+    @message.update_column(:expires_at, 1.hour.ago)
+
+    # Try to view preview - should redirect to expired
+    get read_message_path(@message.token)
+    assert_redirected_to expired_message_path
+
+    # Try to read - should redirect to expired
+    post read_message_path(@message.token)
+    assert_redirected_to expired_message_path
+  end
+
+  test "expire after: preview page shows expiration" do
+    @message.update!(expires_at: 1.day.from_now)
+
+    get read_message_path(@message.token)
+    assert_response :success
+  end
+
+  test "expire after: different users can read before expiration" do
+    @message.update!(expires_at: 1.hour.from_now)
+
+    # First user reads
+    post read_message_path(@message.token)
+    assert_response :success
+
+    # Clear cookies to simulate different user
+    reset!
+
+    # Different user can also read (no max_read_count set)
+    get read_message_path(@message.token)
+    assert_response :success
+
+    post read_message_path(@message.token)
+    assert_response :success
+  end
+
+  # Reaction tests
+  test "reaction: returns unauthorized without viewer token" do
+    patch message_reaction_path(@message.token), params: { reaction: "👍" }, as: :json
+    assert_response :unauthorized
+  end
+
+  test "reaction: returns not found for non-existent read event" do
+    # Read a different message to get a viewer token cookie
+    other_message = @user.messages.create!(title: "Other", content: "Other content")
+    post read_message_path(other_message.token)
+
+    # Try to react to the original message (no read event for this viewer)
+    patch message_reaction_path(@message.token), params: { reaction: "👍" }, as: :json
+    assert_response :not_found
+  end
+
+  test "reaction: saves valid reaction" do
+    # First read the message to create a read event
+    post read_message_path(@message.token)
+    assert_response :success
+
+    # Now add a reaction
+    patch message_reaction_path(@message.token), params: { reaction: "👍" }, as: :json
+    assert_response :success
+
+    response_data = JSON.parse(response.body)
+    assert response_data["success"]
+    assert_equal "👍", response_data["reaction"]
+
+    # Verify the reaction was saved
+    read_event = @message.read_events.last
+    assert_equal "👍", read_event.reaction
+  end
+
+  test "reaction: rejects invalid reaction" do
+    # First read the message
+    post read_message_path(@message.token)
+    assert_response :success
+
+    # Try to add an invalid reaction
+    patch message_reaction_path(@message.token), params: { reaction: "👎" }, as: :json
+    assert_response :unprocessable_entity
+
+    response_data = JSON.parse(response.body)
+    assert_not response_data["success"]
+  end
+
+  test "reaction: can change reaction" do
+    # First read the message
+    post read_message_path(@message.token)
+    assert_response :success
+
+    # Add first reaction
+    patch message_reaction_path(@message.token), params: { reaction: "👍" }, as: :json
+    assert_response :success
+
+    # Change to different reaction
+    patch message_reaction_path(@message.token), params: { reaction: "❤️" }, as: :json
+    assert_response :success
+
+    response_data = JSON.parse(response.body)
+    assert_equal "❤️", response_data["reaction"]
+
+    # Verify the reaction was updated
+    read_event = @message.read_events.last
+    assert_equal "❤️", read_event.reaction
+  end
+
+  test "reaction: all allowed reactions work" do
+    ReadEvent::ALLOWED_REACTIONS.each do |emoji|
+      # Reset for each test
+      @message = @user.messages.create!(title: "Test #{emoji}", content: "Test message")
+
+      post read_message_path(@message.token)
+      assert_response :success
+
+      patch message_reaction_path(@message.token), params: { reaction: emoji }, as: :json
+      assert_response :success, "Expected #{emoji} to be accepted"
+
+      read_event = @message.read_events.last
+      assert_equal emoji, read_event.reaction
+    end
+  end
 end

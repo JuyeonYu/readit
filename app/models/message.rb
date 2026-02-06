@@ -1,4 +1,10 @@
 class Message < ApplicationRecord
+  TITLE_MAX_LENGTH = 50
+  CONTENT_MAX_LENGTH = 10_000
+  ATTACHMENT_MAX_SIZE = 5.megabytes
+  ATTACHMENT_TOTAL_MAX_SIZE = 20.megabytes
+  ATTACHMENT_ALLOWED_TYPES = %w[image/jpeg image/png image/gif image/webp].freeze
+
   belongs_to :user
   has_many :read_events, dependent: :destroy
   has_many :notifications, dependent: :destroy
@@ -7,8 +13,10 @@ class Message < ApplicationRecord
   has_secure_password validations: false
 
   validates :token, presence: true, uniqueness: true
-  validates :title, presence: true
+  validates :title, presence: true, length: { maximum: TITLE_MAX_LENGTH }
   validates :content, presence: true
+  validate :content_length_within_limit
+  validate :attachments_within_limits
   validates :expires_at, comparison: { greater_than: -> { Time.current } },
             if: -> { expires_at.present? && will_save_change_to_expires_at? }
   validates :password, length: { minimum: 6 }, allow_blank: true
@@ -41,7 +49,60 @@ class Message < ApplicationRecord
       .reverse
   end
 
+  def reactions_summary
+    read_events.where.not(reaction: nil).group(:reaction).count
+  end
+
+  def total_reactions_count
+    read_events.where.not(reaction: nil).count
+  end
+
+  def content_length
+    content.body.to_plain_text.length
+  end
+
   private
+
+  def content_length_within_limit
+    return if content.blank?
+
+    if content.body.to_plain_text.length > CONTENT_MAX_LENGTH
+      errors.add(:content, :too_long, count: CONTENT_MAX_LENGTH)
+    end
+  end
+
+  def attachments_within_limits
+    return if content.blank?
+
+    attachments = content.body.attachments
+    return if attachments.empty?
+
+    total_size = 0
+
+    attachments.each do |attachment|
+      blob = attachment.attachable
+      next unless blob.is_a?(ActiveStorage::Blob)
+
+      # Check individual file size
+      if blob.byte_size > ATTACHMENT_MAX_SIZE
+        errors.add(:content, :attachment_too_large, filename: blob.filename, max_size: ATTACHMENT_MAX_SIZE / 1.megabyte)
+        next
+      end
+
+      # Check file type
+      unless ATTACHMENT_ALLOWED_TYPES.include?(blob.content_type)
+        errors.add(:content, :attachment_invalid_type, filename: blob.filename)
+        next
+      end
+
+      total_size += blob.byte_size
+    end
+
+    # Check total size
+    if total_size > ATTACHMENT_TOTAL_MAX_SIZE
+      errors.add(:content, :attachments_total_too_large, max_size: ATTACHMENT_TOTAL_MAX_SIZE / 1.megabyte)
+    end
+  end
 
   def generate_token
     return if token.present?

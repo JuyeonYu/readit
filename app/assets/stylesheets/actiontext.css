@@ -8,7 +8,9 @@ trix-editor {
   margin: 0;
   padding: 0.4em 0.6em;
   min-height: 5em;
-  outline: none; }
+  outline: none;
+  overflow-wrap: break-word;
+  word-break: break-word; }
 
 trix-toolbar * {
   box-sizing: border-box; }

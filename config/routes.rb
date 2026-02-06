@@ -39,7 +39,11 @@ Rails.application.routes.draw do
   post "webhooks/lemon_squeezy" => "webhooks#lemon_squeezy"
 
   # Messages
-  resources :messages, only: %i[new create]
+  resources :messages, only: %i[new create edit update destroy], param: :token do
+    member do
+      patch :toggle_notify
+    end
+  end
   get "share/:token" => "messages#share", as: :share_message
 
   # Notifications
@@ -48,5 +52,11 @@ Rails.application.routes.draw do
   # Reads
   get "read/:token" => "reads#show", as: :read_message
   post "read/:token" => "reads#create"
+  patch "read/:token/reaction" => "reads#reaction", as: :message_reaction
   get "expired" => "reads#expired", as: :expired_message
+
+  # Short URL for message reading (used in production/screenshots)
+  get "m/:token" => "reads#show", as: :short_read_message
+  post "m/:token" => "reads#create"
+  patch "m/:token/reaction" => "reads#reaction"
 end

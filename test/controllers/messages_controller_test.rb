@@ -30,7 +30,23 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
     assert_match @user.email, response.body
   end
 
-  test "new page contains message settings" do
+  test "new page contains message settings for free user" do
+    login_as(@user)
+    get new_message_url
+    assert_match "Message Settings", response.body
+    # Free users see password but not expires_in or max_read_count
+    assert_select "input[name='message[password]']"
+    assert_select "select[name='message[expires_in]']", count: 0
+    assert_select "input[name='message[max_read_count]']", count: 0
+  end
+
+  test "new page contains all settings for pro user" do
+    @user.activate_subscription!(
+      customer_id: "12345",
+      subscription_id: "67890",
+      variant_id: "test",
+      current_period_end: 1.month.from_now
+    )
     login_as(@user)
     get new_message_url
     assert_match "Message Settings", response.body
@@ -105,6 +121,77 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
 
     get share_message_path(message.token)
     assert_match "Recent activity", response.body
+  end
+
+  # Expire after tests for Pro users
+  test "create with expires_in sets expires_at for pro user" do
+    @user.activate_subscription!(
+      customer_id: "12345",
+      subscription_id: "67890",
+      variant_id: "test",
+      current_period_end: 1.month.from_now
+    )
+    login_as(@user)
+
+    freeze_time do
+      post messages_url, params: { message: { title: "Test", content: "Test", expires_in: "1" } }
+      message = Message.last
+      assert_in_delta 1.day.from_now, message.expires_at, 1.second
+    end
+  end
+
+  test "create with expires_in 7 days for pro user" do
+    @user.activate_subscription!(
+      customer_id: "12345",
+      subscription_id: "67890",
+      variant_id: "test",
+      current_period_end: 1.month.from_now
+    )
+    login_as(@user)
+
+    freeze_time do
+      post messages_url, params: { message: { title: "Test", content: "Test", expires_in: "7" } }
+      message = Message.last
+      assert_in_delta 7.days.from_now, message.expires_at, 1.second
+    end
+  end
+
+  test "create with expires_in 30 days for pro user" do
+    @user.activate_subscription!(
+      customer_id: "12345",
+      subscription_id: "67890",
+      variant_id: "test",
+      current_period_end: 1.month.from_now
+    )
+    login_as(@user)
+
+    freeze_time do
+      post messages_url, params: { message: { title: "Test", content: "Test", expires_in: "30" } }
+      message = Message.last
+      assert_in_delta 30.days.from_now, message.expires_at, 1.second
+    end
+  end
+
+  test "create ignores expires_in for free user" do
+    login_as(@user)
+
+    post messages_url, params: { message: { title: "Test", content: "Test", expires_in: "1" } }
+    message = Message.last
+    assert_nil message.expires_at
+  end
+
+  test "create with empty expires_in does not set expires_at" do
+    @user.activate_subscription!(
+      customer_id: "12345",
+      subscription_id: "67890",
+      variant_id: "test",
+      current_period_end: 1.month.from_now
+    )
+    login_as(@user)
+
+    post messages_url, params: { message: { title: "Test", content: "Test", expires_in: "" } }
+    message = Message.last
+    assert_nil message.expires_at
   end
 
   private

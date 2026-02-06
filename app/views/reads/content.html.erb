@@ -55,6 +55,28 @@
             <span><%= t('reads.content.read_confirmation') %></span>
           </div>
         </div>
+
+        <div class="px-6 sm:px-10 py-6 border-t border-gray-100" x-data="reactionPicker()">
+          <p class="text-sm text-gray-600 mb-3"><%= t('reads.content.reaction.prompt') %></p>
+          <div class="flex flex-wrap gap-2">
+            <% ReadEvent::ALLOWED_REACTIONS.each do |emoji| %>
+              <button
+                type="button"
+                @click="selectReaction('<%= emoji %>')"
+                :class="selectedReaction === '<%= emoji %>' ? 'bg-primary-100 border-primary-400 ring-2 ring-primary-200' : 'bg-gray-50 border-gray-200 hover:bg-gray-100'"
+                class="w-12 h-12 flex items-center justify-center text-2xl border rounded-xl transition-all"
+              >
+                <%= emoji %>
+              </button>
+            <% end %>
+          </div>
+          <p x-show="sent" x-cloak class="mt-3 text-sm text-green-600 flex items-center gap-1">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <%= t('reads.content.reaction.sent') %>
+          </p>
+        </div>
       </article>
 
       <footer class="mt-10 text-center space-y-4">
@@ -72,3 +94,39 @@
     </div>
   </main>
 </div>
+
+<style>
+  [x-cloak] { display: none !important; }
+</style>
+
+<script>
+function reactionPicker() {
+  return {
+    selectedReaction: '<%= @read_event&.reaction %>',
+    sent: false,
+    async selectReaction(emoji) {
+      if (this.selectedReaction === emoji) return;
+
+      this.selectedReaction = emoji;
+      this.sent = false;
+
+      try {
+        const response = await fetch('<%= message_reaction_path(@message.token) %>', {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+          },
+          body: JSON.stringify({ reaction: emoji })
+        });
+
+        if (response.ok) {
+          this.sent = true;
+        }
+      } catch (error) {
+        console.error('Failed to send reaction:', error);
+      }
+    }
+  }
+}
+</script>
