@@ -1,15 +1,15 @@
-<% content_for(:title) { "Billing - MessageOpen" } %>
+<% content_for(:title) { t('billing.title') } %>
 
 <%= render layout: "shared/authenticated_layout", locals: { current_page: "billing" } do %>
   <div class="max-w-2xl mx-auto">
     <div class="mb-8">
-      <h1 class="text-3xl font-bold text-gray-900">Billing & Subscription</h1>
+      <h1 class="text-3xl font-bold text-gray-900"><%= t('billing.heading') %></h1>
     </div>
 
     <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-6">
       <div class="p-6 sm:p-8">
         <div class="flex items-center justify-between mb-6">
-          <h2 class="text-lg font-semibold text-gray-900">Current Plan</h2>
+          <h2 class="text-lg font-semibold text-gray-900"><%= t('billing.current_plan') %></h2>
           <% if current_user.pro? %>
             <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-100 text-primary-700">
               Pro
@@ -24,27 +24,27 @@
         <% if current_user.pro? %>
           <div class="space-y-4">
             <div class="flex justify-between items-center py-3 border-b border-gray-100">
-              <span class="text-gray-600">Status</span>
+              <span class="text-gray-600"><%= t('billing.status') %></span>
               <% if @subscription_status == "active" %>
                 <span class="inline-flex items-center text-green-600">
                   <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                   </svg>
-                  Active
+                  <%= t('billing.status_active') %>
                 </span>
               <% elsif @subscription_status == "cancelled" %>
                 <span class="inline-flex items-center text-amber-600">
                   <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
                   </svg>
-                  Cancelled
+                  <%= t('billing.status_cancelled') %>
                 </span>
               <% elsif @subscription_status == "past_due" %>
                 <span class="inline-flex items-center text-red-600">
                   <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
                   </svg>
-                  Past Due
+                  <%= t('billing.status_past_due') %>
                 </span>
               <% end %>
             </div>
@@ -53,13 +53,13 @@
               <div class="flex justify-between items-center py-3 border-b border-gray-100">
                 <span class="text-gray-600">
                   <% if @in_grace_period %>
-                    Access until
+                    <%= t('billing.access_until') %>
                   <% else %>
-                    Next billing date
+                    <%= t('billing.next_billing_date') %>
                   <% end %>
                 </span>
                 <span class="text-gray-900 font-medium">
-                  <%= @current_period_end.strftime("%B %d, %Y") %>
+                  <%= l(@current_period_end, format: :long) %>
                 </span>
               </div>
             <% end %>
@@ -71,10 +71,9 @@
                     <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
                   </svg>
                   <div>
-                    <h4 class="text-sm font-medium text-amber-800">Subscription Cancelled</h4>
+                    <h4 class="text-sm font-medium text-amber-800"><%= t('billing.subscription_cancelled') %></h4>
                     <p class="text-sm text-amber-700 mt-1">
-                      Your Pro access will end on <%= @current_period_end.strftime("%B %d, %Y") %>.
-                      You can continue using Pro features until then.
+                      <%= t('billing.grace_period_message', date: l(@current_period_end, format: :long)) %>
                     </p>
                   </div>
                 </div>
@@ -88,10 +87,10 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
               </svg>
-              Manage Subscription
+              <%= t('billing.manage_subscription') %>
             <% end %>
             <p class="text-sm text-gray-500 text-center mt-3">
-              Update payment method, view invoices, or cancel subscription
+              <%= t('billing.manage_subscription_description') %>
             </p>
           </div>
 
@@ -102,13 +101,12 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>
             </div>
-            <h3 class="text-lg font-semibold text-gray-900 mb-2">You're on the Free Plan</h3>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2"><%= t('billing.free_plan.title') %></h3>
             <p class="text-gray-600 mb-6">
-              2 messages per month with basic features.<br>
-              Upgrade to Pro for unlimited messages and advanced analytics.
+              <%= t('billing.free_plan.description_html') %>
             </p>
             <%= link_to pricing_path, class: "inline-flex items-center justify-center px-8 py-3 bg-primary-600 text-white rounded-xl font-semibold hover:bg-primary-700 transition-colors" do %>
-              Upgrade to Pro
+              <%= t('billing.free_plan.upgrade') %>
               <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
               </svg>

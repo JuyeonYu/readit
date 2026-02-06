@@ -1,35 +1,35 @@
 <svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
   <!-- Social Media Preview for message links (1200x630) -->
 
-  <!-- Background gradient -->
-  <rect width="1200" height="630" fill="#EEF2FF"/>
-
-  <!-- Subtle grid pattern -->
+  <!-- Background gradient (primary-500 to primary-600) -->
   <defs>
-    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#E0E7FF" stroke-width="1"/>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366F1"/>
+      <stop offset="100%" style="stop-color:#4F46E5"/>
+    </linearGradient>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="white" stroke-width="1"/>
     </pattern>
   </defs>
-  <rect width="1200" height="630" fill="url(#grid)" opacity="0.5"/>
 
-  <!-- Message card -->
-  <rect x="300" y="100" width="600" height="320" rx="24" fill="white" stroke="#E0E7FF" stroke-width="2"/>
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
 
-  <!-- Envelope icon inside card -->
-  <g transform="translate(530, 140)">
-    <path d="M16 44V104C16 108.418 19.582 112 24 112H116C120.418 112 124 108.418 124 104V44" stroke="#4F46E5" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    <path d="M16 44L70 80L124 44" stroke="#4F46E5" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Subtle grid pattern -->
+  <rect width="1200" height="630" fill="url(#grid)" opacity="0.1"/>
+
+  <!-- Center icon container (white with transparency) -->
+  <rect x="510" y="180" width="180" height="180" rx="24" fill="white" fill-opacity="0.2"/>
+
+  <!-- Envelope icon (white) -->
+  <g transform="translate(540, 210)">
+    <path d="M12 36V96C12 100 15 104 20 104H100C105 104 108 100 108 96V36" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M12 36L60 72L108 36" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
   </g>
 
-  <!-- Check circle (read receipt indicator) -->
-  <circle cx="680" cy="180" r="24" fill="#10B981"/>
-  <path d="M668 180L676 188L692 172" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-
-  <!-- Card text -->
-  <text x="600" y="320" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="28" font-weight="600" fill="#111827" text-anchor="middle">You have a new message</text>
-  <text x="600" y="360" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="18" fill="#6B7280" text-anchor="middle">Click to view securely on MessageOpen</text>
+  <!-- Main text -->
+  <text x="600" y="420" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="24" font-weight="500" fill="white" fill-opacity="0.9" text-anchor="middle">You have a message</text>
 
   <!-- Bottom branding -->
-  <text x="600" y="520" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="20" font-weight="600" fill="#4F46E5" text-anchor="middle">MessageOpen</text>
-  <text x="600" y="555" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="16" fill="#9CA3AF" text-anchor="middle">Secure message sharing with read receipts</text>
+  <text x="600" y="520" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="22" font-weight="600" fill="white" text-anchor="middle">MessageOpen</text>
+  <text x="600" y="560" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="16" fill="white" fill-opacity="0.7" text-anchor="middle">Know when your message is read</text>
 </svg>

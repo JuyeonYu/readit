@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_05_141311) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_06_150614) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -65,6 +65,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_05_141311) do
     t.datetime "expires_at"
     t.boolean "is_active", default: true, null: false
     t.integer "max_read_count"
+    t.boolean "notify_on_read", default: true, null: false
     t.string "password_digest"
     t.integer "read_count", default: 0, null: false
     t.string "sender_email"
@@ -94,6 +95,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_05_141311) do
   create_table "read_events", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "message_id", null: false
+    t.string "reaction"
     t.datetime "read_at", default: -> { "CURRENT_TIMESTAMP" }
     t.datetime "updated_at", null: false
     t.string "user_agent"
@@ -110,10 +112,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_05_141311) do
     t.string "email", null: false
     t.string "lemon_squeezy_customer_id"
     t.string "lemon_squeezy_subscription_id"
+    t.integer "monthly_message_count", default: 0, null: false
+    t.datetime "monthly_message_count_reset_at"
     t.string "plan", default: "free"
     t.string "subscription_status"
     t.datetime "updated_at", null: false
     t.string "variant_id"
+    t.string "webhook_url"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["lemon_squeezy_customer_id"], name: "index_users_on_lemon_squeezy_customer_id"
     t.index ["lemon_squeezy_subscription_id"], name: "index_users_on_lemon_squeezy_subscription_id"

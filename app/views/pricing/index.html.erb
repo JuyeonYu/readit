@@ -104,7 +104,7 @@
                 </svg>
                 <span class="text-gray-900 font-semibold"><%= t('pricing.pro.unlimited') %></span>
               </li>
-              <% %w[analytics history receipts branding support].each do |feature| %>
+              <% %w[analytics history receipts webhooks branding support].each do |feature| %>
                 <li class="flex items-start gap-3">
                   <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
@@ -241,7 +241,7 @@
               <tr>
                 <td class="py-4 px-6 text-gray-700"><%= t('pricing.compare.message_history') %></td>
                 <td class="text-center py-4 px-6 text-gray-600"><%= t('pricing.compare.seven_days') %></td>
-                <td class="text-center py-4 px-6 text-gray-900 bg-primary-50/50 font-semibold"><%= t('pricing.compare.one_year') %></td>
+                <td class="text-center py-4 px-6 text-gray-900 bg-primary-50/50 font-semibold"><%= t('pricing.compare.unlimited_history') %></td>
               </tr>
               <tr>
                 <td class="py-4 px-6 text-gray-700"><%= t('pricing.compare.analytics') %></td>
@@ -250,6 +250,52 @@
               </tr>
               <tr>
                 <td class="py-4 px-6 text-gray-700"><%= t('pricing.compare.open_tracking') %></td>
+                <td class="text-center py-4 px-6">
+                  <svg class="w-5 h-5 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                </td>
+                <td class="text-center py-4 px-6 bg-primary-50/50">
+                  <svg class="w-5 h-5 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                </td>
+              </tr>
+              <tr>
+                <td class="py-4 px-6 text-gray-700"><%= t('pricing.compare.open_count') %></td>
+                <td class="text-center py-4 px-6">
+                  <span class="text-gray-300">—</span>
+                </td>
+                <td class="text-center py-4 px-6 bg-primary-50/50">
+                  <svg class="w-5 h-5 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                </td>
+              </tr>
+              <tr>
+                <td class="py-4 px-6 text-gray-700"><%= t('pricing.compare.open_rate') %></td>
+                <td class="text-center py-4 px-6">
+                  <span class="text-gray-300">—</span>
+                </td>
+                <td class="text-center py-4 px-6 bg-primary-50/50">
+                  <svg class="w-5 h-5 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                </td>
+              </tr>
+              <tr>
+                <td class="py-4 px-6 text-gray-700"><%= t('pricing.compare.time_trends') %></td>
+                <td class="text-center py-4 px-6">
+                  <span class="text-gray-300">—</span>
+                </td>
+                <td class="text-center py-4 px-6 bg-primary-50/50">
+                  <svg class="w-5 h-5 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                </td>
+              </tr>
+              <tr>
+                <td class="py-4 px-6 text-gray-700"><%= t('pricing.compare.reactions') %></td>
                 <td class="text-center py-4 px-6">
                   <svg class="w-5 h-5 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
@@ -293,6 +339,17 @@
                   <svg class="w-5 h-5 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                   </svg>
+                </td>
+                <td class="text-center py-4 px-6 bg-primary-50/50">
+                  <svg class="w-5 h-5 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                </td>
+              </tr>
+              <tr>
+                <td class="py-4 px-6 text-gray-700"><%= t('pricing.compare.webhook_notifications') %></td>
+                <td class="text-center py-4 px-6">
+                  <span class="text-gray-300">—</span>
                 </td>
                 <td class="text-center py-4 px-6 bg-primary-50/50">
                   <svg class="w-5 h-5 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">

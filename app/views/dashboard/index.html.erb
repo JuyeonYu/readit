@@ -1,4 +1,4 @@
-<% content_for(:title) { "Dashboard - MessageOpen" } %>
+<% content_for(:title) { t('dashboard.title') } %>
 
 <%= render layout: "shared/authenticated_layout", locals: { current_page: "dashboard" } do %>
   <div x-data="{ showLimitModal: <%= @is_free_plan && @messages_this_month >= @message_limit %>, showBanner: <%= @is_free_plan && @messages_this_month >= 8 && @messages_this_month < @message_limit %> }">
@@ -24,16 +24,16 @@
             </div>
             <div>
               <p class="text-sm font-medium text-amber-800">
-                You've used <%= @messages_this_month %> of <%= @message_limit %> free messages this month
+                <%= t('dashboard.usage_banner.used_messages', used: @messages_this_month, limit: @message_limit) %>
               </p>
               <p class="text-sm text-amber-700 mt-0.5">
-                Upgrade to Pro for unlimited messages, advanced analytics, and more.
+                <%= t('dashboard.usage_banner.upgrade_description') %>
               </p>
             </div>
           </div>
           <div class="flex items-center gap-3 sm:flex-shrink-0">
             <%= link_to pricing_path, class: "inline-flex items-center px-4 py-2 bg-amber-600 text-white text-sm font-medium rounded-lg hover:bg-amber-700 transition-colors" do %>
-              View Plans
+              <%= t('dashboard.usage_banner.view_plans') %>
             <% end %>
             <button
               @click="showBanner = false"
@@ -51,18 +51,19 @@
 
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
       <div>
-        <h1 class="text-2xl font-bold text-gray-900">Dashboard</h1>
-        <p class="text-gray-500 mt-1">Track your message engagement</p>
+        <h1 class="text-2xl font-bold text-gray-900"><%= t('dashboard.heading') %></h1>
+        <p class="text-gray-500 mt-1"><%= t('dashboard.subtitle') %></p>
       </div>
       <%= link_to new_message_path, class: "hidden lg:inline-flex items-center gap-2 bg-primary-600 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-primary-700 transition-colors shadow-sm" do %>
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
         </svg>
-        New Message
+        <%= t('dashboard.new_message') %>
       <% end %>
     </div>
 
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <!-- Total Messages - Available for all -->
       <div class="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow">
         <div class="flex items-center justify-between mb-3">
           <div class="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center">
@@ -71,19 +72,25 @@
             </svg>
           </div>
           <% if @messages_this_month > 0 %>
-            <span class="inline-flex items-center gap-1 text-xs font-medium text-green-600">
-              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
-              </svg>
-              +<%= @messages_this_month %>
-            </span>
+            <span class="text-xs text-gray-500"><%= @messages_this_month %> <%= t('dashboard.this_month') %></span>
           <% end %>
         </div>
         <p class="text-3xl font-bold text-gray-900"><%= @total_messages %></p>
-        <p class="text-sm text-gray-500 mt-1">Total Messages</p>
+        <p class="text-sm text-gray-500 mt-1"><%= t('dashboard.total_messages') %></p>
       </div>
 
-      <div class="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow">
+      <!-- Open Rate - Pro only -->
+      <div class="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow relative overflow-hidden">
+        <% if @is_free_plan %>
+          <div class="absolute inset-0 backdrop-blur-sm bg-white/60 z-10 flex items-center justify-center">
+            <span class="inline-flex items-center gap-1 px-2 py-1 bg-primary-100 text-primary-700 text-xs font-medium rounded-full">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+              </svg>
+              Pro
+            </span>
+          </div>
+        <% end %>
         <div class="flex items-center justify-between mb-3">
           <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
             <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -92,10 +99,21 @@
           </div>
         </div>
         <p class="text-3xl font-bold text-gray-900"><%= @open_rate %>%</p>
-        <p class="text-sm text-gray-500 mt-1">Open Rate</p>
+        <p class="text-sm text-gray-500 mt-1"><%= t('dashboard.open_rate') %></p>
       </div>
 
-      <div class="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow">
+      <!-- Total Opens - Pro only -->
+      <div class="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow relative overflow-hidden">
+        <% if @is_free_plan %>
+          <div class="absolute inset-0 backdrop-blur-sm bg-white/60 z-10 flex items-center justify-center">
+            <span class="inline-flex items-center gap-1 px-2 py-1 bg-primary-100 text-primary-700 text-xs font-medium rounded-full">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+              </svg>
+              Pro
+            </span>
+          </div>
+        <% end %>
         <div class="flex items-center justify-between mb-3">
           <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
             <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -103,17 +121,28 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
             </svg>
           </div>
-          <% if @opens_today > 0 %>
+          <% if @opens_today > 0 && !@is_free_plan %>
             <span class="inline-flex items-center gap-1 text-xs font-medium text-green-600">
-              +<%= @opens_today %> today
+              +<%= @opens_today %> <%= t('dashboard.today') %>
             </span>
           <% end %>
         </div>
         <p class="text-3xl font-bold text-gray-900"><%= @total_opens %></p>
-        <p class="text-sm text-gray-500 mt-1">Total Opens</p>
+        <p class="text-sm text-gray-500 mt-1"><%= t('dashboard.total_opens') %></p>
       </div>
 
-      <div class="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow">
+      <!-- Avg Time to Open - Pro only -->
+      <div class="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow relative overflow-hidden">
+        <% if @is_free_plan %>
+          <div class="absolute inset-0 backdrop-blur-sm bg-white/60 z-10 flex items-center justify-center">
+            <span class="inline-flex items-center gap-1 px-2 py-1 bg-primary-100 text-primary-700 text-xs font-medium rounded-full">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+              </svg>
+              Pro
+            </span>
+          </div>
+        <% end %>
         <div class="flex items-center justify-between mb-3">
           <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
             <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -123,119 +152,95 @@
         </div>
         <p class="text-3xl font-bold text-gray-900">
           <% if @avg_time_to_open > 0 %>
-            <%= @avg_time_to_open %><span class="text-lg font-medium text-gray-500">hrs</span>
+            <%= @avg_time_to_open %><span class="text-lg font-medium text-gray-500"><%= t('dashboard.hrs') %></span>
           <% else %>
             --
           <% end %>
         </p>
-        <p class="text-sm text-gray-500 mt-1">Avg. Time to Open</p>
+        <p class="text-sm text-gray-500 mt-1"><%= t('dashboard.avg_time_to_open') %></p>
       </div>
     </div>
 
-    <% if @opens_by_day.any? %>
-      <div class="bg-white rounded-xl border border-gray-200 p-6 mb-8">
-        <h3 class="text-lg font-semibold text-gray-900 mb-4">Opens Over Time</h3>
-        <div class="h-48">
-          <canvas id="opensChart"></canvas>
+    <!-- Opens Over Time Chart - Pro only -->
+    <div class="bg-white rounded-xl border border-gray-200 p-6 mb-8 relative overflow-hidden">
+      <% if @is_free_plan %>
+        <div class="absolute inset-0 backdrop-blur-sm bg-white/70 z-10 flex flex-col items-center justify-center">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary-100 text-primary-700 text-sm font-medium rounded-full mb-3">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+            </svg>
+            <%= t('dashboard.pro_feature') %>
+          </span>
+          <p class="text-sm text-gray-600 mb-3"><%= t('dashboard.unlock_analytics') %></p>
+          <%= link_to pricing_path, class: "text-sm font-medium text-primary-600 hover:text-primary-700" do %>
+            <%= t('dashboard.upgrade_to_pro') %>
+          <% end %>
         </div>
+      <% end %>
+      <h3 class="text-lg font-semibold text-gray-900 mb-4"><%= t('dashboard.opens_over_time') %></h3>
+      <div class="h-48">
+        <canvas id="opensChart"></canvas>
       </div>
-    <% end %>
+    </div>
 
     <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
       <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
-        <h3 class="text-lg font-semibold text-gray-900">Recent Messages</h3>
+        <h3 class="text-lg font-semibold text-gray-900"><%= t('dashboard.recent_messages') %></h3>
       </div>
 
       <% if @recent_messages.any? %>
-        <div class="hidden md:block overflow-x-auto">
-          <table class="w-full">
-            <thead class="bg-gray-50 border-b border-gray-200">
-              <tr>
-                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider px-6 py-3">Message</th>
-                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider px-6 py-3">Status</th>
-                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider px-6 py-3">Opens</th>
-                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider px-6 py-3">Created</th>
-                <th class="text-right text-xs font-medium text-gray-500 uppercase tracking-wider px-6 py-3">Actions</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200">
-              <% @recent_messages.each do |message| %>
-                <tr class="hover:bg-gray-50 transition-colors cursor-pointer" onclick="window.location='<%= share_message_path(message.token) %>'">
-                  <td class="px-6 py-4">
-                    <div class="flex items-center gap-3">
-                      <% if message.password_digest.present? %>
-                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-                        </svg>
-                      <% end %>
-                      <div>
-                        <p class="text-sm font-medium text-gray-900"><%= truncate(message.title, length: 50) %></p>
-                        <% if message.expires_at.present? && message.expires_at.future? %>
-                          <p class="text-xs text-gray-500">Expires <%= time_ago_in_words(message.expires_at) %></p>
+        <div class="divide-y divide-gray-200">
+          <% @recent_messages.each do |message| %>
+            <%
+              # Extract first image attachment if exists
+              first_image = message.content.body.attachments.find { |a| a.attachable.is_a?(ActiveStorage::Blob) && a.attachable.image? }
+              plain_text = message.content.body.to_plain_text.strip
+            %>
+            <%= link_to share_message_path(message.token), class: "block p-4 sm:p-6 hover:bg-gray-50 transition-colors" do %>
+              <div class="flex gap-4">
+                <% if first_image %>
+                  <div class="flex-shrink-0">
+                    <%= image_tag first_image.attachable.variant(resize_to_fill: [80, 80]), class: "w-16 h-16 sm:w-20 sm:h-20 object-cover rounded-lg border border-gray-200" %>
+                  </div>
+                <% end %>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-start justify-between gap-3">
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-center gap-2">
+                        <p class="text-sm sm:text-base font-semibold text-gray-900 truncate"><%= message.title %></p>
+                        <% if message.password_digest.present? %>
+                          <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                          </svg>
                         <% end %>
                       </div>
+                      <% if plain_text.present? %>
+                        <p class="text-sm text-gray-600 mt-1 line-clamp-2"><%= truncate(plain_text, length: 150) %></p>
+                      <% end %>
                     </div>
-                  </td>
-                  <td class="px-6 py-4">
-                    <% if message.read_count > 0 %>
-                      <span class="inline-flex items-center gap-1.5 text-sm text-green-700">
-                        <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                        Opened
-                        <% if message.read_events.any? %>
-                          <span class="text-gray-500"><%= time_ago_in_words(message.read_events.maximum(:read_at)) %> ago</span>
+                    <div class="flex flex-col items-end gap-1 flex-shrink-0">
+                      <% if message.read_count > 0 %>
+                        <span class="inline-flex items-center gap-1.5 text-xs font-medium text-green-700">
+                          <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                          <%= t('dashboard.opened') %>
+                        </span>
+                        <% unless @is_free_plan %>
+                          <span class="text-xs text-gray-500"><%= message.read_count %> <%= t('dashboard.opens') %></span>
                         <% end %>
-                      </span>
-                    <% else %>
-                      <span class="inline-flex items-center gap-1.5 text-sm text-gray-500">
-                        <span class="w-2 h-2 bg-gray-300 rounded-full"></span>
-                        Not opened yet
-                      </span>
+                      <% else %>
+                        <span class="inline-flex items-center gap-1.5 text-xs text-gray-500">
+                          <span class="w-2 h-2 bg-gray-300 rounded-full"></span>
+                          <%= t('dashboard.not_opened') %>
+                        </span>
+                      <% end %>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-3 mt-2 text-xs text-gray-500">
+                    <span><%= time_ago_in_words(message.created_at) %> ago</span>
+                    <% if message.expires_at.present? && message.expires_at.future? %>
+                      <span class="text-amber-600">Expires <%= time_ago_in_words(message.expires_at) %></span>
                     <% end %>
-                  </td>
-                  <td class="px-6 py-4">
-                    <% if message.read_count > 0 %>
-                      <span class="inline-flex items-center justify-center min-w-[24px] h-6 px-2 bg-green-100 text-green-700 text-xs font-medium rounded-full">
-                        <%= message.read_count %>
-                      </span>
-                    <% else %>
-                      <span class="text-sm text-gray-400">0</span>
-                    <% end %>
-                  </td>
-                  <td class="px-6 py-4">
-                    <p class="text-sm text-gray-500"><%= time_ago_in_words(message.created_at) %> ago</p>
-                  </td>
-                  <td class="px-6 py-4 text-right">
-                    <%= link_to share_message_path(message.token), class: "text-primary-600 hover:text-primary-700 text-sm font-medium", onclick: "event.stopPropagation()" do %>
-                      View
-                    <% end %>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="md:hidden divide-y divide-gray-200">
-          <% @recent_messages.each do |message| %>
-            <%= link_to share_message_path(message.token), class: "block p-4 hover:bg-gray-50 transition-colors" do %>
-              <div class="flex items-start justify-between gap-3">
-                <div class="flex-1 min-w-0">
-                  <p class="text-sm font-medium text-gray-900 truncate"><%= message.title %></p>
-                  <p class="text-xs text-gray-500 mt-1"><%= time_ago_in_words(message.created_at) %> ago</p>
-                </div>
-                <div class="flex flex-col items-end gap-1">
-                  <% if message.read_count > 0 %>
-                    <span class="inline-flex items-center gap-1 text-xs text-green-700">
-                      <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-                      Opened
-                    </span>
-                    <span class="text-xs text-gray-500"><%= message.read_count %> opens</span>
-                  <% else %>
-                    <span class="inline-flex items-center gap-1 text-xs text-gray-500">
-                      <span class="w-1.5 h-1.5 bg-gray-300 rounded-full"></span>
-                      Not opened
-                    </span>
-                  <% end %>
+                  </div>
                 </div>
               </div>
             <% end %>
@@ -248,24 +253,24 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
             </svg>
           </div>
-          <h3 class="text-xl font-semibold text-gray-900 mb-2">Create your first message</h3>
+          <h3 class="text-xl font-semibold text-gray-900 mb-2"><%= t('dashboard.empty.title') %></h3>
           <p class="text-gray-600 mb-6 max-w-sm mx-auto">
-            Share a message and know exactly when it's read. No more wondering if they saw it.
+            <%= t('dashboard.empty.subtitle') %>
           </p>
           <%= link_to new_message_path, class: "inline-flex items-center gap-2 bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors shadow-sm" do %>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
             </svg>
-            Create Message
+            <%= t('dashboard.empty.cta') %>
           <% end %>
 
           <% if @is_free_plan %>
             <div class="mt-8 pt-8 border-t border-gray-200">
               <p class="text-sm text-gray-500 mb-2">
-                With Pro, you get unlimited messages, advanced analytics, and more.
+                <%= t('dashboard.empty.pro_description') %>
               </p>
               <%= link_to pricing_path, class: "text-sm font-medium text-primary-600 hover:text-primary-700" do %>
-                Upgrade to Pro for just $12/month →
+                <%= t('dashboard.empty.pro_cta') %>
               <% end %>
             </div>
           <% end %>
@@ -303,57 +308,57 @@
             </svg>
           </div>
 
-          <h3 class="text-xl font-bold text-gray-900 mb-2">You've reached your limit</h3>
+          <h3 class="text-xl font-bold text-gray-900 mb-2"><%= t('dashboard.limit_modal.title') %></h3>
           <p class="text-gray-600 mb-6">
-            You've used <%= @messages_this_month %>/<%= @message_limit %> messages this month.
+            <%= t('dashboard.limit_modal.used_messages', used: @messages_this_month, limit: @message_limit) %>
           </p>
 
           <div class="text-left bg-gray-50 rounded-xl p-4 mb-6">
-            <p class="text-sm font-medium text-gray-700 mb-3">Upgrade to Pro for:</p>
+            <p class="text-sm font-medium text-gray-700 mb-3"><%= t('dashboard.limit_modal.upgrade_for') %></p>
             <ul class="space-y-2">
               <li class="flex items-center gap-2 text-sm text-gray-600">
                 <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                 </svg>
-                Unlimited messages
+                <%= t('dashboard.limit_modal.unlimited_messages') %>
               </li>
               <li class="flex items-center gap-2 text-sm text-gray-600">
                 <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                 </svg>
-                Advanced analytics
+                <%= t('dashboard.limit_modal.advanced_analytics') %>
               </li>
               <li class="flex items-center gap-2 text-sm text-gray-600">
                 <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                 </svg>
-                1-year history
+                <%= t('dashboard.limit_modal.unlimited_history') %>
               </li>
               <li class="flex items-center gap-2 text-sm text-gray-600">
                 <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                 </svg>
-                Priority support
+                <%= t('dashboard.limit_modal.priority_support') %>
               </li>
             </ul>
           </div>
 
-          <p class="text-lg font-semibold text-gray-900 mb-6">Just $12/month</p>
+          <p class="text-lg font-semibold text-gray-900 mb-6"><%= t('dashboard.limit_modal.price') %></p>
 
           <div class="flex flex-col sm:flex-row gap-3">
             <%= link_to pricing_path, class: "flex-1 inline-flex items-center justify-center gap-2 bg-primary-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-primary-700 transition-colors" do %>
-              Upgrade to Pro
+              <%= t('dashboard.limit_modal.upgrade') %>
             <% end %>
             <button
               @click="showLimitModal = false"
               class="flex-1 inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition-colors"
             >
-              Not Now
+              <%= t('dashboard.limit_modal.not_now') %>
             </button>
           </div>
 
           <p class="text-xs text-gray-500 mt-4">
-            Your limit resets in <%= @days_until_reset %> days
+            <%= t('dashboard.limit_modal.resets_in', days: @days_until_reset) %>
           </p>
         </div>
       </div>
@@ -364,7 +369,7 @@
 <% if @opens_by_day.any? %>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-document.addEventListener('turbo:load', function() {
+function initOpensChart() {
   const canvas = document.getElementById('opensChart');
   if (!canvas) return;
 
@@ -432,6 +437,11 @@ document.addEventListener('turbo:load', function() {
       }
     }
   });
-});
+}
+
+// Initial page load
+document.addEventListener('DOMContentLoaded', initOpensChart);
+// Turbo navigation
+document.addEventListener('turbo:load', initOpensChart);
 </script>
 <% end %>

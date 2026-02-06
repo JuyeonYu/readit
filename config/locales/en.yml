@@ -1,15 +1,28 @@
 en:
+  # ActiveRecord errors
+  activerecord:
+    errors:
+      models:
+        message:
+          attributes:
+            content:
+              too_long: "is too long (maximum is %{count} characters)"
+              attachment_too_large: "file '%{filename}' is too large (maximum is %{max_size}MB)"
+              attachment_invalid_type: "file '%{filename}' has invalid type (only images allowed)"
+              attachments_total_too_large: "total attachment size is too large (maximum is %{max_size}MB)"
+
   # Application-wide
   app:
     name: "MessageOpen"
     tagline: "Get notified when your messages are read"
     description: "Share messages via link and know when they're read. Works across any channel."
-    secure_message: "Secure message"
-    secure_message_sharing: "Secure message sharing"
+    secure_message: "Private message"
+    secure_message_sharing: "Message sharing"
     copyright: "© %{year} MessageOpen. All rights reserved."
 
   # Common UI elements
   common:
+    admin: "Admin"
     logout: "Logout"
     login: "Log in"
     cancel: "Cancel"
@@ -26,8 +39,11 @@ en:
     characters: "characters"
     never: "Never"
     forever: "forever"
-    month: "/month"
+    month: "/mo"
     support: "Support"
+    edit: "Edit"
+    delete: "Delete"
+    confirm_delete: "Are you sure?"
 
   # Flash messages
   flash:
@@ -74,6 +90,7 @@ en:
     messages_count: "messages"
     upgrade_description: "Upgrade to Pro for unlimited messages and analytics"
     upgrade_now: "Upgrade Now"
+    resets_on: "Resets %{date}"
 
   # Footer
   footer:
@@ -188,8 +205,8 @@ en:
         save: "(Save 17%)"
         free:
           name: "Free"
-          messages: "2 messages/month"
-          tracking: "Basic open alerts"
+          messages: "10 messages/month"
+          tracking: "Open/unread status only"
           history: "7-day history"
           notifications: "Email notifications"
           cta: "Get Started Free"
@@ -200,8 +217,8 @@ en:
           yearly_note: "per month, $120 billed yearly"
           messages: "Unlimited"
           messages_suffix: "messages"
-          analytics: "Advanced analytics"
-          history: "1-year history"
+          analytics: "Full analytics dashboard"
+          history: "Unlimited history"
           support: "Priority support"
           cta: "Start Pro — Free for 14 Days"
           note: "No credit card required"
@@ -226,7 +243,7 @@ en:
           answer: "Yes. All messages are encrypted in transit. You can also add password protection so only the intended recipient can view your message, and set expiration dates to auto-delete messages after a specific time."
         q5:
           question: "What's included in the free plan?"
-          answer: "The free plan includes 2 messages per month with basic read notifications and 7-day message history. No credit card required, and it's free forever — not a trial."
+          answer: "The free plan includes 10 messages per month with basic read notifications and 7-day message history. No credit card required, and it's free forever — not a trial."
         q6:
           question: "Can I use MessageOpen with my existing tools?"
           answer: "Absolutely. MessageOpen works alongside any tool you already use. Just paste your message link into email, Slack, WhatsApp, LinkedIn, SMS, or any platform that supports links. No integrations to set up."
@@ -239,13 +256,48 @@ en:
 
   # Dashboard (logged-in home)
   dashboard:
-    title: "Your Messages"
-    subtitle: "Track and manage all your shared messages"
+    title: "Dashboard - MessageOpen"
+    heading: "Dashboard"
+    subtitle: "Track your message engagement"
     new_message: "New Message"
+    this_month: "this month"
+    total_messages: "Total Messages"
+    open_rate: "Open Rate"
+    total_opens: "Total Opens"
+    today: "today"
+    avg_time_to_open: "Avg. Time to Open"
+    hrs: "hrs"
+    opens_over_time: "Opens Over Time"
+    pro_feature: "Pro Feature"
+    unlock_analytics: "Unlock detailed analytics with Pro"
+    upgrade_to_pro: "Upgrade to Pro →"
+    recent_messages: "Recent Messages"
+    opened: "Opened"
+    opens: "opens"
+    not_opened: "Not opened"
+    expires_in: "Expires %{time}"
     empty:
-      title: "No messages yet"
-      subtitle: "Create your first message and share it with anyone."
-      cta: "Create Your First Message"
+      title: "Create your first message"
+      subtitle: "Share a message and know exactly when it's read. No more wondering if they saw it."
+      cta: "Create Message"
+      pro_description: "With Pro, you get unlimited messages, advanced analytics, and more."
+      pro_cta: "Upgrade to Pro for just $12/month →"
+    limit_modal:
+      title: "You've reached your limit"
+      used_messages: "You've used %{used}/%{limit} messages this month."
+      upgrade_for: "Upgrade to Pro for:"
+      unlimited_messages: "Unlimited messages"
+      advanced_analytics: "Advanced analytics"
+      unlimited_history: "Unlimited history"
+      priority_support: "Priority support"
+      price: "Just $12/month"
+      upgrade: "Upgrade to Pro"
+      not_now: "Not Now"
+      resets_in: "Your limit resets in %{days} days"
+    usage_banner:
+      used_messages: "You've used %{used} of %{limit} free messages this month"
+      upgrade_description: "Upgrade to Pro for unlimited messages, advanced analytics, and more."
+      view_plans: "View Plans"
     message:
       readers: "readers"
       views: "views"
@@ -264,6 +316,7 @@ en:
       generate_link: "Generate Link"
       settings:
         title: "Message Settings"
+        pro_features: "Pro Features"
         message_title:
           label: "Message Title"
           placeholder: "e.g., Project Proposal"
@@ -285,12 +338,16 @@ en:
       link_preview:
         title: "Link Preview"
         subtitle: "How your link will appear when shared:"
-        secure_message: "Secure Message"
+        secure_message: "You have a message"
         default_title: "Your Message Title"
-        description: "You've received a secure message. Click to view the content."
+        description: "You've received a message. Click to view the content."
         note: "This preview shows how your link appears in Slack, iMessage, KakaoTalk, and other apps."
       notification_info:
         title: "You'll be notified at"
+    edit:
+      title: "Edit Message - MessageOpen"
+      header: "Edit Message"
+      update: "Update Message"
     share:
       title: "%{message_title} - MessageOpen"
       success:
@@ -307,6 +364,9 @@ en:
       read_analytics: "Read Analytics"
       unique_readers: "Unique Readers"
       total_views: "Total Views"
+      reactions: "Reactions"
+      reader_reactions: "Reader reactions"
+      reader_reaction: "Reader's reaction"
       recent_activity: "Recent activity"
       view: "view"
       views: "views"
@@ -316,6 +376,16 @@ en:
         subtitle: "Share the link to start tracking"
       actions:
         create_another: "Create Another Message"
+        edit: "Edit Message"
+        delete: "Delete Message"
+      delete_confirm:
+        title: "Delete Message?"
+        description: "This will permanently delete this message. This action cannot be undone."
+        cancel: "Cancel"
+        confirm: "Delete"
+      notify_toggle:
+        label: "Email notifications"
+        description: "Get notified when someone reads this message"
 
   # Reads (recipient view)
   reads:
@@ -330,10 +400,13 @@ en:
     content:
       shared_via: "Shared via MessageOpen"
       read_confirmation: "Read confirmation sent to sender"
+      reaction:
+        prompt: "How do you feel about this message?"
+        sent: "Reaction sent!"
       cta:
-        question: "Want to send secure messages?"
+        question: "Want to know when your messages are read?"
         link: "Try MessageOpen free →"
-      footer: "MessageOpen • Secure message sharing with read receipts"
+      footer: "MessageOpen • Know when your message is read"
     expired:
       title: "Message Unavailable - MessageOpen"
       heading: "Message Unavailable"
@@ -345,7 +418,7 @@ en:
         removed: "The sender removed the message"
       contact: "Need to contact the sender? Ask them to share a new link."
       cta:
-        question: "Want to send secure messages?"
+        question: "Want to know when your messages are read?"
         link: "Try MessageOpen →"
 
   # Sessions (auth)
@@ -462,8 +535,8 @@ en:
       name: "Free"
       price: "$0"
       period: "forever"
-      messages: "2 tracked messages/month"
-      tracking: "Basic open tracking"
+      messages: "10 tracked messages/month"
+      tracking: "Open/unread status"
       history: "7-day message history"
       notifications: "Email notifications"
       editor: "Rich text editor"
@@ -555,7 +628,26 @@ en:
       button: "Start Free"
       note: "No credit card required. Free forever."
 
+  # Legal Pages
+  legal:
+    back_to_home: "Back to Home"
+    last_updated: "Last updated: %{date}"
+    privacy:
+      title: "Privacy Policy - MessageOpen"
+      heading: "Privacy Policy"
+    terms:
+      title: "Terms of Service - MessageOpen"
+      heading: "Terms of Service"
+    refund:
+      title: "Refund Policy - MessageOpen"
+      heading: "Refund Policy"
+
+  # JavaScript Alerts
+  js:
+    file_too_large: "File is too large. Maximum size is %{size}MB."
+    invalid_file_type: "Invalid file type. Only images (JPEG, PNG, GIF, WebP) are allowed."
+
   # OG Meta
   og:
     message:
-      description: "%{email} sent you a secure message via MessageOpen. Click to view."
+      description: "%{email} sent you a message via MessageOpen. Click to view."

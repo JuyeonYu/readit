@@ -36,7 +36,7 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
   test "home page shows empty state when logged in with no messages" do
     login_as(@user)
     get root_url
-    assert_match "No messages yet", response.body
+    assert_match "Create your first message", response.body
   end
 
   test "home page shows message list when logged in with messages" do

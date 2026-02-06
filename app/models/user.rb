@@ -9,11 +9,17 @@ class User < ApplicationRecord
   # Subscription status constants
   SUBSCRIPTION_STATUSES = %w[active cancelled expired past_due paused].freeze
   PLANS = %w[free pro].freeze
-  FREE_MESSAGE_LIMIT = Rails.env.development? ? 10 : 2
+  FREE_MESSAGE_LIMIT = 10
+  FREE_HISTORY_DAYS = 7
+
+  # Admin check
+  def admin?
+    email.present? && email == ENV["ADMIN_EMAIL"]
+  end
 
   # Plan checks
   def pro?
-    plan == "pro" && subscription_active?
+    admin? || (plan == "pro" && subscription_active?)
   end
 
   def free?
@@ -39,7 +45,8 @@ class User < ApplicationRecord
 
   # Message limits
   def messages_this_month
-    messages.where("created_at >= ?", Time.current.beginning_of_month).count
+    reset_monthly_message_count_if_needed
+    monthly_message_count
   end
 
   def message_limit
@@ -49,6 +56,26 @@ class User < ApplicationRecord
 
   def at_message_limit?
     free? && messages_this_month >= message_limit
+  end
+
+  def history_limit_date
+    return nil if pro?
+    FREE_HISTORY_DAYS.days.ago
+  end
+
+  def increment_monthly_message_count!
+    reset_monthly_message_count_if_needed
+    increment!(:monthly_message_count)
+  end
+
+  def reset_monthly_message_count_if_needed
+    return if monthly_message_count_reset_at.present? &&
+              monthly_message_count_reset_at >= Time.current.beginning_of_month
+
+    update_columns(
+      monthly_message_count: 0,
+      monthly_message_count_reset_at: Time.current
+    )
   end
 
   # Subscription management

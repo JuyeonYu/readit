@@ -3,11 +3,15 @@ class DashboardController < ApplicationController
   before_action :set_navigation_data
 
   def index
-    @messages = current_user.messages.includes(:read_events).order(created_at: :desc)
+    @messages = current_user.messages.includes(:read_events)
+    if current_user.history_limit_date
+      @messages = @messages.where("messages.created_at >= ?", current_user.history_limit_date)
+    end
+    @messages = @messages.order("messages.created_at DESC")
 
     # Calculate stats
     @total_messages = @messages.count
-    @messages_this_month = @messages.where("created_at >= ?", Time.current.beginning_of_month).count
+    @messages_this_month = current_user.messages_this_month
 
     # Usage tracking for upgrade prompts
     @message_limit = current_user.message_limit

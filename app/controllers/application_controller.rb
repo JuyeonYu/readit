@@ -16,9 +16,10 @@ class ApplicationController < ActionController::Base
 
     @nav_is_free_plan = current_user.free?
     if @nav_is_free_plan
-      @nav_messages_this_month = current_user.messages.where("created_at >= ?", Time.current.beginning_of_month).count
+      @nav_messages_this_month = current_user.messages_this_month
       @nav_message_limit = current_user.message_limit
       @nav_usage_percentage = [(@nav_messages_this_month.to_f / @nav_message_limit) * 100, 100].min.round
+      @nav_resets_at = Time.current.next_month.beginning_of_month
     end
   end
 
