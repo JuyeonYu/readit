@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
+  # Locale switching
+  patch "locale/:locale", to: "locales#update", as: :locale
+
   root "pages#home"
 
   # Legal pages

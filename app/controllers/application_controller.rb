@@ -7,9 +7,34 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
+  before_action :set_locale
+
   helper_method :current_user, :logged_in?
 
   private
+
+  def set_locale
+    I18n.locale = extract_locale || I18n.default_locale
+  end
+
+  def extract_locale
+    # Priority: params > session > Accept-Language header > default
+    locale = params[:locale]&.to_sym ||
+             session[:locale]&.to_sym ||
+             locale_from_accept_language
+
+    locale if I18n.available_locales.include?(locale)
+  end
+
+  def locale_from_accept_language
+    return nil unless request.env["HTTP_ACCEPT_LANGUAGE"]
+
+    accepted_languages = request.env["HTTP_ACCEPT_LANGUAGE"]
+      .split(",")
+      .map { |lang| lang.split(";").first.strip.split("-").first.downcase.to_sym }
+
+    (accepted_languages & I18n.available_locales).first
+  end
 
   def set_navigation_data
     return unless logged_in?

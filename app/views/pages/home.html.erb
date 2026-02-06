@@ -112,6 +112,7 @@
           <%= link_to t('nav.pricing'), pricing_path, class: "text-sm text-gray-600 hover:text-gray-900 transition-colors" %>
         </div>
         <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+          <%= render "shared/language_switcher" %>
           <%= link_to t('common.login'), login_path(intent: 'login'), class: "text-sm text-gray-600 hover:text-gray-900 transition-colors whitespace-nowrap" %>
           <%= link_to t('nav.start_free'), login_path(intent: 'signup'), class: "bg-primary-600 text-white px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium hover:bg-primary-700 transition-colors whitespace-nowrap" %>
         </div>

@@ -1,19 +1,15 @@
 ko:
-  nav:
-    dashboard: "대시보드"
-    messages: "메시지"
-    notifications: "알림"
-    billing: "결제"
-    alerts: "알림"
-    all_messages: "전체 메시지"
-    free_plan: "무료 플랜"
-    messages_count: "메시지"
-    upgrade_description: "Pro로 업그레이드하여 무제한 메시지와 분석을 이용하세요"
-    upgrade_now: "지금 업그레이드"
-  app:
-    name: "MessageOpen"
+  # ActiveRecord errors
   activerecord:
     errors:
+      models:
+        message:
+          attributes:
+            content:
+              too_long: "이(가) 너무 깁니다 (최대 %{count}자)"
+              attachment_too_large: "파일 '%{filename}'이(가) 너무 큽니다 (최대 %{max_size}MB)"
+              attachment_invalid_type: "파일 '%{filename}'의 형식이 올바르지 않습니다 (이미지만 허용)"
+              attachments_total_too_large: "첨부 파일의 총 크기가 너무 큽니다 (최대 %{max_size}MB)"
       messages:
         blank: "을(를) 입력해주세요"
         required: "이(가) 필요합니다"
@@ -22,7 +18,108 @@ ko:
         invalid: "이(가) 올바르지 않습니다"
         taken: "이(가) 이미 사용중입니다"
         greater_than: "이(가) %{count}보다 커야 합니다"
+
+  # Application-wide
+  app:
+    name: "MessageOpen"
+    tagline: "메시지가 읽혔을 때 알림을 받으세요"
+    description: "링크로 메시지를 공유하고 읽혔을 때 알림을 받으세요. 모든 채널에서 작동합니다."
+    secure_message: "비공개 메시지"
+    secure_message_sharing: "메시지 공유"
+    copyright: "© %{year} MessageOpen. 모든 권리 보유."
+
+  # Common UI elements
+  common:
+    admin: "관리자"
+    logout: "로그아웃"
+    login: "로그인"
+    cancel: "취소"
+    back: "뒤로"
+    copy: "복사"
+    copied: "복사됨!"
+    active: "활성"
+    expired: "만료됨"
+    protected: "보호됨"
+    email: "이메일"
+    secure: "안전"
+    instant: "즉시"
+    ago: "전"
+    characters: "자"
+    never: "없음"
+    forever: "영원히"
+    month: "/월"
+    support: "지원"
+    edit: "수정"
+    delete: "삭제"
+    confirm_delete: "정말 삭제하시겠습니까?"
+
+  # Flash messages
+  flash:
+    sessions:
+      email_required: "이메일을 입력해주세요"
+      check_email: "이메일에서 로그인 링크를 확인하세요"
+      logged_in: "로그인되었습니다"
+      invalid_token: "유효하지 않거나 만료된 로그인 링크입니다"
+      logged_out: "로그아웃되었습니다"
+    reads:
+      incorrect_password: "비밀번호가 올바르지 않습니다. 다시 시도해주세요."
+    messages:
+      limit_reached: "이번 달 메시지 한도에 도달했습니다. Pro로 업그레이드하여 무제한 메시지를 이용하세요."
+      updated: "메시지가 성공적으로 업데이트되었습니다"
+      deleted: "메시지가 성공적으로 삭제되었습니다"
+    billing:
+      no_subscription: "활성 구독을 찾을 수 없습니다"
+      portal_error: "결제 포털에 접근할 수 없습니다. 다시 시도해주세요."
+      webhook_updated: "웹훅 설정이 성공적으로 업데이트되었습니다"
+      webhook_pro_only: "웹훅 알림은 Pro 사용자만 이용할 수 있습니다"
+    checkout:
+      select_plan: "플랜을 선택해주세요"
+      checkout_error: "결제를 생성할 수 없습니다. 다시 시도해주세요."
+      success: "결제가 완료되었습니다! Pro 구독이 활성화되었습니다."
+      cancelled: "결제가 취소되었습니다. 준비가 되시면 다시 시도해주세요."
+      plan_unavailable: "플랜 설정을 사용할 수 없습니다"
+
+  # Navigation
+  nav:
+    how_it_works: "사용 방법"
+    features: "기능"
+    pricing: "요금제"
+    dashboard: "대시보드"
+    messages: "메시지"
+    notifications: "알림"
+    billing: "결제"
+    alerts: "알림"
+    start_free: "무료로 시작"
+    back_to_dashboard: "대시보드로 돌아가기"
+    all_messages: "전체 메시지"
+    home: "홈"
+    get_started: "시작하기"
+    free_plan: "무료 플랜"
+    messages_count: "메시지"
+    upgrade_description: "Pro로 업그레이드하여 무제한 메시지와 분석을 이용하세요"
+    upgrade_now: "지금 업그레이드"
+    resets_on: "%{date}에 초기화"
+
+  # Footer
+  footer:
+    tagline: "메시지가 읽혔을 때 알 수 있습니다."
+    product: "제품"
+    legal: "법적 고지"
+    support_title: "지원"
+    privacy: "개인정보 처리방침"
+    terms: "이용약관"
+    refund: "환불 정책"
+    contact: "문의하기"
+    billing: "결제"
+    privacy_short: "개인정보"
+    terms_short: "이용약관"
+    refund_short: "환불"
+    copyright: "© %{year} MessageOpen. 모든 권리 보유."
+
+  # Errors & Validations
   errors:
+    login_required: "계속하려면 로그인해주세요"
+    message_unreadable: "이 메시지는 더 이상 읽을 수 없습니다"
     messages:
       blank: "을(를) 입력해주세요"
       required: "이(가) 필요합니다"
@@ -31,6 +128,547 @@ ko:
       invalid: "이(가) 올바르지 않습니다"
       taken: "이(가) 이미 사용중입니다"
       greater_than: "이(가) %{count}보다 커야 합니다"
+
+  # Pages (Landing)
+  pages:
+    home:
+      title: "MessageOpen - 메시지가 읽혔을 때 알림 받기"
+      hero:
+        title_line1: "매번 확인하지 마세요."
+        title_line2_prefix: "메시지가 읽히면"
+        title_line2_highlight: "바로 알 수 있습니다."
+        subtitle: "모든 메시지를 링크로 보내세요. 이메일, 슬랙, 문자 등 어떤 채널을 통해 공유하든 열린 순간 알림을 받습니다. 수신자는 앱 설치가 필요 없습니다."
+        cta_primary: "무료로 첫 메시지 보내기"
+        cta_secondary: "사용 방법 보기"
+      preview:
+        example_title: "프로젝트 제안서 - 2025년 1분기"
+        example_content: "안녕하세요 사라님, 논의했던 제안서입니다..."
+        read_ago: "2분 전에 읽음"
+        notification_title: "메시지가 열렸습니다!"
+        notification_text: "사라님이 제안서를 방금 확인했습니다"
+      problems:
+        title: "익숙하지 않으신가요?"
+        problem1:
+          title: "중요한 제안서를 보내셨나요?"
+          description: "완벽한 메시지를 작성하는 데 몇 시간을 투자했지만, 상대방이 열어봤는지조차 알 수 없습니다."
+        problem2:
+          title: "확인했는지 궁금하신가요?"
+          description: "불확실함이 답답합니다. 스팸으로 갔나요? 무시한 건가요? 알 수가 없습니다."
+        problem3:
+          title: "팔로업하기 지치셨나요?"
+          description: "'확인해주세요'라는 메시지를 보내는 건 어색하고 관계를 해칠 수 있습니다."
+      how_it_works:
+        title: "MessageOpen 사용 방법"
+        subtitle: "세 가지 간단한 단계로 메시지가 읽혔을 때 알 수 있습니다"
+        step1:
+          title: "메시지 작성"
+          description: "리치 텍스트 에디터로 메시지를 작성하세요. 아름답게 포맷하고, 링크를 추가하고, 전문적으로 만드세요."
+        step2:
+          title: "링크 공유"
+          description: "고유한 링크를 받아 어디서든 공유하세요 - 이메일, 슬랙, 왓츠앱, SMS 또는 사용하는 모든 플랫폼에서."
+        step3:
+          title: "알림 받기"
+          description: "메시지가 열리면 즉시 알림을 받습니다. 정확히 언제 읽혔는지 알 수 있습니다."
+          notification: "메시지가 읽혔습니다!"
+          notification_time: "방금"
+      use_cases:
+        title: "당신의 업무 방식에 맞게 설계"
+        subtitle: "당신과 같은 전문가들이 매일 MessageOpen을 어떻게 사용하는지 확인하세요."
+        freelancers:
+          title: "프리랜서용"
+          description: "제안서와 프로젝트 업데이트를 링크로 보내세요. 클라이언트가 열어보는 순간 알 수 있어 불안 없이 자신 있게 팔로업할 수 있습니다."
+          example: "제안서가 5분 전에 읽혔습니다"
+        sales:
+          title: "영업 및 아웃리치용"
+          description: "가격표, 피치덱 또는 원페이저를 모든 채널을 통해 공유하세요. 잠재 고객이 아직 관심을 가지고 있을 때 전화할 수 있도록 즉시 알림을 받습니다."
+          example: "가격표 열림 — 오늘 두 번째 조회"
+        recruiters:
+          title: "채용 담당자용"
+          description: "채용 제안서와 직무 설명을 안전하게 보내세요. 후보자가 열어볼 때 확인할 수 있습니다 — 상대방은 앱 설치나 가입이 필요 없습니다."
+          example: "채용 제안서 3회 읽음"
+      features:
+        title: "필요한 모든 것"
+        subtitle: "자신감 있게 소통할 수 있도록 돕는 강력한 기능들"
+        multi_channel:
+          title: "멀티 채널 공유"
+          description: "이메일, 슬랙, 왓츠앱, SMS 및 링크를 지원하는 모든 플랫폼에서 작동합니다."
+        realtime:
+          title: "실시간 알림"
+          description: "메시지가 열리는 순간 즉시 이메일 알림을 받습니다."
+        analytics:
+          title: "분석 대시보드"
+          description: "메시지가 언제 열렸고 몇 번 조회되었는지 확인합니다."
+        rich_text:
+          title: "리치 텍스트 에디터"
+          description: "굵게, 목록, 링크 등으로 메시지를 포맷합니다."
+        password:
+          title: "비밀번호 보호"
+          description: "추가적인 보안을 위해 민감한 메시지를 비밀번호로 보호합니다."
+        expiration:
+          title: "만료 날짜"
+          description: "특정 날짜 또는 시간 후에 메시지가 만료되도록 설정합니다."
+        read_limits:
+          title: "읽기 제한"
+          description: "메시지를 볼 수 있는 횟수를 제한합니다."
+        no_signup:
+          title: "수신자 가입 불필요"
+          description: "수신자는 계정을 만들지 않고도 즉시 메시지를 볼 수 있습니다."
+      pricing:
+        title: "심플한 가격"
+        subtitle: "무료로 시작하세요. 더 필요할 때 업그레이드하세요."
+        monthly: "월간"
+        yearly: "연간"
+        save: "(17% 절약)"
+        free:
+          name: "무료"
+          messages: "월 10개 메시지"
+          tracking: "열림/읽지 않음 상태만"
+          history: "7일 기록"
+          notifications: "이메일 알림"
+          cta: "무료로 시작"
+          note: "신용카드 필요 없음"
+        pro:
+          name: "Pro"
+          badge: "가장 인기"
+          yearly_note: "월당, 연간 $120 청구"
+          messages: "무제한"
+          messages_suffix: "메시지"
+          analytics: "전체 분석 대시보드"
+          history: "무제한 기록"
+          support: "우선 지원"
+          cta: "Pro 시작 — 14일 무료"
+          note: "신용카드 필요 없음"
+        team:
+          question: "팀 플랜이 필요하신가요?"
+          link: "문의하기"
+        full_pricing: "전체 가격 세부사항 보기 →"
+      faq:
+        title: "자주 묻는 질문"
+        subtitle: "시작하기 전에 알아야 할 모든 것."
+        q1:
+          question: "MessageOpen은 어떻게 작동하나요?"
+          answer: "에디터에서 메시지를 작성하면 고유한 링크가 생성됩니다. 이메일, 슬랙, 왓츠앱, SMS 또는 모든 플랫폼에서 링크를 공유하세요. 수신자가 링크를 클릭하고 메시지를 읽으면 즉시 알림을 받습니다."
+        q2:
+          question: "수신자가 앱을 설치하거나 계정을 만들어야 하나요?"
+          answer: "아니요. 수신자는 링크를 클릭하고 브라우저에서 메시지를 읽기만 하면 됩니다. 앱 다운로드, 가입, 추가 단계가 필요 없습니다. 일반 웹 페이지를 여는 것과 같습니다."
+        q3:
+          question: "수신자가 내가 알림을 받을 것을 알 수 있나요?"
+          answer: "수신자는 공유된 Google 문서나 Notion 페이지와 유사한 깔끔하고 전문적인 메시지 페이지를 봅니다. 방해가 되는 배너나 알림이 없습니다. 자연스럽고 정중하게 느껴지도록 설계되었습니다."
+        q4:
+          question: "내 메시지 내용이 안전한가요?"
+          answer: "예. 모든 메시지는 전송 중에 암호화됩니다. 의도한 수신자만 메시지를 볼 수 있도록 비밀번호 보호를 추가할 수 있으며, 특정 시간 후에 메시지를 자동 삭제하도록 만료 날짜를 설정할 수 있습니다."
+        q5:
+          question: "무료 플랜에는 무엇이 포함되나요?"
+          answer: "무료 플랜에는 월 10개 메시지, 기본 읽기 알림, 7일 메시지 기록이 포함됩니다. 신용카드가 필요 없으며 체험판이 아니라 영원히 무료입니다."
+        q6:
+          question: "기존 도구와 함께 MessageOpen을 사용할 수 있나요?"
+          answer: "물론입니다. MessageOpen은 이미 사용 중인 모든 도구와 함께 작동합니다. 메시지 링크를 이메일, 슬랙, 왓츠앱, LinkedIn, SMS 또는 링크를 지원하는 모든 플랫폼에 붙여넣기만 하세요. 설정할 통합이 없습니다."
+      cta:
+        title: "MessageOpen을 시도할 준비가 되셨나요?"
+        subtitle: "자신감 있게 메시지를 보내세요. 읽혔을 때 알 수 있습니다."
+        placeholder: "이메일을 입력하세요"
+        button: "무료로 시작"
+        note: "신용카드 필요 없음. 무료 플랜 제공."
+
+  # Dashboard (logged-in home)
+  dashboard:
+    title: "대시보드 - MessageOpen"
+    heading: "대시보드"
+    subtitle: "메시지 참여도 추적"
+    new_message: "새 메시지"
+    this_month: "이번 달"
+    total_messages: "총 메시지"
+    open_rate: "열람률"
+    total_opens: "총 열람"
+    today: "오늘"
+    avg_time_to_open: "평균 열람 시간"
+    hrs: "시간"
+    opens_over_time: "시간별 열람"
+    pro_feature: "Pro 기능"
+    unlock_analytics: "Pro로 상세 분석 잠금 해제"
+    upgrade_to_pro: "Pro로 업그레이드 →"
+    recent_messages: "최근 메시지"
+    opened: "열림"
+    opens: "열람"
+    not_opened: "열리지 않음"
+    expires_in: "%{time} 후 만료"
+    empty:
+      title: "첫 번째 메시지 만들기"
+      subtitle: "메시지를 공유하고 정확히 언제 읽혔는지 알 수 있습니다. 더 이상 확인했는지 궁금해하지 마세요."
+      cta: "메시지 만들기"
+      pro_description: "Pro로 무제한 메시지, 고급 분석 등을 이용하세요."
+      pro_cta: "월 $12로 Pro 업그레이드 →"
+    limit_modal:
+      title: "한도에 도달했습니다"
+      used_messages: "이번 달 %{used}/%{limit}개 메시지를 사용했습니다."
+      upgrade_for: "Pro로 업그레이드하면:"
+      unlimited_messages: "무제한 메시지"
+      advanced_analytics: "고급 분석"
+      unlimited_history: "무제한 기록"
+      priority_support: "우선 지원"
+      price: "월 $12"
+      upgrade: "Pro로 업그레이드"
+      not_now: "나중에"
+      resets_in: "%{days}일 후 한도 초기화"
+    usage_banner:
+      used_messages: "이번 달 무료 메시지 %{limit}개 중 %{used}개 사용"
+      upgrade_description: "Pro로 업그레이드하여 무제한 메시지, 고급 분석 등을 이용하세요."
+      view_plans: "플랜 보기"
+    message:
+      readers: "독자"
+      views: "조회"
+      expires: "만료"
+      limit: "제한:"
+    usage:
+      messages: "메시지"
+
+  # Messages
+  messages:
+    new:
+      title: "메시지 작성 - MessageOpen"
+      header: "메시지 작성"
+      subtitle: "메시지를 작성하고 누구에게나 공유하세요"
+      placeholder: "메시지를 작성하세요..."
+      generate_link: "링크 생성"
+      settings:
+        title: "메시지 설정"
+        pro_features: "Pro 기능"
+        message_title:
+          label: "메시지 제목"
+          placeholder: "예: 프로젝트 제안서"
+        notify:
+          label: "열릴 때 알림"
+          description: "누군가 읽으면 이메일 받기"
+        expire:
+          label: "만료 기간"
+          day_1: "1일"
+          day_7: "7일"
+          day_30: "30일"
+        one_time:
+          label: "일회성 읽기"
+          description: "보기 후 메시지 사라짐"
+        password:
+          label: "비밀번호 보호"
+          description: "보기에 비밀번호 필요"
+          placeholder: "비밀번호 입력 (최소 6자)"
+      link_preview:
+        title: "링크 미리보기"
+        subtitle: "공유 시 링크가 표시되는 방식:"
+        secure_message: "메시지가 있습니다"
+        default_title: "메시지 제목"
+        description: "메시지를 받았습니다. 내용을 보려면 클릭하세요."
+        note: "이 미리보기는 슬랙, iMessage, 카카오톡 및 기타 앱에서 링크가 어떻게 표시되는지 보여줍니다."
+      notification_info:
+        title: "알림을 받을 이메일"
+    edit:
+      title: "메시지 수정 - MessageOpen"
+      header: "메시지 수정"
+      update: "메시지 업데이트"
+    share:
+      title: "%{message_title} - MessageOpen"
+      success:
+        title: "링크가 생성되었습니다!"
+        subtitle: "메시지를 공유할 준비가 되었습니다. 아래 링크를 복사하세요."
+      shareable_link: "공유 가능한 링크"
+      copy_link: "링크 복사"
+      share_via: "공유하기"
+      whatsapp: "왓츠앱"
+      slack: "슬랙"
+      message_content: "메시지 내용"
+      password_protected: "비밀번호 보호됨"
+      one_time_read: "일회성 읽기"
+      read_analytics: "읽기 분석"
+      unique_readers: "고유 독자"
+      total_views: "총 조회"
+      reactions: "반응"
+      reader_reactions: "독자 반응"
+      reader_reaction: "독자의 반응"
+      recent_activity: "최근 활동"
+      view: "조회"
+      views: "조회"
+      last_read: "마지막 읽음"
+      empty:
+        title: "아직 아무도 이 메시지를 읽지 않았습니다"
+        subtitle: "링크를 공유하여 추적을 시작하세요"
+      actions:
+        create_another: "다른 메시지 만들기"
+        edit: "메시지 수정"
+        delete: "메시지 삭제"
+      delete_confirm:
+        title: "메시지를 삭제하시겠습니까?"
+        description: "이 메시지가 영구적으로 삭제됩니다. 이 작업은 취소할 수 없습니다."
+        cancel: "취소"
+        confirm: "삭제"
+      notify_toggle:
+        label: "이메일 알림"
+        description: "누군가 이 메시지를 읽으면 알림 받기"
+
+  # Reads (recipient view)
+  reads:
+    show:
+      message_from: "보낸 사람"
+      password_protected: "이 메시지는 비밀번호로 보호되어 있습니다"
+      password_placeholder: "비밀번호 입력"
+      password_hint: "발신자가 별도로 비밀번호를 공유했습니다"
+      view_button: "메시지 보기"
+      message_ready: "메시지를 볼 준비가 되었습니다"
+      notification_warning: "이 메시지가 열리면 발신자에게 알림이 전송됩니다."
+    content:
+      shared_via: "MessageOpen을 통해 공유됨"
+      read_confirmation: "발신자에게 읽음 확인이 전송되었습니다"
+      reaction:
+        prompt: "이 메시지에 대해 어떻게 생각하시나요?"
+        sent: "반응이 전송되었습니다!"
+      cta:
+        question: "내 메시지가 읽혔을 때 알고 싶으신가요?"
+        link: "MessageOpen 무료로 사용해보기 →"
+      footer: "MessageOpen • 메시지가 읽혔을 때 알 수 있습니다"
+    expired:
+      title: "메시지를 사용할 수 없음 - MessageOpen"
+      heading: "메시지를 사용할 수 없음"
+      description: "이 메시지는 더 이상 접근할 수 없습니다. 만료되었거나 조회 한도에 도달했을 수 있습니다."
+      reasons:
+        title: "다음과 같은 경우에 발생할 수 있습니다:"
+        expired: "메시지의 만료 날짜가 지났습니다"
+        limit: "조회 한도에 도달했습니다"
+        removed: "발신자가 메시지를 삭제했습니다"
+      contact: "발신자에게 연락해야 하나요? 새 링크를 공유해달라고 요청하세요."
+      cta:
+        question: "내 메시지가 읽혔을 때 알고 싶으신가요?"
+        link: "MessageOpen 사용해보기 →"
+
+  # Sessions (auth)
+  sessions:
+    new:
+      # Default / signup intent
+      signup:
+        title: "시작하기 - MessageOpen"
+        heading: "무료로 시작하기"
+        subtitle: "시작하려면 이메일을 입력하세요"
+        submit: "매직 링크 보내기 →"
+        note: "비밀번호가 필요 없습니다. 시작할 수 있는 링크를 이메일로 보내드립니다."
+        toggle_text: "이미 계정이 있으신가요?"
+        toggle_link: "로그인"
+      # Login intent
+      login:
+        title: "로그인 - MessageOpen"
+        heading: "다시 오신 것을 환영합니다"
+        subtitle: "로그인하려면 이메일을 입력하세요"
+        submit: "매직 링크 보내기 →"
+        note: "비밀번호가 필요 없습니다. 로그인 링크를 이메일로 보내드립니다."
+        toggle_text: "계정이 없으신가요?"
+        toggle_link: "무료로 시작"
+      # Shared
+      email_label: "이메일 주소"
+      email_placeholder: "you@example.com"
+      benefits:
+        no_password: "비밀번호 없음"
+        secure: "안전"
+        instant: "즉시"
+    sent:
+      title: "이메일을 확인하세요 - MessageOpen"
+      heading: "이메일을 확인하세요"
+      subtitle: "로그인 링크를 이메일 주소로 보냈습니다"
+      instructions:
+        click: "이메일의 링크를 클릭하여 로그인하세요"
+        expires: "링크는 15분 후에 만료됩니다"
+        spam: "이메일이 보이지 않으면 스팸 폴더를 확인하세요"
+      different_email: "다른 이메일 사용"
+
+  # Notifications
+  notifications:
+    index:
+      title: "알림 - MessageOpen"
+      heading: "알림"
+      subtitle: "메시지가 읽힐 때 전송되는 이메일 알림"
+      empty:
+        title: "아직 알림이 없습니다"
+        subtitle: "누군가 메시지를 읽으면 이메일 알림을 받고 여기에 표시됩니다."
+        cta: "메시지 만들기"
+    status:
+      sent: "전송됨"
+      pending: "대기 중"
+      failed: "실패"
+    type:
+      email: "이메일"
+      webhook: "웹훅"
+
+  # Mailers
+  mailers:
+    read_notification:
+      subject: "메시지가 읽혔습니다"
+    magic_link:
+      subject: "MessageOpen 로그인 링크"
+
+  # Billing Page
+  billing:
+    title: "결제 - MessageOpen"
+    heading: "결제 및 구독"
+    current_plan: "현재 플랜"
+    status: "상태"
+    status_active: "활성"
+    status_cancelled: "취소됨"
+    status_past_due: "연체"
+    access_until: "접근 가능일"
+    next_billing_date: "다음 결제일"
+    subscription_cancelled: "구독 취소됨"
+    grace_period_message: "Pro 접근이 %{date}에 종료됩니다. 그때까지 Pro 기능을 계속 사용할 수 있습니다."
+    manage_subscription: "구독 관리"
+    manage_subscription_description: "결제 방법 업데이트, 청구서 확인 또는 구독 취소"
+    free_plan:
+      title: "무료 플랜을 사용 중입니다"
+      description_html: "기본 기능으로 월 10개 메시지.<br>Pro로 업그레이드하여 무제한 메시지와 고급 분석을 이용하세요."
+      upgrade: "Pro로 업그레이드"
+    webhook:
+      title: "웹훅 알림"
+      subtitle: "HTTP POST를 통해 실시간 알림 받기"
+      url_label: "웹훅 URL"
+      url_placeholder: "https://your-server.com/webhook"
+      url_description: "메시지가 읽힐 때 JSON 페이로드와 함께 POST 요청을 보냅니다."
+      supported_platforms: "지원 플랫폼:"
+      platform_discord: "Discord"
+      platform_slack: "Slack"
+      platform_teams: "Microsoft Teams"
+      platform_telegram: "Telegram Bot"
+      platform_custom: "커스텀 (JSON)"
+      platform_note: "각 플랫폼은 해당 표시에 최적화된 포맷된 메시지를 받습니다."
+      payload_format: "커스텀 웹훅 페이로드 형식"
+      remove: "웹훅 제거"
+      save: "웹훅 저장"
+    compare_plans: "플랜 비교"
+
+  # Pricing Page
+  pricing:
+    title: "요금제 - MessageOpen"
+    hero:
+      title: "심플하고 투명한 가격"
+      subtitle: "무료로 시작하세요. 준비가 되면 업그레이드하세요. 언제든 취소할 수 있습니다."
+    toggle:
+      monthly: "월간"
+      yearly: "연간"
+      save: "17% 절약"
+    free:
+      name: "무료"
+      price: "$0"
+      period: "영원히"
+      messages: "월 10개 추적 메시지"
+      tracking: "열림/읽지 않음 상태"
+      history: "7일 메시지 기록"
+      notifications: "이메일 알림"
+      editor: "리치 텍스트 에디터"
+      password: "비밀번호 보호"
+      cta: "시작하기"
+      note: "신용카드 필요 없음"
+      current_plan: "현재 플랜"
+      downgrade_not_available: "결제에서 다운그레이드"
+    pro:
+      name: "Pro"
+      badge: "가장 인기"
+      monthly: "/월"
+      billed_monthly: "월간 청구"
+      billed_yearly: "연간 $120 — $24 절약"
+      everything_plus: "무료의 모든 것, 추가:"
+      unlimited: "무제한 메시지"
+      analytics: "전체 분석 대시보드"
+      history: "무제한 메시지 기록"
+      receipts: "열람률, 타이밍 및 트렌드"
+      webhooks: "웹훅 알림 (Discord, Slack, Teams, Telegram)"
+      branding: "커스텀 브랜딩"
+      support: "우선 이메일 지원"
+      cta_monthly: "Pro 월간 시작"
+      cta_yearly: "Pro 연간 시작"
+      cta_trial: "14일 무료 체험"
+      note: "신용카드 필요 없음"
+      current_plan: "현재 플랜"
+      manage_subscription: "구독 관리"
+    team:
+      question: "팀 플랜이 필요하신가요?"
+      link: "문의하기"
+    trust:
+      money_back: "7일 환불 보장"
+      cancel: "언제든 취소"
+      secure: "LemonSqueezy를 통한 보안 결제"
+      accept: "결제 수단:"
+    compare:
+      title: "플랜 비교"
+      feature: "기능"
+      tracked_messages: "추적 메시지"
+      ten_month: "월 10개"
+      unlimited: "무제한"
+      message_history: "메시지 기록"
+      seven_days: "7일"
+      unlimited_history: "무제한"
+      analytics: "분석 대시보드"
+      basic: "상태만"
+      detailed: "전체 통계"
+      open_count: "열람 횟수"
+      open_rate: "열람률"
+      time_trends: "시간 트렌드 차트"
+      open_tracking: "열람 추적"
+      email_notifications: "이메일 알림"
+      rich_text_editor: "리치 텍스트 에디터"
+      password_protection: "비밀번호 보호"
+      reactions: "독자 반응"
+      webhook_notifications: "웹훅 (Discord, Slack, Teams, Telegram)"
+      custom_branding: "커스텀 브랜딩"
+      priority_support: "우선 지원"
+    faq:
+      title: "자주 묻는 질문"
+      q1:
+        question: "언제든 플랜을 변경할 수 있나요?"
+        answer: "예, 언제든 업그레이드하거나 다운그레이드할 수 있습니다. 변경 사항은 즉시 적용됩니다."
+      q2:
+        question: "무료 한도에 도달하면 어떻게 되나요?"
+        answer: "기존 메시지는 계속 작동하지만 다음 달까지 또는 Pro로 업그레이드할 때까지 새 메시지를 만들 수 없습니다."
+      q3:
+        question: "환불을 받을 수 있나요?"
+        answer: "예, 7일 환불 보장. 질문 없이 환불해 드립니다."
+      q4:
+        question: "언제든 취소할 수 있나요?"
+        answer: "물론입니다. 설정에서 언제든 취소할 수 있습니다. 수수료가 없습니다."
+      q5:
+        question: "팀 플랜이 있나요?"
+        answer_prefix: "아직 없습니다! 개인 사용자에 집중하고 있습니다. 팀 기능이 필요하신가요? 이메일로 문의하세요:"
+      q6:
+        question: "어떤 결제 수단을 지원하나요?"
+        answer: "LemonSqueezy를 통한 모든 주요 신용카드. 안전하고 보안됩니다."
+      q7:
+        question: "무료 체험에 신용카드가 필요한가요?"
+        answer: "아니요! 무료 플랜으로 즉시 시작하세요. Pro로 업그레이드할 때만 카드가 필요합니다."
+      q8:
+        question: "무료 체험에는 무엇이 포함되나요?"
+        answer: "14일 동안 전체 Pro 기능. 신용카드 필요 없음. 체험 후 자동으로 무료 플랜으로 전환됩니다."
+    cta:
+      title: "시작할 준비가 되셨나요?"
+      subtitle: "메시지가 읽혔을 때 알 수 있는 수천 명의 전문가와 함께하세요."
+      button: "무료로 시작"
+      note: "신용카드 필요 없음. 영원히 무료."
+
+  # Legal Pages
+  legal:
+    back_to_home: "홈으로 돌아가기"
+    last_updated: "최종 업데이트: %{date}"
+    privacy:
+      title: "개인정보 처리방침 - MessageOpen"
+      heading: "개인정보 처리방침"
+    terms:
+      title: "이용약관 - MessageOpen"
+      heading: "이용약관"
+    refund:
+      title: "환불 정책 - MessageOpen"
+      heading: "환불 정책"
+
+  # JavaScript Alerts
+  js:
+    file_too_large: "파일이 너무 큽니다. 최대 크기는 %{size}MB입니다."
+    invalid_file_type: "유효하지 않은 파일 형식입니다. 이미지(JPEG, PNG, GIF, WebP)만 허용됩니다."
+
+  # OG Meta
+  og:
+    message:
+      description: "%{email}님이 MessageOpen을 통해 메시지를 보냈습니다. 클릭하여 확인하세요."
+
+  # Datetime
   datetime:
     distance_in_words:
       about_x_hours:

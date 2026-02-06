@@ -1,0 +1,710 @@
+ja:
+  # ActiveRecord errors
+  activerecord:
+    errors:
+      models:
+        message:
+          attributes:
+            content:
+              too_long: "が長すぎます（最大%{count}文字）"
+              attachment_too_large: "ファイル '%{filename}' が大きすぎます（最大 %{max_size}MB）"
+              attachment_invalid_type: "ファイル '%{filename}' の形式が無効です（画像のみ許可）"
+              attachments_total_too_large: "添付ファイルの合計サイズが大きすぎます（最大 %{max_size}MB）"
+      messages:
+        blank: "を入力してください"
+        required: "が必要です"
+        too_short: "が短すぎます（最小%{count}文字）"
+        too_long: "が長すぎます（最大%{count}文字）"
+        invalid: "が無効です"
+        taken: "は既に使用されています"
+        greater_than: "は%{count}より大きくなければなりません"
+
+  # Application-wide
+  app:
+    name: "MessageOpen"
+    tagline: "メッセージが読まれたら通知を受け取る"
+    description: "リンクでメッセージを共有し、読まれたら通知を受け取ります。あらゆるチャネルで動作します。"
+    secure_message: "プライベートメッセージ"
+    secure_message_sharing: "メッセージ共有"
+    copyright: "© %{year} MessageOpen. All rights reserved."
+
+  # Common UI elements
+  common:
+    admin: "管理者"
+    logout: "ログアウト"
+    login: "ログイン"
+    cancel: "キャンセル"
+    back: "戻る"
+    copy: "コピー"
+    copied: "コピーしました！"
+    active: "アクティブ"
+    expired: "期限切れ"
+    protected: "保護済み"
+    email: "メール"
+    secure: "安全"
+    instant: "即時"
+    ago: "前"
+    characters: "文字"
+    never: "なし"
+    forever: "永久"
+    month: "/月"
+    support: "サポート"
+    edit: "編集"
+    delete: "削除"
+    confirm_delete: "本当に削除しますか？"
+
+  # Flash messages
+  flash:
+    sessions:
+      email_required: "メールアドレスを入力してください"
+      check_email: "メールでログインリンクを確認してください"
+      logged_in: "ログインしました"
+      invalid_token: "無効または期限切れのログインリンクです"
+      logged_out: "ログアウトしました"
+    reads:
+      incorrect_password: "パスワードが正しくありません。もう一度お試しください。"
+    messages:
+      limit_reached: "今月のメッセージ上限に達しました。Proにアップグレードして無制限のメッセージを利用しましょう。"
+      updated: "メッセージが正常に更新されました"
+      deleted: "メッセージが正常に削除されました"
+    billing:
+      no_subscription: "アクティブなサブスクリプションが見つかりません"
+      portal_error: "請求ポータルにアクセスできません。もう一度お試しください。"
+      webhook_updated: "Webhook設定が正常に更新されました"
+      webhook_pro_only: "Webhook通知はProユーザーのみ利用可能です"
+    checkout:
+      select_plan: "プランを選択してください"
+      checkout_error: "チェックアウトを作成できません。もう一度お試しください。"
+      success: "支払いが完了しました！Proサブスクリプションが有効になりました。"
+      cancelled: "チェックアウトがキャンセルされました。準備ができたらまたお試しください。"
+      plan_unavailable: "プラン設定が利用できません"
+
+  # Navigation
+  nav:
+    how_it_works: "使い方"
+    features: "機能"
+    pricing: "料金"
+    dashboard: "ダッシュボード"
+    messages: "メッセージ"
+    notifications: "通知"
+    billing: "請求"
+    alerts: "アラート"
+    start_free: "無料で始める"
+    back_to_dashboard: "ダッシュボードに戻る"
+    all_messages: "すべてのメッセージ"
+    home: "ホーム"
+    get_started: "始める"
+    free_plan: "無料プラン"
+    messages_count: "メッセージ"
+    upgrade_description: "Proにアップグレードして無制限のメッセージと分析を利用しましょう"
+    upgrade_now: "今すぐアップグレード"
+    resets_on: "%{date}にリセット"
+
+  # Footer
+  footer:
+    tagline: "メッセージが読まれたことがわかります。"
+    product: "製品"
+    legal: "法的情報"
+    support_title: "サポート"
+    privacy: "プライバシーポリシー"
+    terms: "利用規約"
+    refund: "返金ポリシー"
+    contact: "お問い合わせ"
+    billing: "請求"
+    privacy_short: "プライバシー"
+    terms_short: "利用規約"
+    refund_short: "返金"
+    copyright: "© %{year} MessageOpen. All rights reserved."
+
+  # Errors & Validations
+  errors:
+    login_required: "続行するにはログインしてください"
+    message_unreadable: "このメッセージはもう読むことができません"
+    messages:
+      blank: "を入力してください"
+      required: "が必要です"
+      too_short: "が短すぎます（最小%{count}文字）"
+      too_long: "が長すぎます（最大%{count}文字）"
+      invalid: "が無効です"
+      taken: "は既に使用されています"
+      greater_than: "は%{count}より大きくなければなりません"
+
+  # Pages (Landing)
+  pages:
+    home:
+      title: "MessageOpen - メッセージが読まれたら通知を受け取る"
+      hero:
+        title_line1: "何度も確認しないでください。"
+        title_line2_prefix: "メッセージが読まれたら"
+        title_line2_highlight: "すぐにわかります。"
+        subtitle: "すべてのメッセージをリンクで送信。メール、Slack、SMS、どのチャネルで共有しても、開かれた瞬間に通知を受け取ります。受信者はアプリのインストール不要です。"
+        cta_primary: "無料で最初のメッセージを送る"
+        cta_secondary: "使い方を見る"
+      preview:
+        example_title: "プロジェクト提案書 - 2025年Q1"
+        example_content: "サラさん、こちらが議論した提案書です..."
+        read_ago: "2分前に既読"
+        notification_title: "メッセージが開かれました！"
+        notification_text: "サラさんが提案書を確認しました"
+      problems:
+        title: "こんな経験ありませんか？"
+        problem1:
+          title: "重要な提案書を送りましたか？"
+          description: "完璧なメッセージを作成するのに何時間も費やしましたが、相手が開いたかどうかさえわかりません。"
+        problem2:
+          title: "見たかどうか気になりますか？"
+          description: "不確実さがイライラします。スパムに行った？無視された？わかりません。"
+        problem3:
+          title: "フォローアップに疲れましたか？"
+          description: "「確認してください」というメッセージを送るのは気まずく、関係を損なう可能性があります。"
+      how_it_works:
+        title: "MessageOpenの使い方"
+        subtitle: "3つの簡単なステップでメッセージが読まれたことがわかります"
+        step1:
+          title: "メッセージを作成"
+          description: "リッチテキストエディタでメッセージを作成。美しくフォーマットし、リンクを追加し、プロフェッショナルに仕上げます。"
+        step2:
+          title: "リンクを共有"
+          description: "ユニークなリンクを取得してどこでも共有 - メール、Slack、WhatsApp、SMS、お使いのあらゆるプラットフォームで。"
+        step3:
+          title: "通知を受け取る"
+          description: "メッセージが開かれると即座に通知を受け取ります。いつ読まれたか正確にわかります。"
+          notification: "メッセージが読まれました！"
+          notification_time: "たった今"
+      use_cases:
+        title: "あなたの働き方に合わせて設計"
+        subtitle: "あなたのようなプロフェッショナルが毎日MessageOpenをどのように使っているかご覧ください。"
+        freelancers:
+          title: "フリーランサー向け"
+          description: "提案書やプロジェクトの更新をリンクで送信。クライアントが開いた瞬間にわかるので、不安なく自信を持ってフォローアップできます。"
+          example: "提案書が5分前に読まれました"
+        sales:
+          title: "営業・アウトリーチ向け"
+          description: "価格表、ピッチデック、ワンページャーをあらゆるチャネルで共有。見込み客がまだ関心を持っているうちに電話できるよう、即座に通知を受け取ります。"
+          example: "価格表が開かれました — 今日2回目の閲覧"
+        recruiters:
+          title: "採用担当者向け"
+          description: "オファーレターや職務内容を安全に送信。候補者がいつ開いたか確認できます — 相手はアプリのインストールやサインアップ不要。"
+          example: "オファーレターが3回読まれました"
+      features:
+        title: "必要なすべてが揃っています"
+        subtitle: "自信を持ってコミュニケーションするための強力な機能"
+        multi_channel:
+          title: "マルチチャネル共有"
+          description: "メール、Slack、WhatsApp、SMS、リンクをサポートするあらゆるプラットフォームで動作します。"
+        realtime:
+          title: "リアルタイム通知"
+          description: "メッセージが開かれた瞬間に即座にメール通知を受け取ります。"
+        analytics:
+          title: "分析ダッシュボード"
+          description: "メッセージがいつ開かれ、何回閲覧されたか確認できます。"
+        rich_text:
+          title: "リッチテキストエディタ"
+          description: "太字、リスト、リンクなどでメッセージをフォーマットできます。"
+        password:
+          title: "パスワード保護"
+          description: "追加のプライバシーのために機密メッセージをパスワードで保護します。"
+        expiration:
+          title: "有効期限"
+          description: "特定の日付または時間後にメッセージが期限切れになるよう設定します。"
+        read_limits:
+          title: "閲覧制限"
+          description: "メッセージを閲覧できる回数を制限します。"
+        no_signup:
+          title: "受信者のサインアップ不要"
+          description: "受信者はアカウントを作成せずに即座にメッセージを閲覧できます。"
+      pricing:
+        title: "シンプルな料金"
+        subtitle: "無料で始めましょう。必要なときにアップグレード。"
+        monthly: "月額"
+        yearly: "年額"
+        save: "（17%お得）"
+        free:
+          name: "無料"
+          messages: "月10メッセージ"
+          tracking: "開封/未読ステータスのみ"
+          history: "7日間の履歴"
+          notifications: "メール通知"
+          cta: "無料で始める"
+          note: "クレジットカード不要"
+        pro:
+          name: "Pro"
+          badge: "最も人気"
+          yearly_note: "月あたり、年間$120請求"
+          messages: "無制限"
+          messages_suffix: "メッセージ"
+          analytics: "完全な分析ダッシュボード"
+          history: "無制限の履歴"
+          support: "優先サポート"
+          cta: "Proを始める — 14日間無料"
+          note: "クレジットカード不要"
+        team:
+          question: "チームプランが必要ですか？"
+          link: "お問い合わせ"
+        full_pricing: "料金の詳細を見る →"
+      faq:
+        title: "よくある質問"
+        subtitle: "始める前に知っておくべきすべてのこと。"
+        q1:
+          question: "MessageOpenはどのように機能しますか？"
+          answer: "エディタでメッセージを作成すると、ユニークなリンクが生成されます。メール、Slack、WhatsApp、SMS、あらゆるプラットフォームでリンクを共有してください。受信者がリンクをクリックしてメッセージを読むと、即座に通知を受け取ります。"
+        q2:
+          question: "受信者はアプリをインストールしたりアカウントを作成したりする必要がありますか？"
+          answer: "いいえ。受信者はリンクをクリックしてブラウザでメッセージを読むだけです。アプリのダウンロード、サインアップ、追加の手順は不要です。通常のウェブページを開くのと同じです。"
+        q3:
+          question: "受信者は私が通知を受け取ることを知ることができますか？"
+          answer: "受信者には、共有されたGoogleドキュメントやNotionページに似た、クリーンでプロフェッショナルなメッセージページが表示されます。邪魔なバナーやアラートはありません。自然で敬意を持った感じになるよう設計されています。"
+        q4:
+          question: "メッセージの内容は安全ですか？"
+          answer: "はい。すべてのメッセージは転送中に暗号化されます。意図した受信者のみがメッセージを閲覧できるようにパスワード保護を追加したり、特定の時間後にメッセージを自動削除するように有効期限を設定したりすることもできます。"
+        q5:
+          question: "無料プランには何が含まれていますか？"
+          answer: "無料プランには、月10メッセージ、基本的な既読通知、7日間のメッセージ履歴が含まれています。クレジットカード不要で、トライアルではなく永久に無料です。"
+        q6:
+          question: "既存のツールと一緒にMessageOpenを使用できますか？"
+          answer: "もちろんです。MessageOpenは既に使用しているあらゆるツールと連携します。メッセージリンクをメール、Slack、WhatsApp、LinkedIn、SMS、リンクをサポートするあらゆるプラットフォームに貼り付けるだけです。設定する統合はありません。"
+      cta:
+        title: "MessageOpenを試す準備はできましたか？"
+        subtitle: "自信を持ってメッセージを送信。読まれたことがわかります。"
+        placeholder: "メールアドレスを入力"
+        button: "無料で始める"
+        note: "クレジットカード不要。無料プラン利用可能。"
+
+  # Dashboard (logged-in home)
+  dashboard:
+    title: "ダッシュボード - MessageOpen"
+    heading: "ダッシュボード"
+    subtitle: "メッセージのエンゲージメントを追跡"
+    new_message: "新しいメッセージ"
+    this_month: "今月"
+    total_messages: "総メッセージ数"
+    open_rate: "開封率"
+    total_opens: "総開封数"
+    today: "今日"
+    avg_time_to_open: "平均開封時間"
+    hrs: "時間"
+    opens_over_time: "時系列での開封"
+    pro_feature: "Pro機能"
+    unlock_analytics: "Proで詳細な分析をアンロック"
+    upgrade_to_pro: "Proにアップグレード →"
+    recent_messages: "最近のメッセージ"
+    opened: "開封済み"
+    opens: "開封"
+    not_opened: "未開封"
+    expires_in: "%{time}後に期限切れ"
+    empty:
+      title: "最初のメッセージを作成"
+      subtitle: "メッセージを共有して、いつ読まれたか正確にわかります。もう見たかどうか心配する必要はありません。"
+      cta: "メッセージを作成"
+      pro_description: "Proで無制限のメッセージ、高度な分析などを利用できます。"
+      pro_cta: "月額$12でProにアップグレード →"
+    limit_modal:
+      title: "上限に達しました"
+      used_messages: "今月%{used}/%{limit}メッセージを使用しました。"
+      upgrade_for: "Proにアップグレードすると："
+      unlimited_messages: "無制限のメッセージ"
+      advanced_analytics: "高度な分析"
+      unlimited_history: "無制限の履歴"
+      priority_support: "優先サポート"
+      price: "月額たったの$12"
+      upgrade: "Proにアップグレード"
+      not_now: "今はしない"
+      resets_in: "%{days}日後に上限リセット"
+    usage_banner:
+      used_messages: "今月の無料メッセージ%{limit}件中%{used}件使用済み"
+      upgrade_description: "Proにアップグレードして無制限のメッセージ、高度な分析などを利用しましょう。"
+      view_plans: "プランを見る"
+    message:
+      readers: "読者"
+      views: "閲覧"
+      expires: "期限切れ"
+      limit: "制限："
+    usage:
+      messages: "メッセージ"
+
+  # Messages
+  messages:
+    new:
+      title: "メッセージ作成 - MessageOpen"
+      header: "メッセージ作成"
+      subtitle: "メッセージを作成して誰にでも共有"
+      placeholder: "メッセージを書いてください..."
+      generate_link: "リンクを生成"
+      settings:
+        title: "メッセージ設定"
+        pro_features: "Pro機能"
+        message_title:
+          label: "メッセージタイトル"
+          placeholder: "例：プロジェクト提案書"
+        notify:
+          label: "開封時に通知"
+          description: "誰かが読んだらメールを受け取る"
+        expire:
+          label: "有効期限"
+          day_1: "1日"
+          day_7: "7日"
+          day_30: "30日"
+        one_time:
+          label: "一度だけ読める"
+          description: "閲覧後にメッセージが消える"
+        password:
+          label: "パスワード保護"
+          description: "閲覧にパスワードが必要"
+          placeholder: "パスワードを入力（最小6文字）"
+      link_preview:
+        title: "リンクプレビュー"
+        subtitle: "共有時のリンクの表示："
+        secure_message: "メッセージがあります"
+        default_title: "メッセージタイトル"
+        description: "メッセージを受信しました。クリックして内容を確認してください。"
+        note: "このプレビューは、Slack、iMessage、カカオトークなどのアプリでリンクがどのように表示されるかを示しています。"
+      notification_info:
+        title: "通知を受け取るメールアドレス"
+    edit:
+      title: "メッセージ編集 - MessageOpen"
+      header: "メッセージ編集"
+      update: "メッセージを更新"
+    share:
+      title: "%{message_title} - MessageOpen"
+      success:
+        title: "リンクが生成されました！"
+        subtitle: "メッセージを共有する準備ができました。下のリンクをコピーしてください。"
+      shareable_link: "共有可能なリンク"
+      copy_link: "リンクをコピー"
+      share_via: "共有方法"
+      whatsapp: "WhatsApp"
+      slack: "Slack"
+      message_content: "メッセージ内容"
+      password_protected: "パスワード保護済み"
+      one_time_read: "一度だけ読める"
+      read_analytics: "閲覧分析"
+      unique_readers: "ユニーク読者"
+      total_views: "総閲覧数"
+      reactions: "リアクション"
+      reader_reactions: "読者のリアクション"
+      reader_reaction: "読者の反応"
+      recent_activity: "最近のアクティビティ"
+      view: "閲覧"
+      views: "閲覧"
+      last_read: "最終閲覧"
+      empty:
+        title: "まだ誰もこのメッセージを読んでいません"
+        subtitle: "リンクを共有して追跡を開始"
+      actions:
+        create_another: "別のメッセージを作成"
+        edit: "メッセージを編集"
+        delete: "メッセージを削除"
+      delete_confirm:
+        title: "メッセージを削除しますか？"
+        description: "このメッセージは完全に削除されます。この操作は元に戻せません。"
+        cancel: "キャンセル"
+        confirm: "削除"
+      notify_toggle:
+        label: "メール通知"
+        description: "誰かがこのメッセージを読んだら通知を受け取る"
+
+  # Reads (recipient view)
+  reads:
+    show:
+      message_from: "送信者"
+      password_protected: "このメッセージはパスワードで保護されています"
+      password_placeholder: "パスワードを入力"
+      password_hint: "送信者が別途パスワードを共有しました"
+      view_button: "メッセージを見る"
+      message_ready: "メッセージを閲覧する準備ができました"
+      notification_warning: "このメッセージが開かれると、送信者に通知されます。"
+    content:
+      shared_via: "MessageOpenで共有"
+      read_confirmation: "送信者に既読確認が送信されました"
+      reaction:
+        prompt: "このメッセージについてどう思いますか？"
+        sent: "リアクションが送信されました！"
+      cta:
+        question: "メッセージが読まれたことを知りたいですか？"
+        link: "MessageOpenを無料で試す →"
+      footer: "MessageOpen • メッセージが読まれたことがわかります"
+    expired:
+      title: "メッセージを利用できません - MessageOpen"
+      heading: "メッセージを利用できません"
+      description: "このメッセージはもうアクセスできません。期限切れになったか、閲覧制限に達した可能性があります。"
+      reasons:
+        title: "これは次の場合に発生する可能性があります："
+        expired: "メッセージの有効期限が過ぎました"
+        limit: "閲覧制限に達しました"
+        removed: "送信者がメッセージを削除しました"
+      contact: "送信者に連絡する必要がありますか？新しいリンクを共有してもらうよう依頼してください。"
+      cta:
+        question: "メッセージが読まれたことを知りたいですか？"
+        link: "MessageOpenを試す →"
+
+  # Sessions (auth)
+  sessions:
+    new:
+      # Default / signup intent
+      signup:
+        title: "始める - MessageOpen"
+        heading: "無料で始める"
+        subtitle: "メールアドレスを入力して始めましょう"
+        submit: "マジックリンクを送信 →"
+        note: "パスワード不要。開始するためのリンクをメールでお送りします。"
+        toggle_text: "すでにアカウントをお持ちですか？"
+        toggle_link: "ログイン"
+      # Login intent
+      login:
+        title: "ログイン - MessageOpen"
+        heading: "おかえりなさい"
+        subtitle: "メールアドレスを入力してログイン"
+        submit: "マジックリンクを送信 →"
+        note: "パスワード不要。ログインリンクをメールでお送りします。"
+        toggle_text: "アカウントをお持ちでないですか？"
+        toggle_link: "無料で始める"
+      # Shared
+      email_label: "メールアドレス"
+      email_placeholder: "you@example.com"
+      benefits:
+        no_password: "パスワード不要"
+        secure: "安全"
+        instant: "即時"
+    sent:
+      title: "メールを確認 - MessageOpen"
+      heading: "メールを確認してください"
+      subtitle: "ログインリンクをメールアドレスに送信しました"
+      instructions:
+        click: "メール内のリンクをクリックしてサインイン"
+        expires: "リンクは15分後に期限切れになります"
+        spam: "メールが見つからない場合はスパムフォルダを確認してください"
+      different_email: "別のメールを使用"
+
+  # Notifications
+  notifications:
+    index:
+      title: "通知 - MessageOpen"
+      heading: "通知"
+      subtitle: "メッセージが読まれた時に送信されるメール通知"
+      empty:
+        title: "まだ通知がありません"
+        subtitle: "誰かがメッセージを読むと、メール通知を受け取り、ここに表示されます。"
+        cta: "メッセージを作成"
+    status:
+      sent: "送信済み"
+      pending: "保留中"
+      failed: "失敗"
+    type:
+      email: "メール"
+      webhook: "Webhook"
+
+  # Mailers
+  mailers:
+    read_notification:
+      subject: "メッセージが読まれました"
+    magic_link:
+      subject: "MessageOpenのログインリンク"
+
+  # Billing Page
+  billing:
+    title: "請求 - MessageOpen"
+    heading: "請求とサブスクリプション"
+    current_plan: "現在のプラン"
+    status: "ステータス"
+    status_active: "アクティブ"
+    status_cancelled: "キャンセル済み"
+    status_past_due: "支払い遅延"
+    access_until: "アクセス期限"
+    next_billing_date: "次回請求日"
+    subscription_cancelled: "サブスクリプションがキャンセルされました"
+    grace_period_message: "Proアクセスは%{date}に終了します。それまでPro機能を引き続き使用できます。"
+    manage_subscription: "サブスクリプションを管理"
+    manage_subscription_description: "支払い方法の更新、請求書の確認、またはサブスクリプションのキャンセル"
+    free_plan:
+      title: "無料プランをご利用中です"
+      description_html: "基本機能で月10メッセージ。<br>Proにアップグレードして無制限のメッセージと高度な分析を利用しましょう。"
+      upgrade: "Proにアップグレード"
+    webhook:
+      title: "Webhook通知"
+      subtitle: "HTTP POSTでリアルタイム通知を受け取る"
+      url_label: "Webhook URL"
+      url_placeholder: "https://your-server.com/webhook"
+      url_description: "メッセージが読まれると、JSONペイロードでPOSTリクエストを送信します。"
+      supported_platforms: "対応プラットフォーム："
+      platform_discord: "Discord"
+      platform_slack: "Slack"
+      platform_teams: "Microsoft Teams"
+      platform_telegram: "Telegram Bot"
+      platform_custom: "カスタム (JSON)"
+      platform_note: "各プラットフォームは、その表示に最適化されたフォーマットのメッセージを受け取ります。"
+      payload_format: "カスタムWebhookペイロード形式"
+      remove: "Webhookを削除"
+      save: "Webhookを保存"
+    compare_plans: "プランを比較"
+
+  # Pricing Page
+  pricing:
+    title: "料金 - MessageOpen"
+    hero:
+      title: "シンプルで透明な料金"
+      subtitle: "無料で始めましょう。準備ができたらアップグレード。いつでもキャンセル可能。"
+    toggle:
+      monthly: "月額"
+      yearly: "年額"
+      save: "17%お得"
+    free:
+      name: "無料"
+      price: "$0"
+      period: "永久"
+      messages: "月10トラッキングメッセージ"
+      tracking: "開封/未読ステータス"
+      history: "7日間のメッセージ履歴"
+      notifications: "メール通知"
+      editor: "リッチテキストエディタ"
+      password: "パスワード保護"
+      cta: "始める"
+      note: "クレジットカード不要"
+      current_plan: "現在のプラン"
+      downgrade_not_available: "請求でダウングレード"
+    pro:
+      name: "Pro"
+      badge: "最も人気"
+      monthly: "/月"
+      billed_monthly: "月額請求"
+      billed_yearly: "年間$120 — $24お得"
+      everything_plus: "無料のすべてに加えて："
+      unlimited: "無制限のメッセージ"
+      analytics: "完全な分析ダッシュボード"
+      history: "無制限のメッセージ履歴"
+      receipts: "開封率、タイミング、トレンド"
+      webhooks: "Webhook通知 (Discord, Slack, Teams, Telegram)"
+      branding: "カスタムブランディング"
+      support: "優先メールサポート"
+      cta_monthly: "Pro月額を始める"
+      cta_yearly: "Pro年額を始める"
+      cta_trial: "14日間無料で試す"
+      note: "クレジットカード不要"
+      current_plan: "現在のプラン"
+      manage_subscription: "サブスクリプションを管理"
+    team:
+      question: "チームプランが必要ですか？"
+      link: "お問い合わせ"
+    trust:
+      money_back: "7日間返金保証"
+      cancel: "いつでもキャンセル"
+      secure: "LemonSqueezyで安全に決済"
+      accept: "対応決済方法："
+    compare:
+      title: "プラン比較"
+      feature: "機能"
+      tracked_messages: "トラッキングメッセージ"
+      ten_month: "月10件"
+      unlimited: "無制限"
+      message_history: "メッセージ履歴"
+      seven_days: "7日間"
+      unlimited_history: "無制限"
+      analytics: "分析ダッシュボード"
+      basic: "ステータスのみ"
+      detailed: "完全な統計"
+      open_count: "開封数"
+      open_rate: "開封率"
+      time_trends: "時間トレンドチャート"
+      open_tracking: "開封トラッキング"
+      email_notifications: "メール通知"
+      rich_text_editor: "リッチテキストエディタ"
+      password_protection: "パスワード保護"
+      reactions: "読者のリアクション"
+      webhook_notifications: "Webhook (Discord, Slack, Teams, Telegram)"
+      custom_branding: "カスタムブランディング"
+      priority_support: "優先サポート"
+    faq:
+      title: "よくある質問"
+      q1:
+        question: "いつでもプランを変更できますか？"
+        answer: "はい、いつでもアップグレードまたはダウングレードできます。変更は即座に反映されます。"
+      q2:
+        question: "無料の上限に達するとどうなりますか？"
+        answer: "既存のメッセージは引き続き機能しますが、翌月まで、またはProにアップグレードするまで新しいメッセージを作成できません。"
+      q3:
+        question: "返金は受けられますか？"
+        answer: "はい、7日間の返金保証があります。質問なしで返金します。"
+      q4:
+        question: "いつでもキャンセルできますか？"
+        answer: "もちろんです。設定からいつでもキャンセルできます。手数料はかかりません。"
+      q5:
+        question: "チームプランはありますか？"
+        answer_prefix: "まだありません！個人ユーザーに焦点を当てています。チーム機能が必要ですか？メールでお問い合わせください："
+      q6:
+        question: "どの支払い方法を受け付けていますか？"
+        answer: "LemonSquezy経由ですべての主要なクレジットカードを受け付けています。安全で安心です。"
+      q7:
+        question: "無料トライアルにクレジットカードは必要ですか？"
+        answer: "いいえ！無料プランですぐに始められます。Proにアップグレードする時だけカードが必要です。"
+      q8:
+        question: "無料トライアルには何が含まれていますか？"
+        answer: "14日間のPro機能すべて。クレジットカード不要。トライアル後は自動的に無料プランに戻ります。"
+    cta:
+      title: "始める準備はできましたか？"
+      subtitle: "メッセージが読まれたことがわかる何千人ものプロフェッショナルに参加しましょう。"
+      button: "無料で始める"
+      note: "クレジットカード不要。永久に無料。"
+
+  # Legal Pages
+  legal:
+    back_to_home: "ホームに戻る"
+    last_updated: "最終更新：%{date}"
+    privacy:
+      title: "プライバシーポリシー - MessageOpen"
+      heading: "プライバシーポリシー"
+    terms:
+      title: "利用規約 - MessageOpen"
+      heading: "利用規約"
+    refund:
+      title: "返金ポリシー - MessageOpen"
+      heading: "返金ポリシー"
+
+  # JavaScript Alerts
+  js:
+    file_too_large: "ファイルが大きすぎます。最大サイズは%{size}MBです。"
+    invalid_file_type: "無効なファイル形式です。画像（JPEG、PNG、GIF、WebP）のみ許可されています。"
+
+  # OG Meta
+  og:
+    message:
+      description: "%{email}さんがMessageOpenでメッセージを送りました。クリックして確認してください。"
+
+  # Datetime
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: "約1時間"
+        other: "約%{count}時間"
+      about_x_months:
+        one: "約1ヶ月"
+        other: "約%{count}ヶ月"
+      about_x_years:
+        one: "約1年"
+        other: "約%{count}年"
+      almost_x_years:
+        one: "ほぼ1年"
+        other: "ほぼ%{count}年"
+      half_a_minute: "30秒"
+      less_than_x_minutes:
+        one: "1分未満"
+        other: "%{count}分未満"
+      less_than_x_seconds:
+        one: "1秒未満"
+        other: "%{count}秒未満"
+      over_x_years:
+        one: "1年以上"
+        other: "%{count}年以上"
+      x_days:
+        one: "1日"
+        other: "%{count}日"
+      x_minutes:
+        one: "1分"
+        other: "%{count}分"
+      x_months:
+        one: "1ヶ月"
+        other: "%{count}ヶ月"
+      x_seconds:
+        one: "1秒"
+        other: "%{count}秒"
+      x_years:
+        one: "1年"
+        other: "%{count}年"
