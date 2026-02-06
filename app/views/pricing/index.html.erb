@@ -190,14 +190,10 @@
             <% monthly_variant_id = Rails.application.config.lemon_squeezy[:pro_monthly_variant_id] %>
             <% yearly_variant_id = Rails.application.config.lemon_squeezy[:pro_yearly_variant_id] %>
             <div x-show="!yearly">
-              <%= button_to checkout_path(variant_id: monthly_variant_id), method: :post, class: "block w-full text-center py-4 px-4 bg-primary-600 text-white rounded-xl font-semibold hover:bg-primary-700 transition-colors shadow-sm text-lg cursor-pointer" do %>
-                <%= t('pricing.pro.cta_monthly') %>
-              <% end %>
+              <%= link_to t('pricing.pro.cta_monthly'), upgrade_monthly_path, data: { turbo: false }, class: "block w-full text-center py-4 px-4 bg-primary-600 text-white rounded-xl font-semibold hover:bg-primary-700 transition-colors shadow-sm text-lg cursor-pointer" %>
             </div>
             <div x-show="yearly" x-cloak>
-              <%= button_to checkout_path(variant_id: yearly_variant_id), method: :post, class: "block w-full text-center py-4 px-4 bg-primary-600 text-white rounded-xl font-semibold hover:bg-primary-700 transition-colors shadow-sm text-lg cursor-pointer" do %>
-                <%= t('pricing.pro.cta_yearly') %>
-              <% end %>
+              <%= link_to t('pricing.pro.cta_yearly'), upgrade_yearly_path, data: { turbo: false }, class: "block w-full text-center py-4 px-4 bg-primary-600 text-white rounded-xl font-semibold hover:bg-primary-700 transition-colors shadow-sm text-lg cursor-pointer" %>
             </div>
             <p class="text-xs text-gray-500 text-center mt-3"><%= t('pricing.pro.note') %></p>
           <% else %>
