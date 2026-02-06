@@ -6,7 +6,7 @@ en:
     description: "Share messages via link and know when they're read. Works across any channel."
     secure_message: "Secure message"
     secure_message_sharing: "Secure message sharing"
-    copyright: "© 2025 MessageOpen. All rights reserved."
+    copyright: "© %{year} MessageOpen. All rights reserved."
 
   # Common UI elements
   common:
@@ -176,21 +176,6 @@ en:
         no_signup:
           title: "No signup for recipients"
           description: "Recipients can view messages instantly without creating an account."
-      social_proof:
-        trusted: "Trusted by professionals"
-        title: "Join 500+ users who know when they're read"
-        testimonial1:
-          quote: "Finally, I know when clients actually read my proposals. No more awkward follow-up emails wondering if they saw it."
-          name: "Sarah Kim"
-          role: "Freelance Designer"
-        testimonial2:
-          quote: "I use it for all my sales follow-ups. Knowing when a prospect opens my message helps me time my calls perfectly."
-          name: "Mike Johnson"
-          role: "Sales Manager"
-        testimonial3:
-          quote: "The password protection feature is perfect for sending sensitive information. Simple yet secure."
-          name: "Emma Park"
-          role: "Consultant"
       pricing:
         title: "Simple Pricing"
         subtitle: "Start free. Upgrade when you need more."
@@ -245,7 +230,7 @@ en:
         title: "Ready to try MessageOpen?"
         subtitle: "Send messages with confidence. Know when they're read."
         placeholder: "Enter your email"
-        button: "Get Started Free →"
+        button: "Get Started Free"
         note: "No credit card required. Free plan available."
 
   # Dashboard (logged-in home)
