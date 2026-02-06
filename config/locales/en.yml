@@ -199,7 +199,7 @@ en:
         save: "(Save 17%)"
         free:
           name: "Free"
-          messages: "10 messages/month"
+          messages: "2 messages/month"
           tracking: "Basic open alerts"
           history: "7-day history"
           notifications: "Email notifications"
@@ -237,7 +237,7 @@ en:
           answer: "Yes. All messages are encrypted in transit. You can also add password protection so only the intended recipient can view your message, and set expiration dates to auto-delete messages after a specific time."
         q5:
           question: "What's included in the free plan?"
-          answer: "The free plan includes 10 messages per month with basic read notifications and 7-day message history. No credit card required, and it's free forever — not a trial."
+          answer: "The free plan includes 2 messages per month with basic read notifications and 7-day message history. No credit card required, and it's free forever — not a trial."
         q6:
           question: "Can I use MessageOpen with my existing tools?"
           answer: "Absolutely. MessageOpen works alongside any tool you already use. Just paste your message link into email, Slack, WhatsApp, LinkedIn, SMS, or any platform that supports links. No integrations to set up."
@@ -435,7 +435,7 @@ en:
       name: "Free"
       price: "$0"
       period: "forever"
-      messages: "10 tracked messages/month"
+      messages: "2 tracked messages/month"
       tracking: "Basic open tracking"
       history: "7-day message history"
       notifications: "Email notifications"
@@ -468,9 +468,9 @@ en:
       question: "Need a team plan?"
       link: "Contact us"
     trust:
-      money_back: "14-day money back"
+      money_back: "7-day money back"
       cancel: "Cancel anytime"
-      secure: "Secure via Stripe"
+      secure: "Secure via LemonSqueezy"
       accept: "We accept:"
     compare:
       title: "Compare Plans"
@@ -500,7 +500,7 @@ en:
         answer: "Your existing messages still work, but you can't create new ones until next month or you upgrade to Pro."
       q3:
         question: "Do you offer refunds?"
-        answer: "Yes, 14-day money-back guarantee. No questions asked."
+        answer: "Yes, 7-day money-back guarantee. No questions asked."
       q4:
         question: "Can I cancel anytime?"
         answer: "Absolutely. Cancel anytime from your settings. No fees."
@@ -509,7 +509,7 @@ en:
         answer_prefix: "Not yet! We're focused on individual users. Need team features? Email us at"
       q6:
         question: "What payment methods do you accept?"
-        answer: "All major credit cards via Stripe. Secure and safe."
+        answer: "All major credit cards via LemonSqueezy. Secure and safe."
       q7:
         question: "Do I need a credit card for free trial?"
         answer: "Nope! Start with Free plan immediately. Only need card when upgrading to Pro."

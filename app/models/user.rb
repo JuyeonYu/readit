@@ -8,6 +8,7 @@ class User < ApplicationRecord
   # Subscription status constants
   SUBSCRIPTION_STATUSES = %w[active cancelled expired past_due paused].freeze
   PLANS = %w[free pro].freeze
+  FREE_MESSAGE_LIMIT = Rails.env.development? ? 10 : 2
 
   # Plan checks
   def pro?
@@ -42,7 +43,7 @@ class User < ApplicationRecord
 
   def message_limit
     return Float::INFINITY if pro?
-    Rails.env.development? ? 10 : 2
+    FREE_MESSAGE_LIMIT
   end
 
   def at_message_limit?
