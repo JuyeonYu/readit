@@ -1,0 +1,12 @@
+<div class="min-h-screen bg-white flex">
+  <%= render "shared/sidebar", current_page: current_page %>
+  <%= render "shared/mobile_header" %>
+
+  <main class="flex-1 lg:ml-64">
+    <div class="px-4 sm:px-6 lg:px-8 py-8 pt-24 lg:pt-8 pb-24 lg:pb-8">
+      <%= yield %>
+    </div>
+  </main>
+</div>
+
+<%= render "shared/mobile_bottom_nav", current_page: current_page %>

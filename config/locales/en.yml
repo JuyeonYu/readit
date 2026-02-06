@@ -35,11 +35,19 @@ en:
     features: "Features"
     pricing: "Pricing"
     dashboard: "Dashboard"
+    messages: "Messages"
     notifications: "Notifications"
+    billing: "Billing"
+    alerts: "Alerts"
     start_free: "Get Started Free"
     back_to_dashboard: "Back to Dashboard"
+    all_messages: "All Messages"
     home: "Home"
     get_started: "Get Started"
+    free_plan: "Free Plan"
+    messages_count: "messages"
+    upgrade_description: "Upgrade to Pro for unlimited messages and analytics"
+    upgrade_now: "Upgrade Now"
 
   # Footer
   footer:

@@ -1,5 +1,6 @@
 class DashboardController < ApplicationController
   before_action :require_login
+  before_action :set_navigation_data
 
   def index
     @messages = current_user.messages.includes(:read_events).order(created_at: :desc)

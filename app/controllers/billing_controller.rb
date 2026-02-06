@@ -2,6 +2,7 @@
 
 class BillingController < ApplicationController
   before_action :require_login
+  before_action :set_navigation_data
 
   def show
     @subscription_status = current_user.subscription_status

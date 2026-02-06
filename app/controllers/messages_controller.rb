@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
   before_action :require_login
+  before_action :set_navigation_data, only: [:share]
   before_action :check_message_limit, only: %i[new create]
   before_action :set_usage_stats, only: [ :new ]
 

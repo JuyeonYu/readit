@@ -1,4 +1,17 @@
 ko:
+  nav:
+    dashboard: "대시보드"
+    messages: "메시지"
+    notifications: "알림"
+    billing: "결제"
+    alerts: "알림"
+    all_messages: "전체 메시지"
+    free_plan: "무료 플랜"
+    messages_count: "메시지"
+    upgrade_description: "Pro로 업그레이드하여 무제한 메시지와 분석을 이용하세요"
+    upgrade_now: "지금 업그레이드"
+  app:
+    name: "MessageOpen"
   activerecord:
     errors:
       messages:
