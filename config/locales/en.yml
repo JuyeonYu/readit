@@ -41,9 +41,13 @@ en:
       incorrect_password: "Incorrect password. Please try again."
     messages:
       limit_reached: "You've reached your monthly message limit. Upgrade to Pro for unlimited messages."
+      updated: "Message updated successfully"
+      deleted: "Message deleted successfully"
     billing:
       no_subscription: "No active subscription found"
       portal_error: "Unable to access billing portal. Please try again."
+      webhook_updated: "Webhook settings updated successfully"
+      webhook_pro_only: "Webhook notifications are available for Pro users only"
     checkout:
       select_plan: "Please select a plan"
       checkout_error: "Unable to create checkout. Please try again."
@@ -398,6 +402,7 @@ en:
       failed: "Failed"
     type:
       email: "Email"
+      webhook: "Webhook"
 
   # Mailers
   mailers:
@@ -405,6 +410,43 @@ en:
       subject: "Your message was read"
     magic_link:
       subject: "Your login link for MessageOpen"
+
+  # Billing Page
+  billing:
+    title: "Billing - MessageOpen"
+    heading: "Billing & Subscription"
+    current_plan: "Current Plan"
+    status: "Status"
+    status_active: "Active"
+    status_cancelled: "Cancelled"
+    status_past_due: "Past Due"
+    access_until: "Access until"
+    next_billing_date: "Next billing date"
+    subscription_cancelled: "Subscription Cancelled"
+    grace_period_message: "Your Pro access will end on %{date}. You can continue using Pro features until then."
+    manage_subscription: "Manage Subscription"
+    manage_subscription_description: "Update payment method, view invoices, or cancel subscription"
+    free_plan:
+      title: "You're on the Free Plan"
+      description_html: "10 messages per month with basic features.<br>Upgrade to Pro for unlimited messages and advanced analytics."
+      upgrade: "Upgrade to Pro"
+    webhook:
+      title: "Webhook Notifications"
+      subtitle: "Receive real-time notifications via HTTP POST"
+      url_label: "Webhook URL"
+      url_placeholder: "https://your-server.com/webhook"
+      url_description: "We'll send a POST request with JSON payload when your messages are read."
+      supported_platforms: "Supported platforms:"
+      platform_discord: "Discord"
+      platform_slack: "Slack"
+      platform_teams: "Microsoft Teams"
+      platform_telegram: "Telegram Bot"
+      platform_custom: "Custom (JSON)"
+      platform_note: "Each platform receives a formatted message optimized for their display."
+      payload_format: "Custom webhook payload format"
+      remove: "Remove Webhook"
+      save: "Save Webhook"
+    compare_plans: "Compare plans"
 
   # Pricing Page
   pricing:
@@ -438,9 +480,10 @@ en:
       billed_yearly: "$120/year — save $24"
       everything_plus: "Everything in Free, plus:"
       unlimited: "Unlimited messages"
-      analytics: "Detailed analytics"
-      history: "1-year message history"
-      receipts: "Read receipts & stats"
+      analytics: "Full analytics dashboard"
+      history: "Unlimited message history"
+      receipts: "Open rate, timing & trends"
+      webhooks: "Webhook notifications (Discord, Slack, Teams, Telegram)"
       branding: "Custom branding"
       support: "Priority email support"
       cta_monthly: "Start Pro Monthly"
@@ -465,14 +508,19 @@ en:
       unlimited: "Unlimited"
       message_history: "Message history"
       seven_days: "7 days"
-      one_year: "1 year"
-      analytics: "Analytics"
-      basic: "Basic"
-      detailed: "Detailed"
+      unlimited_history: "Unlimited"
+      analytics: "Analytics dashboard"
+      basic: "Status only"
+      detailed: "Full stats"
+      open_count: "Open count"
+      open_rate: "Open rate"
+      time_trends: "Time trends chart"
       open_tracking: "Open tracking"
       email_notifications: "Email notifications"
       rich_text_editor: "Rich text editor"
       password_protection: "Password protection"
+      reactions: "Reader reactions"
+      webhook_notifications: "Webhooks (Discord, Slack, Teams, Telegram)"
       custom_branding: "Custom branding"
       priority_support: "Priority support"
     faq:

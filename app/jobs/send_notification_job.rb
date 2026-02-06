@@ -28,5 +28,10 @@ class SendNotificationJob < ApplicationJob
       notification.update!(status: :failed)
       raise
     end
+
+    # Also send webhook for Pro users
+    if message.user&.pro? && message.user&.webhook_url.present?
+      SendWebhookJob.perform_later(message_id, viewer_token_hash)
+    end
   end
 end

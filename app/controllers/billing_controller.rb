@@ -26,4 +26,19 @@ class BillingController < ApplicationController
       redirect_to billing_path, alert: t('flash.billing.portal_error')
     end
   end
+
+  def update_webhook
+    unless current_user.pro?
+      redirect_to billing_path, alert: t("flash.billing.webhook_pro_only")
+      return
+    end
+
+    webhook_url = params[:webhook_url].presence
+
+    if current_user.update(webhook_url: webhook_url)
+      redirect_to billing_path, notice: t("flash.billing.webhook_updated")
+    else
+      redirect_to billing_path, alert: current_user.errors.full_messages.join(", ")
+    end
+  end
 end

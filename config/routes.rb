@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   # Billing management
   get "billing" => "billing#show", as: :billing
   post "billing/portal" => "billing#portal", as: :billing_portal
+  patch "billing/webhook" => "billing#update_webhook", as: :update_webhook
 
   # Webhooks
   post "webhooks/lemon_squeezy" => "webhooks#lemon_squeezy"

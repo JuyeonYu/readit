@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :login_tokens, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true
+  validates :webhook_url, format: { with: URI::DEFAULT_PARSER.make_regexp(%w[http https]), message: "must be a valid URL" }, allow_blank: true
 
   # Subscription status constants
   SUBSCRIPTION_STATUSES = %w[active cancelled expired past_due paused].freeze
