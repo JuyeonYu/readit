@@ -1,136 +1,98 @@
 <% content_for(:title) { t('notifications.index.title') } %>
 
-<div class="min-h-screen bg-gray-50">
+<%= render layout: "shared/authenticated_layout", locals: { current_page: "notifications" } do %>
   <!-- Header -->
-  <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-16">
-        <div class="flex items-center gap-8">
-          <%= link_to root_path, class: "flex items-center gap-2" do %>
-            <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-              </svg>
-            </div>
-            <span class="font-semibold text-gray-900"><%= t('app.name') %></span>
-          <% end %>
-        </div>
-        <div class="flex items-center gap-4">
-          <span class="text-sm text-gray-500 hidden sm:block"><%= current_user.email %></span>
-          <%= link_to dashboard_path, class: "p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors", title: t('nav.dashboard') do %>
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-            </svg>
-          <% end %>
-          <%= button_to logout_path, method: :delete, class: "text-sm text-gray-600 hover:text-gray-900 px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors" do %>
-            <%= t('common.logout') %>
-          <% end %>
-        </div>
-      </div>
+  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900"><%= t('notifications.index.heading') %></h1>
+      <p class="text-gray-600 mt-1"><%= t('notifications.index.subtitle') %></p>
     </div>
-  </header>
+  </div>
 
-  <!-- Main Content -->
-  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <!-- Header -->
-    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-      <div>
-        <h1 class="text-2xl font-bold text-gray-900"><%= t('notifications.index.heading') %></h1>
-        <p class="text-gray-600 mt-1"><%= t('notifications.index.subtitle') %></p>
-      </div>
-      <%= link_to root_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 font-medium" do %>
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-        </svg>
-        <%= t('nav.back_to_dashboard') %>
-      <% end %>
-    </div>
+  <% if @notifications.any? %>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+      <ul class="divide-y divide-gray-200">
+        <% @notifications.each do |notification| %>
+          <li class="p-5 hover:bg-gray-50 transition-colors">
+            <div class="flex items-start gap-4">
+              <!-- Status Icon -->
+              <div class="flex-shrink-0">
+                <% if notification.status == 'sent' %>
+                  <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                    <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                  </div>
+                <% elsif notification.status == 'pending' %>
+                  <div class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center">
+                    <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                  </div>
+                <% else %>
+                  <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+                    <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                  </div>
+                <% end %>
+              </div>
 
-    <% if @notifications.any? %>
-      <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-        <ul class="divide-y divide-gray-200">
-          <% @notifications.each do |notification| %>
-            <li class="p-5 hover:bg-gray-50 transition-colors">
-              <div class="flex items-start gap-4">
-                <!-- Status Icon -->
-                <div class="flex-shrink-0">
-                  <% if notification.status == 'sent' %>
-                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                      <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                      </svg>
-                    </div>
-                  <% elsif notification.status == 'pending' %>
-                    <div class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center">
-                      <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                      </svg>
-                    </div>
-                  <% else %>
-                    <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
-                      <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                      </svg>
-                    </div>
-                  <% end %>
+              <!-- Content -->
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium
+                    <%= notification.status == 'sent' ? 'bg-green-100 text-green-800' : notification.status == 'pending' ? 'bg-amber-100 text-amber-800' : 'bg-red-100 text-red-800' %>">
+                    <%= notification_status_label(notification.status) %>
+                  </span>
+                  <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary-100 text-primary-800">
+                    <%= notification_type_label(notification.notification_type) %>
+                  </span>
                 </div>
 
-                <!-- Content -->
-                <div class="flex-1 min-w-0">
-                  <div class="flex items-center gap-2 mb-1">
-                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium
-                      <%= notification.status == 'sent' ? 'bg-green-100 text-green-800' : notification.status == 'pending' ? 'bg-amber-100 text-amber-800' : 'bg-red-100 text-red-800' %>">
-                      <%= notification_status_label(notification.status) %>
-                    </span>
-                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary-100 text-primary-800">
-                      <%= notification_type_label(notification.notification_type) %>
-                    </span>
-                  </div>
+                <%= link_to share_message_path(notification.message.token), class: "block text-gray-900 font-medium hover:text-primary-600 truncate" do %>
+                  <%= truncate(notification.message.title, length: 60) %>
+                <% end %>
 
-                  <%= link_to share_message_path(notification.message.token), class: "block text-gray-900 font-medium hover:text-primary-600 truncate" do %>
-                    <%= truncate(notification.message.title, length: 60) %>
-                  <% end %>
-
-                  <div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-500">
-                    <span class="inline-flex items-center gap-1">
-                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                      </svg>
-                      <%= notification.recipient %>
-                    </span>
-                    <span class="inline-flex items-center gap-1">
-                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                      </svg>
-                      <% if notification.sent_at.present? %>
-                        <%= time_ago_in_words(notification.sent_at) %> <%= t('common.ago') %>
-                      <% else %>
-                        <%= time_ago_in_words(notification.created_at) %> <%= t('common.ago') %>
-                      <% end %>
-                    </span>
-                  </div>
+                <div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-500">
+                  <span class="inline-flex items-center gap-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                    <%= notification.recipient %>
+                  </span>
+                  <span class="inline-flex items-center gap-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <% if notification.sent_at.present? %>
+                      <%= time_ago_in_words(notification.sent_at) %> <%= t('common.ago') %>
+                    <% else %>
+                      <%= time_ago_in_words(notification.created_at) %> <%= t('common.ago') %>
+                    <% end %>
+                  </span>
                 </div>
               </div>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-    <% else %>
-      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
-        <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
-          </svg>
-        </div>
-        <h3 class="text-lg font-medium text-gray-900 mb-2"><%= t('notifications.index.empty.title') %></h3>
-        <p class="text-gray-600 mb-6"><%= t('notifications.index.empty.subtitle') %></p>
-        <%= link_to new_message_path, class: "inline-flex items-center gap-2 bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors" do %>
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-          </svg>
-          <%= t('notifications.index.empty.cta') %>
+            </div>
+          </li>
         <% end %>
+      </ul>
+    </div>
+  <% else %>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
+      <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+        </svg>
       </div>
-    <% end %>
-  </main>
-</div>
+      <h3 class="text-lg font-medium text-gray-900 mb-2"><%= t('notifications.index.empty.title') %></h3>
+      <p class="text-gray-600 mb-6"><%= t('notifications.index.empty.subtitle') %></p>
+      <%= link_to new_message_path, class: "inline-flex items-center gap-2 bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors" do %>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+        </svg>
+        <%= t('notifications.index.empty.cta') %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

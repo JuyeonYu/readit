@@ -1,137 +1,99 @@
 <% content_for(:title) { t('pages.home.title') } %>
 
 <% if logged_in? %>
-  <!-- Logged-in User Dashboard -->
-  <div class="min-h-screen bg-gray-50">
-    <!-- Header -->
-    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-16">
-          <div class="flex items-center gap-8">
-            <%= link_to root_path, class: "flex items-center gap-2" do %>
-              <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                </svg>
-              </div>
-              <span class="font-semibold text-gray-900"><%= t('app.name') %></span>
-            <% end %>
-          </div>
-          <div class="flex items-center gap-4">
-            <span class="text-sm text-gray-600 hidden sm:block"><%= current_user.email %></span>
-            <%= link_to dashboard_path, class: "p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors", title: t('nav.dashboard') do %>
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-              </svg>
-            <% end %>
-            <%= link_to notifications_path, class: "p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors relative", title: t('nav.notifications') do %>
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
-              </svg>
-            <% end %>
-            <%= button_to logout_path, method: :delete, class: "text-sm text-gray-600 hover:text-gray-900 px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors" do %>
-              <%= t('common.logout') %>
-            <% end %>
-          </div>
-        </div>
+  <%= render layout: "shared/authenticated_layout", locals: { current_page: "messages" } do %>
+    <!-- Quick Action -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900"><%= t('dashboard.title') %></h1>
+        <p class="text-gray-600 mt-1"><%= t('dashboard.subtitle') %></p>
       </div>
-    </header>
+      <%= link_to new_message_path, class: "inline-flex items-center gap-2 bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors shadow-sm" do %>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+        </svg>
+        <%= t('dashboard.new_message') %>
+      <% end %>
+    </div>
 
-    <!-- Main Content -->
-    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <!-- Quick Action -->
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-        <div>
-          <h1 class="text-2xl font-bold text-gray-900"><%= t('dashboard.title') %></h1>
-          <p class="text-gray-600 mt-1"><%= t('dashboard.subtitle') %></p>
+    <!-- Messages List -->
+    <% if @messages.any? %>
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+        <ul class="divide-y divide-gray-200">
+          <% @messages.each do |message| %>
+            <li class="hover:bg-gray-50 transition-colors">
+              <%= link_to share_message_path(message.token), class: "block p-5" do %>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div class="flex-1 min-w-0">
+                    <p class="text-gray-900 font-medium truncate"><%= truncate(message.title, length: 80) %></p>
+                    <p class="text-sm text-gray-500 mt-1"><%= time_ago_in_words(message.created_at) %> <%= t('common.ago') %></p>
+                  </div>
+                  <div class="flex flex-wrap gap-2">
+                    <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-green-50 text-green-700 text-xs font-medium rounded-full">
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                      </svg>
+                      <%= message.unique_reader_count %> <%= t('dashboard.message.readers') %> / <%= message.read_count %> <%= t('dashboard.message.views') %>
+                    </span>
+                    <% if message.expires_at.present? %>
+                      <% if message.expires_at.future? %>
+                        <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-amber-50 text-amber-700 text-xs font-medium rounded-full">
+                          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                          </svg>
+                          <%= t('dashboard.message.expires') %> <%= format_date_short(message.expires_at) %>
+                        </span>
+                      <% else %>
+                        <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-red-50 text-red-700 text-xs font-medium rounded-full">
+                          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                          </svg>
+                          <%= t('common.expired') %>
+                        </span>
+                      <% end %>
+                    <% end %>
+                    <% if message.password_digest.present? %>
+                      <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-purple-50 text-purple-700 text-xs font-medium rounded-full">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                        </svg>
+                        <%= t('common.protected') %>
+                      </span>
+                    <% end %>
+                    <% if message.max_read_count.present? %>
+                      <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded-full">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <%= t('dashboard.message.limit') %> <%= message.max_read_count %>
+                      </span>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% else %>
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
+        <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
         </div>
-        <%= link_to new_message_path, class: "inline-flex items-center gap-2 bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors shadow-sm" do %>
+        <h3 class="text-lg font-medium text-gray-900 mb-2"><%= t('dashboard.empty.title') %></h3>
+        <p class="text-gray-600 mb-6"><%= t('dashboard.empty.subtitle') %></p>
+        <%= link_to new_message_path, class: "inline-flex items-center gap-2 bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors" do %>
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
           </svg>
-          <%= t('dashboard.new_message') %>
+          <%= t('dashboard.empty.cta') %>
         <% end %>
       </div>
-
-      <!-- Messages List -->
-      <% if @messages.any? %>
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-          <ul class="divide-y divide-gray-200">
-            <% @messages.each do |message| %>
-              <li class="hover:bg-gray-50 transition-colors">
-                <%= link_to share_message_path(message.token), class: "block p-5" do %>
-                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                    <div class="flex-1 min-w-0">
-                      <p class="text-gray-900 font-medium truncate"><%= truncate(message.title, length: 80) %></p>
-                      <p class="text-sm text-gray-500 mt-1"><%= time_ago_in_words(message.created_at) %> <%= t('common.ago') %></p>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                      <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-green-50 text-green-700 text-xs font-medium rounded-full">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                        </svg>
-                        <%= message.unique_reader_count %> <%= t('dashboard.message.readers') %> / <%= message.read_count %> <%= t('dashboard.message.views') %>
-                      </span>
-                      <% if message.expires_at.present? %>
-                        <% if message.expires_at.future? %>
-                          <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-amber-50 text-amber-700 text-xs font-medium rounded-full">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            <%= t('dashboard.message.expires') %> <%= format_date_short(message.expires_at) %>
-                          </span>
-                        <% else %>
-                          <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-red-50 text-red-700 text-xs font-medium rounded-full">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            <%= t('common.expired') %>
-                          </span>
-                        <% end %>
-                      <% end %>
-                      <% if message.password_digest.present? %>
-                        <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-purple-50 text-purple-700 text-xs font-medium rounded-full">
-                          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-                          </svg>
-                          <%= t('common.protected') %>
-                        </span>
-                      <% end %>
-                      <% if message.max_read_count.present? %>
-                        <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded-full">
-                          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                          </svg>
-                          <%= t('dashboard.message.limit') %> <%= message.max_read_count %>
-                        </span>
-                      <% end %>
-                    </div>
-                  </div>
-                <% end %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      <% else %>
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
-          <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-            </svg>
-          </div>
-          <h3 class="text-lg font-medium text-gray-900 mb-2"><%= t('dashboard.empty.title') %></h3>
-          <p class="text-gray-600 mb-6"><%= t('dashboard.empty.subtitle') %></p>
-          <%= link_to new_message_path, class: "inline-flex items-center gap-2 bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors" do %>
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-            </svg>
-            <%= t('dashboard.empty.cta') %>
-          <% end %>
-        </div>
-      <% end %>
-    </main>
-  </div>
+    <% end %>
+  <% end %>
 
 <% else %>
   <!-- Landing Page for Non-logged-in Users -->

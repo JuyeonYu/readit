@@ -64,7 +64,7 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
   test "home page shows logout button when logged in" do
     login_as(@user)
     get root_url
-    assert_match "Logout", response.body
+    assert_select "form[action=?]", logout_path
   end
 
   test "home page shows message read count" do
