@@ -124,19 +124,20 @@
     <div class="max-w-4xl mx-auto text-center">
       <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight animate-fade-in-up">
         <%= t('pages.home.hero.title_line1') %><br>
-        <%= t('pages.home.hero.title_line2_prefix') %> <span class="gradient-text"><%= t('pages.home.hero.title_line2_highlight') %></span>
+        <%= t('pages.home.hero.title_line2_prefix') %><br>
+        <span class="gradient-text"><%= t('pages.home.hero.title_line2_highlight') %></span>
       </h1>
       <p class="mt-6 text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto animate-fade-in-up animation-delay-200">
         <%= t('pages.home.hero.subtitle') %>
       </p>
       <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4 animate-fade-in-up animation-delay-400">
-        <%= link_to login_path(intent: 'signup'), class: "inline-flex items-center justify-center gap-2 bg-primary-600 text-white px-8 py-4 rounded-lg font-medium text-lg hover:bg-primary-700 transition-all shadow-lg shadow-primary-600/25 hover:shadow-xl hover:shadow-primary-600/30 hover:-translate-y-0.5" do %>
+        <%= link_to login_path(intent: 'signup'), class: "btn-press inline-flex items-center justify-center gap-2 bg-primary-600 text-white px-8 py-4 rounded-lg font-medium text-lg hover:bg-primary-700 transition-all shadow-lg shadow-primary-600/25 hover:shadow-xl hover:shadow-primary-600/30 hover:-translate-y-1" do %>
           <%= t('pages.home.hero.cta_primary') %>
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
           </svg>
         <% end %>
-        <a href="#how-it-works" class="inline-flex items-center justify-center gap-2 bg-white text-gray-700 px-8 py-4 rounded-lg font-medium text-lg border border-gray-300 hover:border-gray-400 transition-colors">
+        <a href="#how-it-works" class="btn-press inline-flex items-center justify-center gap-2 bg-white text-gray-700 px-8 py-4 rounded-lg font-medium text-lg border border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-all">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -146,8 +147,8 @@
       </div>
 
       <div class="mt-16 animate-fade-in-up animation-delay-600">
-        <div class="relative mx-auto max-w-3xl">
-          <div class="bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
+        <div class="relative mx-auto max-w-3xl hover-scale">
+          <div class="bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden transition-all duration-500 hover:shadow-3xl">
             <div class="bg-gray-100 px-4 py-3 flex items-center gap-2 border-b border-gray-200">
               <div class="flex gap-1.5">
                 <div class="w-3 h-3 rounded-full bg-red-400"></div>
@@ -204,11 +205,11 @@
 
   <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
     <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-16">
+      <div class="text-center mb-16 reveal">
         <h2 class="text-3xl font-bold text-gray-900"><%= t('pages.home.problems.title') %></h2>
       </div>
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100 text-center hover:shadow-md transition-shadow">
+        <div class="reveal stagger-1 bg-white rounded-xl p-8 shadow-sm border border-gray-100 text-center hover-lift card-shine">
           <div class="w-14 h-14 bg-primary-50 rounded-xl flex items-center justify-center mx-auto mb-6">
             <svg class="w-7 h-7 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
@@ -218,7 +219,7 @@
           <p class="text-gray-600"><%= t('pages.home.problems.problem1.description') %></p>
         </div>
 
-        <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100 text-center hover:shadow-md transition-shadow">
+        <div class="reveal stagger-2 bg-white rounded-xl p-8 shadow-sm border border-gray-100 text-center hover-lift card-shine">
           <div class="w-14 h-14 bg-primary-50 rounded-xl flex items-center justify-center mx-auto mb-6">
             <svg class="w-7 h-7 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -228,7 +229,7 @@
           <p class="text-gray-600"><%= t('pages.home.problems.problem2.description') %></p>
         </div>
 
-        <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100 text-center hover:shadow-md transition-shadow">
+        <div class="reveal stagger-3 bg-white rounded-xl p-8 shadow-sm border border-gray-100 text-center hover-lift card-shine">
           <div class="w-14 h-14 bg-primary-50 rounded-xl flex items-center justify-center mx-auto mb-6">
             <svg class="w-7 h-7 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
@@ -243,7 +244,7 @@
 
   <section id="how-it-works" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
     <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-16">
+      <div class="text-center mb-16 reveal">
         <h2 class="text-3xl font-bold text-gray-900"><%= t('pages.home.how_it_works.title') %></h2>
         <p class="text-gray-600 mt-4 text-lg"><%= t('pages.home.how_it_works.subtitle') %></p>
       </div>
@@ -251,8 +252,8 @@
       <div class="grid md:grid-cols-3 gap-8 relative">
         <div class="hidden md:block absolute top-24 left-1/6 right-1/6 h-0.5 bg-gradient-to-r from-primary-200 via-primary-400 to-primary-200"></div>
 
-        <div class="relative">
-          <div class="bg-white rounded-xl p-8 border border-gray-200 hover:border-primary-200 transition-colors relative z-10">
+        <div class="relative reveal stagger-1">
+          <div class="bg-white rounded-xl p-8 border border-gray-200 hover:border-primary-300 hover-lift transition-all relative z-10">
             <div class="w-12 h-12 bg-primary-600 text-white rounded-xl flex items-center justify-center text-xl font-bold mb-6">1</div>
             <h3 class="text-xl font-semibold text-gray-900 mb-3"><%= t('pages.home.how_it_works.step1.title') %></h3>
             <p class="text-gray-600 mb-6"><%= t('pages.home.how_it_works.step1.description') %></p>
@@ -271,8 +272,8 @@
           </div>
         </div>
 
-        <div class="relative">
-          <div class="bg-white rounded-xl p-8 border border-gray-200 hover:border-primary-200 transition-colors relative z-10">
+        <div class="relative reveal stagger-2">
+          <div class="bg-white rounded-xl p-8 border border-gray-200 hover:border-primary-300 hover-lift transition-all relative z-10">
             <div class="w-12 h-12 bg-primary-600 text-white rounded-xl flex items-center justify-center text-xl font-bold mb-6">2</div>
             <h3 class="text-xl font-semibold text-gray-900 mb-3"><%= t('pages.home.how_it_works.step2.title') %></h3>
             <p class="text-gray-600 mb-6"><%= t('pages.home.how_it_works.step2.description') %></p>
@@ -303,8 +304,8 @@
           </div>
         </div>
 
-        <div class="relative">
-          <div class="bg-white rounded-xl p-8 border border-gray-200 hover:border-primary-200 transition-colors relative z-10">
+        <div class="relative reveal stagger-3">
+          <div class="bg-white rounded-xl p-8 border border-gray-200 hover:border-primary-300 hover-lift transition-all relative z-10">
             <div class="w-12 h-12 bg-primary-600 text-white rounded-xl flex items-center justify-center text-xl font-bold mb-6">3</div>
             <h3 class="text-xl font-semibold text-gray-900 mb-3"><%= t('pages.home.how_it_works.step3.title') %></h3>
             <p class="text-gray-600 mb-6"><%= t('pages.home.how_it_works.step3.description') %></p>
@@ -329,12 +330,12 @@
 
   <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
     <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-16">
+      <div class="text-center mb-16 reveal">
         <h2 class="text-3xl font-bold text-gray-900"><%= t('pages.home.use_cases.title') %></h2>
         <p class="text-gray-600 mt-4 text-lg"><%= t('pages.home.use_cases.subtitle') %></p>
       </div>
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-gray-50 rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+        <div class="reveal stagger-1 bg-gray-50 rounded-xl p-8 shadow-sm border border-gray-100 hover-lift card-shine">
           <div class="w-14 h-14 bg-amber-50 rounded-xl flex items-center justify-center mx-auto mb-6">
             <svg class="w-7 h-7 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
@@ -347,7 +348,7 @@
           </div>
         </div>
 
-        <div class="bg-gray-50 rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+        <div class="reveal stagger-2 bg-gray-50 rounded-xl p-8 shadow-sm border border-gray-100 hover-lift card-shine">
           <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center mx-auto mb-6">
             <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
@@ -360,7 +361,7 @@
           </div>
         </div>
 
-        <div class="bg-gray-50 rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+        <div class="reveal stagger-3 bg-gray-50 rounded-xl p-8 shadow-sm border border-gray-100 hover-lift card-shine">
           <div class="w-14 h-14 bg-green-50 rounded-xl flex items-center justify-center mx-auto mb-6">
             <svg class="w-7 h-7 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
@@ -378,7 +379,7 @@
 
   <section id="features" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
     <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-16">
+      <div class="text-center mb-16 reveal">
         <h2 class="text-3xl font-bold text-gray-900"><%= t('pages.home.features.title') %></h2>
         <p class="text-gray-600 mt-4 text-lg"><%= t('pages.home.features.subtitle') %></p>
       </div>
@@ -387,7 +388,7 @@
       <h3 class="md:hidden text-sm font-semibold text-primary-600 uppercase tracking-wide mb-4">Core Features</h3>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+        <div class="reveal stagger-1 bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover-lift hover-scale">
           <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-4">
             <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
@@ -397,7 +398,7 @@
           <p class="text-gray-600 text-sm"><%= t('pages.home.features.multi_channel.description') %></p>
         </div>
 
-        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+        <div class="reveal stagger-2 bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover-lift hover-scale">
           <div class="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center mb-4">
             <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
@@ -407,7 +408,7 @@
           <p class="text-gray-600 text-sm"><%= t('pages.home.features.realtime.description') %></p>
         </div>
 
-        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+        <div class="reveal stagger-3 bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover-lift hover-scale">
           <div class="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center mb-4">
             <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
@@ -417,7 +418,7 @@
           <p class="text-gray-600 text-sm"><%= t('pages.home.features.analytics.description') %></p>
         </div>
 
-        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+        <div class="reveal stagger-4 bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover-lift hover-scale">
           <div class="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center mb-4">
             <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
@@ -432,7 +433,7 @@
       <h3 class="md:hidden text-sm font-semibold text-primary-600 uppercase tracking-wide mt-8 mb-4">Security & Control</h3>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mt-4 md:mt-6">
-        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+        <div class="reveal stagger-1 bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover-lift hover-scale">
           <div class="w-12 h-12 bg-red-50 rounded-xl flex items-center justify-center mb-4">
             <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
@@ -442,7 +443,7 @@
           <p class="text-gray-600 text-sm"><%= t('pages.home.features.password.description') %></p>
         </div>
 
-        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+        <div class="reveal stagger-2 bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover-lift hover-scale">
           <div class="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center mb-4">
             <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -452,7 +453,7 @@
           <p class="text-gray-600 text-sm"><%= t('pages.home.features.expiration.description') %></p>
         </div>
 
-        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+        <div class="reveal stagger-3 bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover-lift hover-scale">
           <div class="w-12 h-12 bg-teal-50 rounded-xl flex items-center justify-center mb-4">
             <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
@@ -462,7 +463,7 @@
           <p class="text-gray-600 text-sm"><%= t('pages.home.features.read_limits.description') %></p>
         </div>
 
-        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+        <div class="reveal stagger-4 bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover-lift hover-scale">
           <div class="w-12 h-12 bg-pink-50 rounded-xl flex items-center justify-center mb-4">
             <svg class="w-6 h-6 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
@@ -477,7 +478,7 @@
 
   <section class="py-12 px-4 sm:px-6 lg:px-8 bg-white">
     <div class="max-w-4xl mx-auto">
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-gray-500 text-sm sm:text-base">
+      <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-gray-500 text-sm sm:text-base">
         <div class="flex items-center gap-2">
           <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
@@ -504,24 +505,24 @@
 
   <section id="pricing" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
     <div class="max-w-5xl mx-auto" x-data="{ yearly: false }">
-      <div class="text-center mb-12">
+      <div class="text-center mb-12 reveal">
         <h2 class="text-3xl font-bold text-gray-900"><%= t('pages.home.pricing.title') %></h2>
         <p class="text-gray-600 mt-4 text-lg"><%= t('pages.home.pricing.subtitle') %></p>
       </div>
 
-      <div class="flex justify-center mb-10">
+      <div class="flex justify-center mb-10 reveal stagger-1">
         <div class="inline-flex items-center gap-3 bg-white rounded-full p-1 shadow-sm border border-gray-200">
-          <button @click="yearly = false" :class="!yearly ? 'bg-primary-600 text-white' : 'text-gray-600 hover:text-gray-900'" class="px-4 py-2 rounded-full text-sm font-medium transition-colors">
+          <button @click="yearly = false" :class="!yearly ? 'bg-primary-600 text-white' : 'text-gray-600 hover:text-gray-900'" class="px-4 py-2 rounded-full text-sm font-medium transition-all btn-press">
             <%= t('pages.home.pricing.monthly') %>
           </button>
-          <button @click="yearly = true" :class="yearly ? 'bg-primary-600 text-white' : 'text-gray-600 hover:text-gray-900'" class="px-4 py-2 rounded-full text-sm font-medium transition-colors">
+          <button @click="yearly = true" :class="yearly ? 'bg-primary-600 text-white' : 'text-gray-600 hover:text-gray-900'" class="px-4 py-2 rounded-full text-sm font-medium transition-all btn-press">
             <%= t('pages.home.pricing.yearly') %> <span class="text-xs opacity-75"><%= t('pages.home.pricing.save') %></span>
           </button>
         </div>
       </div>
 
       <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+        <div class="reveal stagger-1 bg-white rounded-xl shadow-sm border border-gray-200 p-8 hover-lift">
           <h3 class="text-xl font-semibold text-gray-900 mb-2"><%= t('pages.home.pricing.free.name') %></h3>
           <div class="flex items-baseline gap-1 mb-1">
             <span class="text-5xl font-bold text-gray-900">$0</span>
@@ -545,7 +546,7 @@
           <p class="text-center text-xs text-gray-500 mt-3"><%= t('pages.home.pricing.free.note') %></p>
         </div>
 
-        <div class="bg-white rounded-xl shadow-lg border-2 border-primary-600 p-8 relative scale-[1.02] md:scale-105 origin-top">
+        <div class="reveal stagger-2 bg-white rounded-xl shadow-lg border-2 border-primary-600 p-8 relative scale-[1.02] md:scale-105 origin-top hover-glow">
           <div class="absolute -top-3 left-1/2 -translate-x-1/2">
             <span class="inline-block bg-primary-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
               <%= t('pages.home.pricing.pro.badge') %>
@@ -602,15 +603,15 @@
 
   <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
     <div class="max-w-3xl mx-auto">
-      <div class="text-center mb-12">
+      <div class="text-center mb-12 reveal">
         <h2 class="text-3xl font-bold text-gray-900"><%= t('pages.home.faq.title') %></h2>
         <p class="text-gray-600 mt-4 text-lg"><%= t('pages.home.faq.subtitle') %></p>
       </div>
 
       <div class="space-y-4">
         <% (1..6).each do |i| %>
-          <details class="group bg-gray-50 rounded-xl border border-gray-200 overflow-hidden">
-            <summary class="flex items-center justify-between cursor-pointer px-6 py-4 text-left font-medium text-gray-900 hover:bg-gray-100 transition-colors">
+          <details class="reveal stagger-<%= [i, 4].min %> group bg-gray-50 rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+            <summary class="flex items-center justify-between cursor-pointer px-6 py-4 text-left font-medium text-gray-900 hover:bg-gray-100 transition-all">
               <span><%= t("pages.home.faq.q#{i}.question") %></span>
               <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -627,14 +628,14 @@
 
   <section class="py-20 px-4 sm:px-6 lg:px-8 bg-primary-600">
     <div class="max-w-3xl mx-auto text-center">
-      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4"><%= t('pages.home.cta.title') %></h2>
-      <p class="text-primary-100 text-lg mb-8"><%= t('pages.home.cta.subtitle') %></p>
+      <h2 class="reveal text-3xl md:text-4xl font-bold text-white mb-4"><%= t('pages.home.cta.title') %></h2>
+      <p class="reveal stagger-1 text-primary-100 text-lg mb-8"><%= t('pages.home.cta.subtitle') %></p>
 
-      <%= form_with url: login_path, method: :get, class: "max-w-md mx-auto" do |f| %>
+      <%= form_with url: login_path, method: :get, class: "reveal stagger-2 max-w-md mx-auto" do |f| %>
         <input type="hidden" name="intent" value="signup">
         <div class="flex flex-col sm:flex-row gap-3">
-          <input type="email" name="email" placeholder="<%= t('pages.home.cta.placeholder') %>" class="flex-1 px-4 py-4 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50" required>
-          <button type="submit" class="inline-flex items-center justify-center gap-2 bg-white text-primary-600 px-6 py-4 rounded-lg font-medium hover:bg-primary-50 transition-colors whitespace-nowrap">
+          <input type="email" name="email" placeholder="<%= t('pages.home.cta.placeholder') %>" class="flex-1 px-4 py-4 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all" required>
+          <button type="submit" class="btn-press inline-flex items-center justify-center gap-2 bg-white text-primary-600 px-6 py-4 rounded-lg font-medium hover:bg-primary-50 hover:shadow-lg transition-all whitespace-nowrap">
             <%= t('pages.home.cta.button') %>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
