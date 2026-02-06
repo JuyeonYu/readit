@@ -29,6 +29,28 @@ en:
     month: "/month"
     support: "Support"
 
+  # Flash messages
+  flash:
+    sessions:
+      email_required: "Please enter your email"
+      check_email: "Check your email for a login link"
+      logged_in: "You're now logged in"
+      invalid_token: "Invalid or expired login link"
+      logged_out: "You've been logged out"
+    reads:
+      incorrect_password: "Incorrect password. Please try again."
+    messages:
+      limit_reached: "You've reached your monthly message limit. Upgrade to Pro for unlimited messages."
+    billing:
+      no_subscription: "No active subscription found"
+      portal_error: "Unable to access billing portal. Please try again."
+    checkout:
+      select_plan: "Please select a plan"
+      checkout_error: "Unable to create checkout. Please try again."
+      success: "Payment successful! Your Pro subscription is now active."
+      cancelled: "Checkout cancelled. Feel free to try again when you're ready."
+      plan_unavailable: "Plan configuration not available"
+
   # Navigation
   nav:
     how_it_works: "How it Works"

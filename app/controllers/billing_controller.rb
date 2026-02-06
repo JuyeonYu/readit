@@ -14,7 +14,7 @@ class BillingController < ApplicationController
 
   def portal
     unless current_user.lemon_squeezy_customer_id.present?
-      redirect_to billing_path, alert: "No active subscription found"
+      redirect_to billing_path, alert: t('flash.billing.no_subscription')
       return
     end
 
@@ -23,7 +23,7 @@ class BillingController < ApplicationController
     if portal_url
       redirect_to portal_url, allow_other_host: true
     else
-      redirect_to billing_path, alert: "Unable to access billing portal. Please try again."
+      redirect_to billing_path, alert: t('flash.billing.portal_error')
     end
   end
 end

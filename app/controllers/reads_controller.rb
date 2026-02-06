@@ -8,7 +8,7 @@ class ReadsController < ApplicationController
   def create
     if @message.password_digest.present?
       unless @message.authenticate(params[:password])
-        flash.now[:alert] = "Incorrect password. Please try again."
+        flash.now[:alert] = t('flash.reads.incorrect_password')
         return render :show, status: :unprocessable_entity
       end
     end

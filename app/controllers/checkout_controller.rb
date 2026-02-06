@@ -19,40 +19,29 @@ class CheckoutController < ApplicationController
     variant_id = params[:variant_id]
 
     unless variant_id.present?
-      redirect_to pricing_path, alert: "Please select a plan"
+      redirect_to pricing_path, alert: t('flash.checkout.select_plan')
       return
     end
 
-    checkout_url = LemonSqueezyService.create_checkout(
-      variant_id: variant_id,
-      user: current_user,
-      success_url: checkout_success_url,
-      cancel_url: checkout_cancel_url
-    )
-
-    if checkout_url
-      redirect_to checkout_url, allow_other_host: true
-    else
-      redirect_to pricing_path, alert: "Unable to create checkout. Please try again."
-    end
+    redirect_to_checkout(variant_id)
   end
 
   def success
     # User will be redirected here after successful payment
     # Actual subscription activation happens via webhook
-    flash[:notice] = "Payment successful! Your Pro subscription is now active."
+    flash[:notice] = t('flash.checkout.success')
     redirect_to dashboard_path
   end
 
   def cancel
-    redirect_to pricing_path, notice: "Checkout cancelled. Feel free to try again when you're ready."
+    redirect_to pricing_path, notice: t('flash.checkout.cancelled')
   end
 
   private
 
   def redirect_to_checkout(variant_id)
     unless variant_id.present?
-      redirect_to pricing_path, alert: "Plan configuration not available"
+      redirect_to pricing_path, alert: t('flash.checkout.plan_unavailable')
       return
     end
 
@@ -66,7 +55,7 @@ class CheckoutController < ApplicationController
     if checkout_url
       redirect_to checkout_url, allow_other_host: true
     else
-      redirect_to pricing_path, alert: "Unable to create checkout. Please try again."
+      redirect_to pricing_path, alert: t('flash.checkout.checkout_error')
     end
   end
 end

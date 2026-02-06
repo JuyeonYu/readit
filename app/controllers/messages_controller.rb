@@ -50,6 +50,6 @@ class MessagesController < ApplicationController
     return unless current_user.free?
     return unless current_user.at_message_limit?
 
-    redirect_to dashboard_path, alert: "You've reached your monthly message limit. Upgrade to Pro for unlimited messages."
+    redirect_to dashboard_path, alert: t('flash.messages.limit_reached')
   end
 end
