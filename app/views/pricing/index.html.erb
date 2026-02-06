@@ -1,18 +1,10 @@
 <% content_for(:title) { t('pricing.title') } %>
 
 <div class="min-h-screen bg-gray-50" x-data="{ yearly: false, showComparison: false, loading: false }">
-  <!-- Navigation -->
   <nav class="bg-white border-b border-gray-100">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-16">
-        <%= link_to root_path, class: "flex items-center gap-2" do %>
-          <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-            </svg>
-          </div>
-          <span class="font-semibold text-gray-900"><%= t('app.name') %></span>
-        <% end %>
+        <%= render "shared/logo" %>
         <div class="flex items-center gap-4">
           <% if logged_in? %>
             <%= link_to t('nav.dashboard'), dashboard_path, class: "text-sm text-gray-600 hover:text-gray-900" %>

@@ -1,19 +1,11 @@
 <% content_for(:title) { t('messages.new.title') } %>
 
 <div class="min-h-screen bg-gray-50">
-  <!-- Header -->
   <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-16">
         <div class="flex items-center gap-8">
-          <%= link_to root_path, class: "flex items-center gap-2" do %>
-            <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-              </svg>
-            </div>
-            <span class="font-semibold text-gray-900"><%= t('app.name') %></span>
-          <% end %>
+          <%= render "shared/logo" %>
         </div>
         <div class="flex items-center gap-4">
           <% if @is_free_plan %>
@@ -41,11 +33,9 @@
     </div>
   </header>
 
-  <!-- Main Content -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <%= form_with model: @message, id: "message-form", data: { controller: "message-form", turbo_frame: "_top" } do |f| %>
 
-      <!-- Error Messages -->
       <% if @message.errors.any? %>
         <div class="mb-6 bg-red-50 border border-red-200 rounded-xl p-4">
           <div class="flex items-start gap-3">
@@ -62,16 +52,13 @@
       <% end %>
 
       <div class="grid lg:grid-cols-5 gap-8">
-        <!-- Left Column - Message Composer (60%) -->
         <div class="lg:col-span-3">
           <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-            <!-- Editor Header -->
             <div class="px-6 py-4 border-b border-gray-100">
               <h1 class="text-lg font-semibold text-gray-900"><%= t('messages.new.header') %></h1>
               <p class="text-sm text-gray-500 mt-1"><%= t('messages.new.subtitle') %></p>
             </div>
 
-            <!-- Rich Text Editor -->
             <div class="p-6">
               <div data-controller="trix-editor" class="trix-wrapper">
                 <%= f.rich_text_area :content,
@@ -81,14 +68,12 @@
               </div>
             </div>
 
-            <!-- Bottom Actions -->
             <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 flex justify-between items-center">
               <div class="flex items-center gap-3">
                 <%= link_to root_path, class: "text-sm text-gray-600 hover:text-gray-900 transition-colors" do %>
                   <%= t('common.cancel') %>
                 <% end %>
                 <span class="text-xs text-gray-400 hidden sm:block" data-message-form-target="saveStatus">
-                  <!-- Auto-save status will appear here -->
                 </span>
               </div>
               <button type="submit" class="inline-flex items-center gap-2 bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors shadow-sm">
@@ -101,13 +86,10 @@
           </div>
         </div>
 
-        <!-- Right Column - Settings Panel (40%) -->
         <div class="lg:col-span-2 space-y-6">
-          <!-- Message Settings -->
           <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
             <h2 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4"><%= t('messages.new.settings.title') %></h2>
 
-            <!-- Title Field -->
             <div class="space-y-4">
               <div>
                 <label for="message_title" class="block text-sm font-medium text-gray-700 mb-1">
@@ -123,7 +105,6 @@
                 </p>
               </div>
 
-              <!-- Notification Toggle -->
               <div class="flex items-center justify-between py-3 border-t border-gray-100">
                 <div>
                   <p class="text-sm font-medium text-gray-900"><%= t('messages.new.settings.notify.label') %></p>
@@ -135,7 +116,6 @@
                 </label>
               </div>
 
-              <!-- Expiration -->
               <div class="py-3 border-t border-gray-100">
                 <label class="block text-sm font-medium text-gray-900 mb-2"><%= t('messages.new.settings.expire.label') %></label>
                 <select name="message[expires_in]" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white">
@@ -146,7 +126,6 @@
                 </select>
               </div>
 
-              <!-- Read Limit -->
               <div class="flex items-center justify-between py-3 border-t border-gray-100">
                 <div>
                   <p class="text-sm font-medium text-gray-900"><%= t('messages.new.settings.one_time.label') %></p>
@@ -160,7 +139,6 @@
                 </label>
               </div>
 
-              <!-- Password Protection -->
               <div class="py-3 border-t border-gray-100" data-controller="password-toggle">
                 <div class="flex items-center justify-between mb-3">
                   <div>
@@ -182,14 +160,11 @@
             </div>
           </div>
 
-          <!-- Link Preview (OG Style) -->
           <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
             <h2 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4"><%= t('messages.new.link_preview.title') %></h2>
             <p class="text-xs text-gray-500 mb-3"><%= t('messages.new.link_preview.subtitle') %></p>
 
-            <!-- OG Preview Card -->
             <div class="border border-gray-200 rounded-lg overflow-hidden bg-white shadow-sm">
-              <!-- OG Image Area -->
               <div class="bg-gradient-to-br from-primary-500 to-primary-600 h-32 flex items-center justify-center relative">
                 <div class="absolute inset-0 opacity-10">
                   <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -209,17 +184,13 @@
                 </div>
               </div>
 
-              <!-- OG Content -->
               <div class="p-4">
-                <!-- Title (updates in real-time) -->
                 <h3 class="font-semibold text-gray-900 text-sm leading-snug mb-1" id="og-preview-title">
                   <%= t('messages.new.link_preview.default_title') %>
                 </h3>
-                <!-- Description -->
                 <p class="text-xs text-gray-500 mb-2 line-clamp-2">
                   <%= t('messages.new.link_preview.description') %>
                 </p>
-                <!-- Site Info -->
                 <div class="flex items-center gap-1.5 text-xs text-gray-400">
                   <div class="w-4 h-4 bg-primary-600 rounded flex items-center justify-center flex-shrink-0">
                     <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -239,7 +210,6 @@
             </p>
           </div>
 
-          <!-- Notification Info -->
           <div class="bg-primary-50 rounded-xl p-4 border border-primary-100">
             <div class="flex items-start gap-3">
               <svg class="w-5 h-5 text-primary-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -257,7 +227,6 @@
   </main>
 </div>
 
-<!-- Password Toggle Controller -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     // Password toggle functionality
