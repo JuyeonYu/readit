@@ -1,7 +1,6 @@
 <% content_for(:title) { t('notifications.index.title') } %>
 
 <%= render layout: "shared/authenticated_layout", locals: { current_page: "notifications" } do %>
-  <!-- Header -->
   <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
     <div>
       <h1 class="text-2xl font-bold text-gray-900"><%= t('notifications.index.heading') %></h1>
@@ -15,7 +14,6 @@
         <% @notifications.each do |notification| %>
           <li class="p-5 hover:bg-gray-50 transition-colors">
             <div class="flex items-start gap-4">
-              <!-- Status Icon -->
               <div class="flex-shrink-0">
                 <% if notification.status == 'sent' %>
                   <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
@@ -38,7 +36,6 @@
                 <% end %>
               </div>
 
-              <!-- Content -->
               <div class="flex-1 min-w-0">
                 <div class="flex items-center gap-2 mb-1">
                   <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium

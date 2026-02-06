@@ -148,7 +148,6 @@ class WebhooksController < ApplicationController
     return unless user
 
     user.update!(subscription_status: "past_due")
-    # TODO: Send email notification about failed payment
 
     Rails.logger.info "Payment failed for user #{user.email}"
   end

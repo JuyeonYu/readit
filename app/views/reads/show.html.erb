@@ -4,7 +4,6 @@
 <% content_for(:og_image) { "#{display_base_url}/og-message.png" } %>
 
 <div class="min-h-screen bg-gray-50">
-  <!-- Minimal Header -->
   <header class="bg-white/80 backdrop-blur-sm border-b border-gray-100">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 py-4">
       <div class="flex items-center justify-between">
@@ -26,7 +25,6 @@
     </div>
   </header>
 
-  <!-- Main Content -->
   <main class="px-4 py-8 sm:py-12">
     <div class="max-w-2xl mx-auto">
       <% if flash[:alert] %>
@@ -40,9 +38,7 @@
         </div>
       <% end %>
 
-      <!-- Message Card -->
       <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-        <!-- Sender Info -->
         <div class="px-6 sm:px-10 pt-8 sm:pt-10">
           <div class="flex items-center gap-3 mb-6">
             <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center shadow-sm">
@@ -54,13 +50,11 @@
             </div>
           </div>
 
-          <!-- Message Title -->
           <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 leading-tight">
             <%= @message.title %>
           </h1>
         </div>
 
-        <!-- Message Preview Indicator -->
         <div class="px-6 sm:px-10 py-6 mt-4 bg-gray-50 border-t border-gray-100">
           <div class="flex items-center gap-3 text-gray-600">
             <div class="w-10 h-10 bg-white rounded-lg border border-gray-200 flex items-center justify-center">
@@ -75,7 +69,6 @@
           </div>
         </div>
 
-        <!-- Action Section -->
         <div class="px-6 sm:px-10 py-6 border-t border-gray-100">
           <%= form_with url: read_message_path(@message.token), method: :post, data: { turbo: false } do |f| %>
             <% if @message.password_digest.present? %>
@@ -109,7 +102,6 @@
         </div>
       </div>
 
-      <!-- Footer -->
       <footer class="mt-8 text-center">
         <p class="text-xs text-gray-400">
           Powered by <a href="<%= root_url %>" class="text-gray-500 hover:text-primary-600 transition-colors"><%= t('app.name') %></a>

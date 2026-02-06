@@ -1,7 +1,6 @@
 <% content_for(:title) { t('messages.share.title', message_title: @message.title) } %>
 
 <%= render layout: "shared/authenticated_layout", locals: { current_page: "messages" } do %>
-  <!-- Success Banner -->
   <% if flash[:notice] || @message.read_count == 0 %>
     <div class="mb-8 bg-green-50 border border-green-200 rounded-xl p-6 text-center">
       <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -14,7 +13,6 @@
     </div>
   <% end %>
 
-  <!-- Share Link Card -->
   <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
     <div class="flex items-center justify-between mb-4">
       <h2 class="text-lg font-semibold text-gray-900"><%= t('messages.share.shareable_link') %></h2>
@@ -43,7 +41,6 @@
       </button>
     </div>
 
-    <!-- Share Options -->
     <div class="mt-6 pt-6 border-t border-gray-100">
       <p class="text-sm text-gray-500 mb-3"><%= t('messages.share.share_via') %></p>
       <div class="flex flex-wrap gap-3">
@@ -73,9 +70,7 @@
     </div>
   </div>
 
-  <!-- Two Column Layout -->
   <div class="grid lg:grid-cols-2 gap-6">
-    <!-- Message Content -->
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
       <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
         <h3 class="font-semibold text-gray-900"><%= t('messages.share.message_content') %></h3>
@@ -125,13 +120,11 @@
       <% end %>
     </div>
 
-    <!-- Read Analytics -->
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
       <div class="px-6 py-4 border-b border-gray-100">
         <h3 class="font-semibold text-gray-900"><%= t('messages.share.read_analytics') %></h3>
       </div>
 
-      <!-- Stats -->
       <div class="grid grid-cols-2 divide-x divide-gray-100 border-b border-gray-100">
         <div class="p-6 text-center">
           <p class="text-3xl font-bold text-primary-600"><%= @message.unique_reader_count %></p>
@@ -143,7 +136,6 @@
         </div>
       </div>
 
-      <!-- Read History -->
       <div class="p-6">
         <% if @grouped_reads.any? %>
           <p class="text-sm text-gray-500 mb-4"><%= t('messages.share.recent_activity') %></p>
@@ -178,7 +170,6 @@
     </div>
   </div>
 
-  <!-- Actions -->
   <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
     <%= link_to new_message_path, class: "inline-flex items-center justify-center gap-2 bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors" do %>
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
