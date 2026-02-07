@@ -10,6 +10,7 @@ ko:
               attachment_too_large: "파일 '%{filename}'이(가) 너무 큽니다 (최대 %{max_size}MB)"
               attachment_invalid_type: "파일 '%{filename}'의 형식이 올바르지 않습니다 (이미지만 허용)"
               attachments_total_too_large: "첨부 파일의 총 크기가 너무 큽니다 (최대 %{max_size}MB)"
+              attachments_pro_only: "파일 첨부는 Pro 사용자만 이용할 수 있습니다"
       messages:
         blank: "을(를) 입력해주세요"
         required: "이(가) 필요합니다"
@@ -140,6 +141,10 @@ ko:
         subtitle: "모든 메시지를 링크로 보내세요. 이메일, 슬랙, 문자 등 어떤 채널을 통해 공유하든 열린 순간 알림을 받습니다. 수신자는 앱 설치가 필요 없습니다."
         cta_primary: "무료로 첫 메시지 보내기"
         cta_secondary: "사용 방법 보기"
+        badges:
+          encrypted: "종단간 암호화"
+          worldwide: "전 세계에서 사용 가능"
+          no_signup: "수신자는 가입 불필요"
       preview:
         example_title: "프로젝트 제안서 - 2025년 1분기"
         example_content: "안녕하세요 사라님, 논의했던 제안서입니다..."
@@ -221,10 +226,11 @@ ko:
         save: "(17% 절약)"
         free:
           name: "무료"
-          messages: "월 10개 메시지"
+          messages: "월 5개 메시지"
           tracking: "열림/읽지 않음 상태만"
           history: "7일 기록"
           notifications: "이메일 알림"
+          attachments: "파일 첨부"
           cta: "무료로 시작"
           note: "신용카드 필요 없음"
         pro:
@@ -233,6 +239,7 @@ ko:
           yearly_note: "월당, 연간 $120 청구"
           messages: "무제한"
           messages_suffix: "메시지"
+          attachments: "파일 첨부"
           analytics: "전체 분석 대시보드"
           history: "무제한 기록"
           support: "우선 지원"
@@ -259,7 +266,7 @@ ko:
           answer: "예. 모든 메시지는 전송 중에 암호화됩니다. 의도한 수신자만 메시지를 볼 수 있도록 비밀번호 보호를 추가할 수 있으며, 특정 시간 후에 메시지를 자동 삭제하도록 만료 날짜를 설정할 수 있습니다."
         q5:
           question: "무료 플랜에는 무엇이 포함되나요?"
-          answer: "무료 플랜에는 월 10개 메시지, 기본 읽기 알림, 7일 메시지 기록이 포함됩니다. 신용카드가 필요 없으며 체험판이 아니라 영원히 무료입니다."
+          answer: "무료 플랜에는 월 5개 메시지, 기본 읽기 알림, 7일 메시지 기록이 포함됩니다. 신용카드가 필요 없으며 체험판이 아니라 영원히 무료입니다."
         q6:
           question: "기존 도구와 함께 MessageOpen을 사용할 수 있나요?"
           answer: "물론입니다. MessageOpen은 이미 사용 중인 모든 도구와 함께 작동합니다. 메시지 링크를 이메일, 슬랙, 왓츠앱, LinkedIn, SMS 또는 링크를 지원하는 모든 플랫폼에 붙여넣기만 하세요. 설정할 통합이 없습니다."
@@ -517,7 +524,7 @@ ko:
     manage_subscription_description: "결제 방법 업데이트, 청구서 확인 또는 구독 취소"
     free_plan:
       title: "무료 플랜을 사용 중입니다"
-      description_html: "기본 기능으로 월 10개 메시지.<br>Pro로 업그레이드하여 무제한 메시지와 고급 분석을 이용하세요."
+      description_html: "기본 기능으로 월 5개 메시지.<br>Pro로 업그레이드하여 무제한 메시지와 고급 분석을 이용하세요."
       upgrade: "Pro로 업그레이드"
     webhook:
       title: "웹훅 알림"
@@ -551,11 +558,12 @@ ko:
       name: "무료"
       price: "$0"
       period: "영원히"
-      messages: "월 10개 추적 메시지"
+      messages: "월 5개 추적 메시지"
       tracking: "열림/읽지 않음 상태"
       history: "7일 메시지 기록"
       notifications: "이메일 알림"
       editor: "리치 텍스트 에디터"
+      attachments: "파일 첨부"
       password: "비밀번호 보호"
       cta: "시작하기"
       note: "신용카드 필요 없음"
@@ -569,6 +577,7 @@ ko:
       billed_yearly: "연간 $120 — $24 절약"
       everything_plus: "무료의 모든 것, 추가:"
       unlimited: "무제한 메시지"
+      attachments: "파일 첨부"
       analytics: "전체 분석 대시보드"
       history: "무제한 메시지 기록"
       receipts: "열람률, 타이밍 및 트렌드"
@@ -593,7 +602,7 @@ ko:
       title: "플랜 비교"
       feature: "기능"
       tracked_messages: "추적 메시지"
-      ten_month: "월 10개"
+      ten_month: "월 5개"
       unlimited: "무제한"
       message_history: "메시지 기록"
       seven_days: "7일"
@@ -607,6 +616,7 @@ ko:
       open_tracking: "열람 추적"
       email_notifications: "이메일 알림"
       rich_text_editor: "리치 텍스트 에디터"
+      file_attachments: "파일 첨부"
       password_protection: "비밀번호 보호"
       reactions: "독자 반응"
       webhook_notifications: "웹훅 (Discord, Slack, Teams, Telegram)"

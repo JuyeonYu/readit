@@ -9,7 +9,7 @@ class User < ApplicationRecord
   # Subscription status constants
   SUBSCRIPTION_STATUSES = %w[active cancelled expired past_due paused].freeze
   PLANS = %w[free pro].freeze
-  FREE_MESSAGE_LIMIT = 10
+  FREE_MESSAGE_LIMIT = 5
   FREE_HISTORY_DAYS = 7
 
   # Admin check

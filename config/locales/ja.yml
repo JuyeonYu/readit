@@ -10,6 +10,7 @@ ja:
               attachment_too_large: "ファイル '%{filename}' が大きすぎます（最大 %{max_size}MB）"
               attachment_invalid_type: "ファイル '%{filename}' の形式が無効です（画像のみ許可）"
               attachments_total_too_large: "添付ファイルの合計サイズが大きすぎます（最大 %{max_size}MB）"
+              attachments_pro_only: "ファイル添付はProユーザーのみ利用可能です"
       messages:
         blank: "を入力してください"
         required: "が必要です"
@@ -140,6 +141,10 @@ ja:
         subtitle: "すべてのメッセージをリンクで送信。メール、Slack、SMS、どのチャネルで共有しても、開かれた瞬間に通知を受け取ります。受信者はアプリのインストール不要です。"
         cta_primary: "無料で最初のメッセージを送る"
         cta_secondary: "使い方を見る"
+        badges:
+          encrypted: "エンドツーエンド暗号化"
+          worldwide: "世界中で利用可能"
+          no_signup: "受信者の登録不要"
       preview:
         example_title: "プロジェクト提案書 - 2025年Q1"
         example_content: "サラさん、こちらが議論した提案書です..."
@@ -221,10 +226,11 @@ ja:
         save: "（17%お得）"
         free:
           name: "無料"
-          messages: "月10メッセージ"
+          messages: "月5メッセージ"
           tracking: "開封/未読ステータスのみ"
           history: "7日間の履歴"
           notifications: "メール通知"
+          attachments: "ファイル添付"
           cta: "無料で始める"
           note: "クレジットカード不要"
         pro:
@@ -233,6 +239,7 @@ ja:
           yearly_note: "月あたり、年間$120請求"
           messages: "無制限"
           messages_suffix: "メッセージ"
+          attachments: "ファイル添付"
           analytics: "完全な分析ダッシュボード"
           history: "無制限の履歴"
           support: "優先サポート"
@@ -259,7 +266,7 @@ ja:
           answer: "はい。すべてのメッセージは転送中に暗号化されます。意図した受信者のみがメッセージを閲覧できるようにパスワード保護を追加したり、特定の時間後にメッセージを自動削除するように有効期限を設定したりすることもできます。"
         q5:
           question: "無料プランには何が含まれていますか？"
-          answer: "無料プランには、月10メッセージ、基本的な既読通知、7日間のメッセージ履歴が含まれています。クレジットカード不要で、トライアルではなく永久に無料です。"
+          answer: "無料プランには、月5メッセージ、基本的な既読通知、7日間のメッセージ履歴が含まれています。クレジットカード不要で、トライアルではなく永久に無料です。"
         q6:
           question: "既存のツールと一緒にMessageOpenを使用できますか？"
           answer: "もちろんです。MessageOpenは既に使用しているあらゆるツールと連携します。メッセージリンクをメール、Slack、WhatsApp、LinkedIn、SMS、リンクをサポートするあらゆるプラットフォームに貼り付けるだけです。設定する統合はありません。"
@@ -517,7 +524,7 @@ ja:
     manage_subscription_description: "支払い方法の更新、請求書の確認、またはサブスクリプションのキャンセル"
     free_plan:
       title: "無料プランをご利用中です"
-      description_html: "基本機能で月10メッセージ。<br>Proにアップグレードして無制限のメッセージと高度な分析を利用しましょう。"
+      description_html: "基本機能で月5メッセージ。<br>Proにアップグレードして無制限のメッセージと高度な分析を利用しましょう。"
       upgrade: "Proにアップグレード"
     webhook:
       title: "Webhook通知"
@@ -551,11 +558,12 @@ ja:
       name: "無料"
       price: "$0"
       period: "永久"
-      messages: "月10トラッキングメッセージ"
+      messages: "月5トラッキングメッセージ"
       tracking: "開封/未読ステータス"
       history: "7日間のメッセージ履歴"
       notifications: "メール通知"
       editor: "リッチテキストエディタ"
+      attachments: "ファイル添付"
       password: "パスワード保護"
       cta: "始める"
       note: "クレジットカード不要"
@@ -569,6 +577,7 @@ ja:
       billed_yearly: "年間$120 — $24お得"
       everything_plus: "無料のすべてに加えて："
       unlimited: "無制限のメッセージ"
+      attachments: "ファイル添付"
       analytics: "完全な分析ダッシュボード"
       history: "無制限のメッセージ履歴"
       receipts: "開封率、タイミング、トレンド"
@@ -593,7 +602,7 @@ ja:
       title: "プラン比較"
       feature: "機能"
       tracked_messages: "トラッキングメッセージ"
-      ten_month: "月10件"
+      ten_month: "月5件"
       unlimited: "無制限"
       message_history: "メッセージ履歴"
       seven_days: "7日間"
@@ -607,6 +616,7 @@ ja:
       open_tracking: "開封トラッキング"
       email_notifications: "メール通知"
       rich_text_editor: "リッチテキストエディタ"
+      file_attachments: "ファイル添付"
       password_protection: "パスワード保護"
       reactions: "読者のリアクション"
       webhook_notifications: "Webhook (Discord, Slack, Teams, Telegram)"

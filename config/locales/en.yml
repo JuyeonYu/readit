@@ -10,6 +10,7 @@ en:
               attachment_too_large: "file '%{filename}' is too large (maximum is %{max_size}MB)"
               attachment_invalid_type: "file '%{filename}' has invalid type (only images allowed)"
               attachments_total_too_large: "total attachment size is too large (maximum is %{max_size}MB)"
+              attachments_pro_only: "file attachments are only available for Pro users"
 
   # Application-wide
   app:
@@ -124,6 +125,10 @@ en:
         subtitle: "Send any message as a link. Get notified the moment it's opened — whether you share it via email, Slack, text, or any channel. No app install needed for your recipient."
         cta_primary: "Send Your First Message Free"
         cta_secondary: "See How It Works"
+        badges:
+          encrypted: "End-to-end encrypted"
+          worldwide: "Available worldwide"
+          no_signup: "No signup required for recipients"
       preview:
         example_title: "Project Proposal - Q1 2025"
         example_content: "Hi Sarah, here's the proposal we discussed..."
@@ -205,10 +210,11 @@ en:
         save: "(Save 17%)"
         free:
           name: "Free"
-          messages: "10 messages/month"
+          messages: "5 messages/month"
           tracking: "Open/unread status only"
           history: "7-day history"
           notifications: "Email notifications"
+          attachments: "File attachments"
           cta: "Get Started Free"
           note: "No credit card required"
         pro:
@@ -217,6 +223,7 @@ en:
           yearly_note: "per month, $120 billed yearly"
           messages: "Unlimited"
           messages_suffix: "messages"
+          attachments: "File attachments"
           analytics: "Full analytics dashboard"
           history: "Unlimited history"
           support: "Priority support"
@@ -243,7 +250,7 @@ en:
           answer: "Yes. All messages are encrypted in transit. You can also add password protection so only the intended recipient can view your message, and set expiration dates to auto-delete messages after a specific time."
         q5:
           question: "What's included in the free plan?"
-          answer: "The free plan includes 10 messages per month with basic read notifications and 7-day message history. No credit card required, and it's free forever — not a trial."
+          answer: "The free plan includes 5 messages per month with basic read notifications and 7-day message history. No credit card required, and it's free forever — not a trial."
         q6:
           question: "Can I use MessageOpen with my existing tools?"
           answer: "Absolutely. MessageOpen works alongside any tool you already use. Just paste your message link into email, Slack, WhatsApp, LinkedIn, SMS, or any platform that supports links. No integrations to set up."
@@ -501,7 +508,7 @@ en:
     manage_subscription_description: "Update payment method, view invoices, or cancel subscription"
     free_plan:
       title: "You're on the Free Plan"
-      description_html: "10 messages per month with basic features.<br>Upgrade to Pro for unlimited messages and advanced analytics."
+      description_html: "5 messages per month with basic features.<br>Upgrade to Pro for unlimited messages and advanced analytics."
       upgrade: "Upgrade to Pro"
     webhook:
       title: "Webhook Notifications"
@@ -535,11 +542,12 @@ en:
       name: "Free"
       price: "$0"
       period: "forever"
-      messages: "10 tracked messages/month"
+      messages: "5 tracked messages/month"
       tracking: "Open/unread status"
       history: "7-day message history"
       notifications: "Email notifications"
       editor: "Rich text editor"
+      attachments: "File attachments"
       password: "Password protection"
       cta: "Get Started"
       note: "No credit card required"
@@ -553,6 +561,7 @@ en:
       billed_yearly: "$120/year — save $24"
       everything_plus: "Everything in Free, plus:"
       unlimited: "Unlimited messages"
+      attachments: "File attachments"
       analytics: "Full analytics dashboard"
       history: "Unlimited message history"
       receipts: "Open rate, timing & trends"
@@ -577,7 +586,7 @@ en:
       title: "Compare Plans"
       feature: "Feature"
       tracked_messages: "Tracked messages"
-      ten_month: "10/month"
+      ten_month: "5/month"
       unlimited: "Unlimited"
       message_history: "Message history"
       seven_days: "7 days"
@@ -591,6 +600,7 @@ en:
       open_tracking: "Open tracking"
       email_notifications: "Email notifications"
       rich_text_editor: "Rich text editor"
+      file_attachments: "File attachments"
       password_protection: "Password protection"
       reactions: "Reader reactions"
       webhook_notifications: "Webhooks (Discord, Slack, Teams, Telegram)"

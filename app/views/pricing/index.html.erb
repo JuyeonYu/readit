@@ -62,6 +62,12 @@
                   <span class="text-gray-700"><%= t("pricing.free.#{feature}") %></span>
                 </li>
               <% end %>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                <span class="text-gray-700"><%= t("pricing.free.attachments") %></span>
+              </li>
             </ul>
           </div>
 
@@ -322,6 +328,19 @@
               </tr>
               <tr>
                 <td class="py-4 px-6 text-gray-700"><%= t('pricing.compare.rich_text_editor') %></td>
+                <td class="text-center py-4 px-6">
+                  <svg class="w-5 h-5 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                </td>
+                <td class="text-center py-4 px-6 bg-primary-50/50">
+                  <svg class="w-5 h-5 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                </td>
+              </tr>
+              <tr>
+                <td class="py-4 px-6 text-gray-700"><%= t('pricing.compare.file_attachments') %></td>
                 <td class="text-center py-4 px-6">
                   <svg class="w-5 h-5 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
