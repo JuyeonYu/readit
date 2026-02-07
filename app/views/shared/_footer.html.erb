@@ -33,7 +33,7 @@
       <div>
         <h4 class="text-white font-semibold mb-4"><%= t('footer.support_title') %></h4>
         <ul class="space-y-2 text-sm">
-          <li><a href="mailto:support@messageopen.com" class="hover:text-white transition-colors"><%= t('footer.contact') %></a></li>
+          <li><a href="mailto:<%= support_email %>" class="hover:text-white transition-colors"><%= t('footer.contact') %></a></li>
           <% if logged_in? %>
             <li><%= link_to t('footer.billing'), billing_path, class: "hover:text-white transition-colors" %></li>
           <% end %>

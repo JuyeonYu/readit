@@ -158,7 +158,7 @@
       <div class="text-center mt-10">
         <p class="text-gray-600">
           <%= t('pricing.team.question') %>
-          <a href="mailto:support@messageopen.com" class="text-primary-600 hover:text-primary-700 font-medium underline underline-offset-2"><%= t('pricing.team.link') %></a>
+          <a href="mailto:<%= support_email %>" class="text-primary-600 hover:text-primary-700 font-medium underline underline-offset-2"><%= t('pricing.team.link') %></a>
         </p>
       </div>
     </div>
@@ -396,7 +396,7 @@
             <h3 class="font-semibold text-gray-900 mb-2"><%= t("pricing.faq.q#{i}.question") %></h3>
             <p class="text-gray-600 leading-relaxed">
               <% if i == 5 %>
-                <%= t('pricing.faq.q5.answer_prefix') %> <a href="mailto:support@messageopen.com" class="text-primary-600 hover:underline">support@messageopen.com</a>
+                <%= t('pricing.faq.q5.answer_prefix') %> <a href="mailto:<%= support_email %>" class="text-primary-600 hover:underline"><%= support_email %></a>
               <% else %>
                 <%= t("pricing.faq.q#{i}.answer") %>
               <% end %>

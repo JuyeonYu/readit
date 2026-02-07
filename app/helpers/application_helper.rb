@@ -12,6 +12,10 @@ module ApplicationHelper
     screenshot_mode? ? Rails.configuration.x.production_url : request.base_url
   end
 
+  def support_email
+    ENV.fetch("SUPPORT_EMAIL", "support@#{display_host}")
+  end
+
   def display_message_url(token)
     if screenshot_mode?
       "#{Rails.configuration.x.production_url}/m/#{token}"
