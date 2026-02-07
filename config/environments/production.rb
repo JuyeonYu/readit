@@ -67,6 +67,11 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  # Screenshot mode disabled in production - use real URLs
+  config.x.screenshot_mode = false
+  config.x.production_host = ENV.fetch("APP_HOST", "messageopen.com")
+  config.x.production_url = "https://#{ENV.fetch('APP_HOST', 'messageopen.com')}"
+
   # Only use :id for inspections in production.
   config.active_record.attributes_for_inspect = [ :id ]
 

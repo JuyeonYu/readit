@@ -84,8 +84,8 @@ Rails.application.configure do
   # config.generators.apply_rubocop_autocorrect_after_generate!
 
   # Screenshot mode: replaces localhost with production URL for professional screenshots
-  # Set to true when taking screenshots
-  config.x.screenshot_mode = true
-  config.x.production_host = "messageopen.com"
-  config.x.production_url = "https://messageopen.com"
+  # Set SCREENSHOT_MODE=false to disable
+  config.x.screenshot_mode = ENV.fetch("SCREENSHOT_MODE", "true") == "true"
+  config.x.production_host = ENV.fetch("SCREENSHOT_HOST", "messageopen.com")
+  config.x.production_url = "https://#{ENV.fetch('SCREENSHOT_HOST', 'messageopen.com')}"
 end
