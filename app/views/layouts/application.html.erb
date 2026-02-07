@@ -8,10 +8,9 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="description" content="<%= t('app.description') %>">
 
+    <link rel="icon" type="image/png" href="/icon.png">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon-16.svg">
-    <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32.svg">
-    <link rel="apple-touch-icon" href="/logo.svg">
+    <link rel="apple-touch-icon" href="/icon.png">
 
     <%# Open Graph - can be overridden with content_for %>
     <meta property="og:title" content="<%= content_for?(:og_title) ? yield(:og_title) : (content_for(:title) || t('app.name')) %>">
