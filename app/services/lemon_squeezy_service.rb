@@ -131,9 +131,13 @@ class LemonSqueezyService
     end
 
     def request(method, path, body = nil)
+      return nil if api_key.blank?
+
       uri = URI("#{BASE_URL}#{path}")
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
+      http.open_timeout = 10
+      http.read_timeout = 10
 
       request = case method
       when :get

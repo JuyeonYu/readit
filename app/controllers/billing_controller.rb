@@ -18,11 +18,17 @@ class BillingController < ApplicationController
       return
     end
 
-    portal_url = LemonSqueezyService.get_customer_portal_url(current_user.lemon_squeezy_customer_id)
+    begin
+      portal_url = LemonSqueezyService.get_customer_portal_url(current_user.lemon_squeezy_customer_id)
 
-    if portal_url
-      redirect_to portal_url, allow_other_host: true
-    else
+      if portal_url
+        redirect_to portal_url, allow_other_host: true
+      else
+        Rails.logger.error "Billing portal: No URL returned for customer #{current_user.lemon_squeezy_customer_id}"
+        redirect_to billing_path, alert: t('flash.billing.portal_error')
+      end
+    rescue StandardError => e
+      Rails.logger.error "Billing portal error: #{e.message}"
       redirect_to billing_path, alert: t('flash.billing.portal_error')
     end
   end
