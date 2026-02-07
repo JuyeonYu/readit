@@ -293,23 +293,6 @@
       }
     });
 
-    // Password toggle functionality
-    document.querySelectorAll('[data-controller="password-toggle"]').forEach(function(container) {
-      const checkbox = container.querySelector('[data-password-toggle-target="checkbox"]');
-      const field = container.querySelector('[data-password-toggle-target="field"]');
-
-      if (checkbox && field) {
-        checkbox.addEventListener('change', function() {
-          if (this.checked) {
-            field.classList.remove('hidden');
-          } else {
-            field.classList.add('hidden');
-            field.querySelector('input').value = '';
-          }
-        });
-      }
-    });
-
     // Character count for title and OG preview update
     const titleInput = document.getElementById('message-title-input');
     const titleCharCount = document.getElementById('title-char-count');
