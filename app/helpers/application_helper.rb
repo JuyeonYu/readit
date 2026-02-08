@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include Pagy::Frontend
+
   # Screenshot mode helpers - replaces dev URLs with production URLs
   def screenshot_mode?
     Rails.configuration.x.screenshot_mode rescue false

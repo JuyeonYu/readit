@@ -221,17 +221,20 @@ class SendWebhookJob < ApplicationJob
 
   def send_webhook(url, payload)
     uri = URI.parse(url)
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = (uri.scheme == "https")
-    http.open_timeout = 5
-    http.read_timeout = 10
 
     request = Net::HTTP::Post.new(uri.request_uri)
     request["Content-Type"] = "application/json"
     request["User-Agent"] = "MessageOpen-Webhook/1.0"
     request.body = payload.to_json
 
-    http.request(request)
+    # Use start block to ensure connection is properly closed after request
+    Net::HTTP.start(uri.host, uri.port,
+      use_ssl: uri.scheme == "https",
+      open_timeout: 5,
+      read_timeout: 10
+    ) do |http|
+      http.request(request)
+    end
   end
 
   def default_host

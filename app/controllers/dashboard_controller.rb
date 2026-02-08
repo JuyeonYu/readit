@@ -27,19 +27,8 @@ class DashboardController < ApplicationController
     opened_messages = @messages.where("read_count > 0").count
     @open_rate = @total_messages > 0 ? ((opened_messages.to_f / @total_messages) * 100).round : 0
 
-    # Calculate average time to first open (in hours) - limit to recent messages for efficiency
-    first_opens = current_user.messages
-                              .joins(:read_events)
-                              .where("messages.created_at >= ?", 30.days.ago)
-                              .group("messages.id")
-                              .pluck("messages.id", "messages.created_at", "MIN(read_events.read_at)")
-
-    if first_opens.any?
-      total_hours = first_opens.sum { |_, created, first_open| ((first_open - created) / 1.hour).abs }
-      @avg_time_to_open = (total_hours / first_opens.length).round(1)
-    else
-      @avg_time_to_open = 0
-    end
+    # Calculate average time to first open (in hours) - computed in database for efficiency
+    @avg_time_to_open = calculate_avg_time_to_open || 0
 
     # Opens over time (last 7 days)
     @opens_by_day = current_user.messages.joins(:read_events)
@@ -47,12 +36,39 @@ class DashboardController < ApplicationController
                                 .group("date(read_events.read_at)")
                                 .count
 
-    # Recent messages for table (with pagination if needed)
-    @recent_messages = @messages.limit(20)
+    # Recent messages for table with pagination
+    # Use with_rich_text_content_and_embeds to eager load Action Text content and attachments
+    @pagy, @recent_messages = pagy(
+      @messages.with_rich_text_content_and_embeds
+    )
   end
 
   def show
     @message = current_user.messages.includes(:read_events).find_by!(token: params[:token])
-    @grouped_reads = @message.grouped_reads
+    result = @message.grouped_reads(limit: 20)
+    @grouped_reads = result[:viewers]
+    @total_viewers = result[:total_viewers]
+    @has_more_viewers = result[:has_more]
+  end
+
+  private
+
+  def calculate_avg_time_to_open
+    # Use database-level calculation to avoid loading all records into memory
+    # Compatible with both SQLite and PostgreSQL
+    time_diff_expr = if ActiveRecord::Base.connection.adapter_name.downcase.include?("sqlite")
+      "(julianday(MIN(read_events.read_at)) - julianday(messages.created_at)) * 24"
+    else
+      "EXTRACT(EPOCH FROM (MIN(read_events.read_at) - messages.created_at)) / 3600"
+    end
+
+    subquery = current_user.messages
+      .joins(:read_events)
+      .where("messages.created_at >= ?", 30.days.ago)
+      .group("messages.id")
+      .select("#{time_diff_expr} as hours_to_open")
+
+    result = Message.from(subquery, :subquery).average(:hours_to_open)
+    result&.abs&.round(1)
   end
 end

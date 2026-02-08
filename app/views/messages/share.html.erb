@@ -206,11 +206,12 @@
                 <% latest_event = events.last %>
                 <li class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
                   <div class="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span class="text-sm font-medium text-primary-600">#<%= @grouped_reads.size - index %></span>
+                    <span class="text-sm font-medium text-primary-600">#<%= @total_viewers - index %></span>
                   </div>
                   <div class="flex-1 min-w-0">
+                    <% view_count = events.first.try(:view_count) || events.size %>
                     <div class="flex items-center gap-2">
-                      <p class="text-sm font-medium text-gray-900"><%= events.size %> <%= events.size > 1 ? t('messages.share.views') : t('messages.share.view') %></p>
+                      <p class="text-sm font-medium text-gray-900"><%= view_count %> <%= view_count > 1 ? t('messages.share.views') : t('messages.share.view') %></p>
                       <% if latest_event.reaction.present? %>
                         <span class="text-lg" title="<%= t('messages.share.reader_reaction') %>"><%= latest_event.reaction %></span>
                       <% end %>
@@ -219,6 +220,11 @@
                       <%= t('messages.share.last_read') %> <%= time_ago_in_words(latest_event.read_at) %> <%= t('common.ago') %>
                     </p>
                   </div>
+                </li>
+              <% end %>
+              <% if @has_more_viewers %>
+                <li class="flex items-center justify-center py-2">
+                  <span class="text-xs text-gray-500">+ <%= @total_viewers - @grouped_reads.size %> more viewers</span>
                 </li>
               <% end %>
             </ul>
@@ -320,23 +326,41 @@
 </style>
 
 <script>
-function copyLink() {
-  const link = document.getElementById('share-link').textContent;
-  const btn = document.getElementById('copy-btn');
-  const btnText = document.getElementById('copy-text');
+(function() {
+  let copyResetTimer = null;
 
-  navigator.clipboard.writeText(link).then(() => {
-    // Show success state
-    btn.classList.remove('bg-primary-600', 'hover:bg-primary-700');
-    btn.classList.add('bg-green-600', 'hover:bg-green-700');
-    btnText.textContent = '<%= j t('common.copied') %>';
+  window.copyLink = function() {
+    const link = document.getElementById('share-link').textContent;
+    const btn = document.getElementById('copy-btn');
+    const btnText = document.getElementById('copy-text');
 
-    // Reset after 2 seconds
-    setTimeout(() => {
-      btn.classList.remove('bg-green-600', 'hover:bg-green-700');
-      btn.classList.add('bg-primary-600', 'hover:bg-primary-700');
-      btnText.textContent = '<%= j t('messages.share.copy_link') %>';
-    }, 2000);
+    navigator.clipboard.writeText(link).then(() => {
+      // Clear any pending reset timer
+      if (copyResetTimer) {
+        clearTimeout(copyResetTimer);
+      }
+
+      // Show success state
+      btn.classList.remove('bg-primary-600', 'hover:bg-primary-700');
+      btn.classList.add('bg-green-600', 'hover:bg-green-700');
+      btnText.textContent = '<%= j t('common.copied') %>';
+
+      // Reset after 2 seconds
+      copyResetTimer = setTimeout(() => {
+        btn.classList.remove('bg-green-600', 'hover:bg-green-700');
+        btn.classList.add('bg-primary-600', 'hover:bg-primary-700');
+        btnText.textContent = '<%= j t('messages.share.copy_link') %>';
+        copyResetTimer = null;
+      }, 2000);
+    });
+  };
+
+  // Clean up timer when navigating away (Turbo)
+  document.addEventListener('turbo:before-cache', function() {
+    if (copyResetTimer) {
+      clearTimeout(copyResetTimer);
+      copyResetTimer = null;
+    }
   });
-}
+})();
 </script>

@@ -42,12 +42,61 @@ class Message < ApplicationRecord
     read_events.distinct.count(:viewer_token_hash)
   end
 
-  def grouped_reads
-    read_events
-      .group_by(&:viewer_token_hash)
-      .transform_values { |events| events.sort_by(&:read_at) }
-      .sort_by { |_, events| events.first.read_at }
-      .reverse
+  # Returns grouped read events with optional limit on number of viewers
+  # Each viewer gets up to 3 most recent events
+  # Returns: { viewers: [[hash, events], ...], total_viewers: count, has_more: boolean }
+  def grouped_reads(limit: nil)
+    # Use window functions to efficiently fetch only recent events per viewer
+    # This avoids loading all read_events into memory
+    sql = <<-SQL
+      SELECT * FROM (
+        SELECT read_events.*,
+               ROW_NUMBER() OVER (PARTITION BY viewer_token_hash ORDER BY read_at DESC) as rn,
+               COUNT(*) OVER (PARTITION BY viewer_token_hash) as view_count,
+               MIN(read_at) OVER (PARTITION BY viewer_token_hash) as first_read_at
+        FROM read_events
+        WHERE message_id = ?
+      ) ranked
+      WHERE rn <= 3
+      ORDER BY first_read_at DESC, read_at ASC
+    SQL
+
+    events = ReadEvent.find_by_sql([sql, id])
+
+    # Group by viewer and sort by first read time (newest first)
+    grouped = events.group_by(&:viewer_token_hash).map do |viewer_hash, viewer_events|
+      [viewer_hash, viewer_events.sort_by(&:read_at)]
+    end
+
+    total_viewers = grouped.size
+
+    # Apply limit if specified
+    if limit && grouped.size > limit
+      grouped = grouped.first(limit)
+      has_more = true
+    else
+      has_more = false
+    end
+
+    { viewers: grouped, total_viewers: total_viewers, has_more: has_more }
+  end
+
+  # Memoized helper to get first image attachment (avoids repeated parsing)
+  def first_image_attachment
+    return @first_image_attachment if defined?(@first_image_attachment)
+    return @first_image_attachment = nil if content.blank? || content.body.blank?
+
+    @first_image_attachment = content.body.attachments.find do |a|
+      a.attachable.is_a?(ActiveStorage::Blob) && a.attachable.image?
+    end
+  end
+
+  # Memoized helper to get plain text preview (avoids repeated parsing)
+  def plain_text_preview(length: 150)
+    return "" if content.blank? || content.body.blank?
+
+    @plain_text_cache ||= content.body.to_plain_text.strip
+    @plain_text_cache.truncate(length)
   end
 
   def reactions_summary

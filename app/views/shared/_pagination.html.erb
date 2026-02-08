@@ -1,0 +1,52 @@
+<% if @pagy && @pagy.pages > 1 %>
+  <nav class="flex items-center justify-center gap-1 mt-6" aria-label="Pagination">
+    <%# Previous button %>
+    <% if @pagy.prev %>
+      <%= link_to pagy_url_for(@pagy, @pagy.prev), class: "inline-flex items-center justify-center w-10 h-10 rounded-lg border border-gray-300 bg-white text-gray-500 hover:bg-gray-50 transition-colors" do %>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      <% end %>
+    <% else %>
+      <span class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-gray-200 bg-gray-50 text-gray-300 cursor-not-allowed">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </span>
+    <% end %>
+
+    <%# Page numbers %>
+    <% @pagy.series.each do |item| %>
+      <% if item.is_a?(Integer) %>
+        <% if item == @pagy.page %>
+          <span class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-primary-600 text-white font-medium">
+            <%= item %>
+          </span>
+        <% else %>
+          <%= link_to item, pagy_url_for(@pagy, item), class: "inline-flex items-center justify-center w-10 h-10 rounded-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 transition-colors font-medium" %>
+        <% end %>
+      <% elsif item == :gap %>
+        <span class="inline-flex items-center justify-center w-10 h-10 text-gray-400">...</span>
+      <% end %>
+    <% end %>
+
+    <%# Next button %>
+    <% if @pagy.next %>
+      <%= link_to pagy_url_for(@pagy, @pagy.next), class: "inline-flex items-center justify-center w-10 h-10 rounded-lg border border-gray-300 bg-white text-gray-500 hover:bg-gray-50 transition-colors" do %>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      <% end %>
+    <% else %>
+      <span class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-gray-200 bg-gray-50 text-gray-300 cursor-not-allowed">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </span>
+    <% end %>
+  </nav>
+
+  <p class="text-center text-sm text-gray-500 mt-2">
+    <%= @pagy.from %>-<%= @pagy.to %> of <%= @pagy.count %> items
+  </p>
+<% end %>

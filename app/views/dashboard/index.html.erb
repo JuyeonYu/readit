@@ -191,16 +191,11 @@
       <% if @recent_messages.any? %>
         <div class="divide-y divide-gray-200">
           <% @recent_messages.each do |message| %>
-            <%
-              # Extract first image attachment if exists
-              first_image = message.content.body.attachments.find { |a| a.attachable.is_a?(ActiveStorage::Blob) && a.attachable.image? }
-              plain_text = message.content.body.to_plain_text.strip
-            %>
             <%= link_to share_message_path(message.token), class: "block p-4 sm:p-6 hover:bg-gray-50 transition-colors" do %>
               <div class="flex gap-4">
-                <% if first_image %>
+                <% if message.first_image_attachment %>
                   <div class="flex-shrink-0">
-                    <%= image_tag first_image.attachable.variant(resize_to_fill: [80, 80]), class: "w-16 h-16 sm:w-20 sm:h-20 object-cover rounded-lg border border-gray-200" %>
+                    <%= image_tag message.first_image_attachment.attachable.variant(resize_to_fill: [80, 80]), class: "w-16 h-16 sm:w-20 sm:h-20 object-cover rounded-lg border border-gray-200" %>
                   </div>
                 <% end %>
                 <div class="flex-1 min-w-0">
@@ -214,8 +209,9 @@
                           </svg>
                         <% end %>
                       </div>
-                      <% if plain_text.present? %>
-                        <p class="text-sm text-gray-600 mt-1 line-clamp-2"><%= truncate(plain_text, length: 150) %></p>
+                      <% preview = message.plain_text_preview %>
+                      <% if preview.present? %>
+                        <p class="text-sm text-gray-600 mt-1 line-clamp-2"><%= preview %></p>
                       <% end %>
                     </div>
                     <div class="flex flex-col items-end gap-1 flex-shrink-0">
@@ -276,6 +272,8 @@
           <% end %>
         </div>
       <% end %>
+
+      <%= render "shared/pagination" %>
     </div>
 
     <% if @is_free_plan && @messages_this_month >= @message_limit %>
@@ -369,79 +367,98 @@
 <% if @opens_by_day.any? %>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-function initOpensChart() {
-  const canvas = document.getElementById('opensChart');
-  if (!canvas) return;
+(function() {
+  // Prevent duplicate initialization
+  if (window.opensChartInitialized) return;
+  window.opensChartInitialized = true;
 
-  // Destroy existing chart instance if any
-  if (window.opensChartInstance) {
-    window.opensChartInstance.destroy();
+  function destroyChart() {
+    if (window.opensChartInstance) {
+      window.opensChartInstance.destroy();
+      window.opensChartInstance = null;
+    }
   }
 
-  const ctx = canvas.getContext('2d');
+  function initOpensChart() {
+    const canvas = document.getElementById('opensChart');
+    if (!canvas) return;
 
-  // Prepare data for last 7 days
-  const labels = [];
-  const data = [];
-  const opensData = <%= @opens_by_day.to_json.html_safe %>;
+    // Destroy existing chart instance if any
+    destroyChart();
 
-  for (let i = 6; i >= 0; i--) {
-    const date = new Date();
-    date.setDate(date.getDate() - i);
-    const dateStr = date.toISOString().split('T')[0];
-    labels.push(date.toLocaleDateString('en-US', { weekday: 'short' }));
-    data.push(opensData[dateStr] || 0);
-  }
+    const ctx = canvas.getContext('2d');
 
-  window.opensChartInstance = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: labels,
-      datasets: [{
-        label: 'Opens',
-        data: data,
-        borderColor: '#10B981',
-        backgroundColor: 'rgba(16, 185, 129, 0.1)',
-        fill: true,
-        tension: 0.4,
-        pointBackgroundColor: '#10B981',
-        pointBorderColor: '#fff',
-        pointBorderWidth: 2,
-        pointRadius: 4,
-        pointHoverRadius: 6
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          display: false
-        }
+    // Prepare data for last 7 days
+    const labels = [];
+    const data = [];
+    const opensData = <%= @opens_by_day.to_json.html_safe %>;
+
+    for (let i = 6; i >= 0; i--) {
+      const date = new Date();
+      date.setDate(date.getDate() - i);
+      const dateStr = date.toISOString().split('T')[0];
+      labels.push(date.toLocaleDateString('en-US', { weekday: 'short' }));
+      data.push(opensData[dateStr] || 0);
+    }
+
+    window.opensChartInstance = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Opens',
+          data: data,
+          borderColor: '#10B981',
+          backgroundColor: 'rgba(16, 185, 129, 0.1)',
+          fill: true,
+          tension: 0.4,
+          pointBackgroundColor: '#10B981',
+          pointBorderColor: '#fff',
+          pointBorderWidth: 2,
+          pointRadius: 4,
+          pointHoverRadius: 6
+        }]
       },
-      scales: {
-        x: {
-          grid: {
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
             display: false
           }
         },
-        y: {
-          beginAtZero: true,
-          ticks: {
-            stepSize: 1
+        scales: {
+          x: {
+            grid: {
+              display: false
+            }
           },
-          grid: {
-            color: '#E5E7EB'
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1
+            },
+            grid: {
+              color: '#E5E7EB'
+            }
           }
         }
       }
-    }
-  });
-}
+    });
+  }
 
-// Initial page load
-document.addEventListener('DOMContentLoaded', initOpensChart);
-// Turbo navigation
-document.addEventListener('turbo:load', initOpensChart);
+  // Clean up before Turbo caches the page (prevents memory leaks)
+  document.addEventListener('turbo:before-cache', destroyChart);
+
+  // Initialize on Turbo navigation (includes initial page load)
+  document.addEventListener('turbo:load', initOpensChart);
+
+  // Fallback for non-Turbo page loads
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initOpensChart);
+  } else {
+    initOpensChart();
+  }
+})();
 </script>
 <% end %>

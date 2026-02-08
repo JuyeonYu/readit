@@ -81,7 +81,10 @@ class MessagesController < ApplicationController
 
   def share
     @message = current_user.messages.includes(:read_events).find_by!(token: params[:token])
-    @grouped_reads = @message.grouped_reads
+    result = @message.grouped_reads(limit: 20)
+    @grouped_reads = result[:viewers]
+    @total_viewers = result[:total_viewers]
+    @has_more_viewers = result[:has_more]
   end
 
   private
