@@ -42,13 +42,17 @@ class WebhooksController < ApplicationController
   def handle_subscription_created(event)
     data = event["data"]
     attributes = data["attributes"]
+    custom_data = event.dig("meta", "custom_data") || {}
+    user_id = custom_data["user_id"]
     user_email = attributes.dig("user_email")
     customer_id = attributes["customer_id"].to_s
     subscription_id = data["id"].to_s
     variant_id = attributes["variant_id"].to_s
     current_period_end = Time.parse(attributes["renews_at"]) if attributes["renews_at"]
 
-    user = User.find_by(email: user_email)
+    # Try to find user by ID first (from custom data), then by email
+    user = User.find_by(id: user_id) if user_id.present?
+    user ||= User.find_by(email: user_email)
     return unless user
 
     user.activate_subscription!(
