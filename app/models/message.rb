@@ -20,6 +20,7 @@ class Message < ApplicationRecord
   validates :expires_at, comparison: { greater_than: -> { Time.current } },
             if: -> { expires_at.present? && will_save_change_to_expires_at? }
   validates :password, length: { minimum: 6 }, allow_blank: true
+  validate :password_requires_pro
 
   before_validation :generate_token, on: :create
 
@@ -113,5 +114,11 @@ class Message < ApplicationRecord
     end
 
     errors.add(:token, "could not be generated")
+  end
+
+  def password_requires_pro
+    return unless password.present? && user.present? && !user.pro?
+
+    errors.add(:password, :pro_only)
   end
 end

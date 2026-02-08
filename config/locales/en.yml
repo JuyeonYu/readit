@@ -11,6 +11,8 @@ en:
               attachment_invalid_type: "file '%{filename}' has invalid type (only images allowed)"
               attachments_total_too_large: "total attachment size is too large (maximum is %{max_size}MB)"
               attachments_pro_only: "file attachments are only available for Pro users"
+            password:
+              pro_only: "Password protection is only available for Pro users"
 
   # Application-wide
   app:
@@ -548,7 +550,6 @@ en:
       notifications: "Email notifications"
       editor: "Rich text editor"
       attachments: "File attachments"
-      password: "Password protection"
       cta: "Get Started"
       note: "No credit card required"
       current_plan: "Current Plan"
@@ -565,6 +566,7 @@ en:
       analytics: "Full analytics dashboard"
       history: "Unlimited message history"
       receipts: "Open rate, timing & trends"
+      password: "Password protection"
       webhooks: "Webhook notifications (Discord, Slack, Teams, Telegram)"
       branding: "Custom branding"
       support: "Priority email support"

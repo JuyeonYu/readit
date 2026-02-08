@@ -118,24 +118,6 @@
                 </label>
               </div>
 
-              <div class="py-3 border-t border-gray-100" data-controller="password-toggle">
-                <div class="flex items-center justify-between mb-3">
-                  <div>
-                    <p class="text-sm font-medium text-gray-900"><%= t('messages.new.settings.password.label') %></p>
-                    <p class="text-xs text-gray-500"><%= t('messages.new.settings.password.description') %></p>
-                  </div>
-                  <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" class="sr-only peer" data-password-toggle-target="checkbox" data-action="change->password-toggle#toggle">
-                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-100 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600"></div>
-                  </label>
-                </div>
-                <div class="hidden" data-password-toggle-target="field">
-                  <%= f.password_field :password,
-                      placeholder: t('messages.new.settings.password.placeholder'),
-                      minlength: 6,
-                      class: "w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors" %>
-                </div>
-              </div>
             </div>
           </div>
 
@@ -197,57 +179,36 @@
                   </label>
                 <% end %>
               </div>
-            </div>
-          </div>
 
-          <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h2 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4"><%= t('messages.new.link_preview.title') %></h2>
-            <p class="text-xs text-gray-500 mb-3"><%= t('messages.new.link_preview.subtitle') %></p>
-
-            <div class="border border-gray-200 rounded-lg overflow-hidden bg-white shadow-sm">
-              <div class="bg-gradient-to-br from-primary-500 to-primary-600 h-32 flex items-center justify-center relative">
-                <div class="absolute inset-0 opacity-10">
-                  <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                    <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
-                      <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" stroke-width="0.5"/>
-                    </pattern>
-                    <rect width="100" height="100" fill="url(#grid)"/>
-                  </svg>
-                </div>
-                <div class="text-center z-10">
-                  <div class="w-14 h-14 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center mx-auto mb-2">
-                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                    </svg>
+              <div class="py-3 border-t border-gray-100" data-controller="password-toggle">
+                <div class="flex items-center justify-between mb-3">
+                  <div>
+                    <p class="text-sm font-medium <%= @is_free_plan ? 'text-gray-500' : 'text-gray-900' %>"><%= t('messages.new.settings.password.label') %></p>
+                    <p class="text-xs text-gray-500"><%= t('messages.new.settings.password.description') %></p>
                   </div>
-                  <p class="text-white/80 text-xs font-medium"><%= t('messages.new.link_preview.secure_message') %></p>
+                  <% if @is_free_plan %>
+                    <%= link_to pricing_path, class: "relative inline-flex items-center" do %>
+                      <div class="w-11 h-6 bg-gray-100 rounded-full cursor-pointer hover:bg-primary-100 transition-colors">
+                        <div class="absolute top-[2px] left-[2px] bg-white border-gray-200 border rounded-full h-5 w-5"></div>
+                      </div>
+                    <% end %>
+                  <% else %>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                      <input type="checkbox" class="sr-only peer" data-password-toggle-target="checkbox" data-action="change->password-toggle#toggle">
+                      <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-100 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600"></div>
+                    </label>
+                  <% end %>
                 </div>
-              </div>
-
-              <div class="p-4">
-                <h3 class="font-semibold text-gray-900 text-sm leading-snug mb-1" id="og-preview-title">
-                  <%= t('messages.new.link_preview.default_title') %>
-                </h3>
-                <p class="text-xs text-gray-500 mb-2 line-clamp-2">
-                  <%= t('messages.new.link_preview.description') %>
-                </p>
-                <div class="flex items-center gap-1.5 text-xs text-gray-400">
-                  <div class="w-4 h-4 bg-primary-600 rounded flex items-center justify-center flex-shrink-0">
-                    <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8"/>
-                    </svg>
+                <% unless @is_free_plan %>
+                  <div class="hidden" data-password-toggle-target="field">
+                    <%= f.password_field :password,
+                        placeholder: t('messages.new.settings.password.placeholder'),
+                        minlength: 6,
+                        class: "w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors" %>
                   </div>
-                  <span class="truncate"><%= display_host %></span>
-                </div>
+                <% end %>
               </div>
             </div>
-
-            <p class="text-xs text-gray-500 mt-3 flex items-start gap-1.5">
-              <svg class="w-4 h-4 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
-              <span><%= t('messages.new.link_preview.note') %></span>
-            </p>
           </div>
 
           <div class="bg-primary-50 rounded-xl p-4 border border-primary-100">
@@ -268,105 +229,93 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // File attachment validation for Trix
+  (function() {
     const maxFileSize = <%= Message::ATTACHMENT_MAX_SIZE %>;
     const allowedTypes = <%= Message::ATTACHMENT_ALLOWED_TYPES.to_json.html_safe %>;
     const fileTooLargeMsg = '<%= j t("js.file_too_large", size: "{size}") %>';
     const invalidFileTypeMsg = '<%= j t("js.invalid_file_type") %>';
-
-    document.addEventListener('trix-file-accept', function(event) {
-      const file = event.file;
-
-      // Check file size
-      if (file.size > maxFileSize) {
-        event.preventDefault();
-        alert(fileTooLargeMsg.replace('{size}', (maxFileSize / 1024 / 1024)));
-        return;
-      }
-
-      // Check file type
-      if (!allowedTypes.includes(file.type)) {
-        event.preventDefault();
-        alert(invalidFileTypeMsg);
-        return;
-      }
-    });
-
-    // Character count for title and OG preview update
-    const titleInput = document.getElementById('message-title-input');
-    const titleCharCount = document.getElementById('title-char-count');
-    const ogPreviewTitle = document.getElementById('og-preview-title');
-    const defaultTitle = '<%= j t('messages.new.link_preview.default_title') %>';
-    const titleMaxLength = <%= Message::TITLE_MAX_LENGTH %>;
-
-    if (titleInput && titleCharCount) {
-      const updateTitleCount = function() {
-        // Enforce max length for Korean IME
-        if (titleInput.value.length > titleMaxLength) {
-          titleInput.value = titleInput.value.substring(0, titleMaxLength);
-        }
-        titleCharCount.textContent = titleInput.value.length;
-
-        // Update OG preview title
-        if (ogPreviewTitle) {
-          ogPreviewTitle.textContent = titleInput.value.trim() || defaultTitle;
-        }
-      };
-
-      titleInput.addEventListener('input', updateTitleCount);
-      titleInput.addEventListener('compositionend', updateTitleCount);
-
-      // Initialize
-      updateTitleCount();
-    }
-
-    // Content character count for Trix editor
-    const contentCharCount = document.getElementById('content-char-count');
     const maxLength = <%= Message::CONTENT_MAX_LENGTH %>;
+    const titleMaxLength = <%= Message::TITLE_MAX_LENGTH %>;
+    const charactersText = '<%= j t('common.characters') %>';
 
-    if (contentCharCount) {
-      const getPlainTextLength = function(editor) {
-        return editor.getDocument().toString().replace(/\n$/, '').length;
-      };
+    // Trix events - register once globally
+    if (!window.messageFormEventsRegistered) {
+      window.messageFormEventsRegistered = true;
 
-      const enforceLimit = function(editor) {
+      document.addEventListener('trix-file-accept', function(event) {
+        const file = event.file;
+        if (file.size > maxFileSize) {
+          event.preventDefault();
+          alert(fileTooLargeMsg.replace('{size}', (maxFileSize / 1024 / 1024)));
+          return;
+        }
+        if (!allowedTypes.includes(file.type)) {
+          event.preventDefault();
+          alert(invalidFileTypeMsg);
+          return;
+        }
+      });
+
+      document.addEventListener('trix-change', function(event) {
+        const editor = event.target.editor;
+        if (!editor) return;
+
+        const contentCharCount = document.getElementById('content-char-count');
+        if (!contentCharCount) return;
+
+        const getPlainTextLength = (ed) => ed.getDocument().toString().replace(/\n$/, '').length;
         const length = getPlainTextLength(editor);
+
+        // Enforce limit
         if (length > maxLength) {
           const excess = length - maxLength;
           const docLength = editor.getDocument().toString().length;
           editor.setSelectedRange([docLength - excess - 1, docLength - 1]);
           editor.deleteInDirection('backward');
         }
-      };
 
-      const updateContentCharCount = function() {
-        const trixEditor = document.querySelector('trix-editor');
-        if (trixEditor && trixEditor.editor) {
-          const length = getPlainTextLength(trixEditor.editor);
-          const displayLength = Math.min(length, maxLength);
-          const formatted = displayLength.toLocaleString() + '/' + maxLength.toLocaleString() + ' <%= j t('common.characters') %>';
-          contentCharCount.textContent = formatted;
-
-          // Visual warning
-          contentCharCount.classList.remove('text-gray-400', 'text-amber-500');
-          if (length >= maxLength) {
-            contentCharCount.classList.add('text-amber-500');
-          } else {
-            contentCharCount.classList.add('text-gray-400');
-          }
-        }
-      };
-
-      document.addEventListener('trix-change', function(event) {
-        const editor = event.target.editor;
-        if (editor) {
-          enforceLimit(editor);
-        }
-        updateContentCharCount();
+        // Update display
+        const displayLength = Math.min(length, maxLength);
+        contentCharCount.textContent = displayLength.toLocaleString() + '/' + maxLength.toLocaleString() + ' ' + charactersText;
+        contentCharCount.classList.remove('text-gray-400', 'text-amber-500');
+        contentCharCount.classList.add(length >= maxLength ? 'text-amber-500' : 'text-gray-400');
       });
 
-      document.addEventListener('trix-initialize', updateContentCharCount);
+      document.addEventListener('trix-initialize', function() {
+        const trixEditor = document.querySelector('trix-editor');
+        const contentCharCount = document.getElementById('content-char-count');
+        if (trixEditor && trixEditor.editor && contentCharCount) {
+          const length = trixEditor.editor.getDocument().toString().replace(/\n$/, '').length;
+          contentCharCount.textContent = length.toLocaleString() + '/' + maxLength.toLocaleString() + ' ' + charactersText;
+        }
+      });
     }
-  });
+
+    // Title character count - runs on each page load
+    function initTitleCount() {
+      const titleInput = document.getElementById('message-title-input');
+      const titleCharCount = document.getElementById('title-char-count');
+
+      if (titleInput && titleCharCount) {
+        const updateTitleCount = function() {
+          if (titleInput.value.length > titleMaxLength) {
+            titleInput.value = titleInput.value.substring(0, titleMaxLength);
+          }
+          titleCharCount.textContent = titleInput.value.length;
+        };
+
+        titleInput.addEventListener('input', updateTitleCount);
+        titleInput.addEventListener('compositionend', updateTitleCount);
+        updateTitleCount();
+      }
+    }
+
+    // Run immediately if DOM is ready, otherwise wait
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initTitleCount);
+    } else {
+      initTitleCount();
+    }
+    document.addEventListener('turbo:load', initTitleCount);
+  })();
 </script>

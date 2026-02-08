@@ -11,6 +11,8 @@ ja:
               attachment_invalid_type: "ファイル '%{filename}' の形式が無効です（画像のみ許可）"
               attachments_total_too_large: "添付ファイルの合計サイズが大きすぎます（最大 %{max_size}MB）"
               attachments_pro_only: "ファイル添付はProユーザーのみ利用可能です"
+            password:
+              pro_only: "パスワード保護はProユーザーのみ利用可能です"
       messages:
         blank: "を入力してください"
         required: "が必要です"
@@ -564,7 +566,6 @@ ja:
       notifications: "メール通知"
       editor: "リッチテキストエディタ"
       attachments: "ファイル添付"
-      password: "パスワード保護"
       cta: "始める"
       note: "クレジットカード不要"
       current_plan: "現在のプラン"
@@ -581,6 +582,7 @@ ja:
       analytics: "完全な分析ダッシュボード"
       history: "無制限のメッセージ履歴"
       receipts: "開封率、タイミング、トレンド"
+      password: "パスワード保護"
       webhooks: "Webhook通知 (Discord, Slack, Teams, Telegram)"
       branding: "カスタムブランディング"
       support: "優先メールサポート"
