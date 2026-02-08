@@ -18,13 +18,19 @@ class SendNotificationJob < ApplicationJob
     end
 
     # Skip if already sent
-    return if notification.sent?
+    if notification.sent?
+      Rails.logger.info "[SendNotificationJob] Notification already sent for message #{message_id}, skipping"
+      return
+    end
 
     # Send email
     begin
+      Rails.logger.info "[SendNotificationJob] Sending email to #{message.sender_email} for message #{message.id}"
       MessageMailer.read_notification(message).deliver_now
+      Rails.logger.info "[SendNotificationJob] Email sent successfully to #{message.sender_email}"
       notification.update!(status: :sent, sent_at: Time.current)
     rescue => e
+      Rails.logger.error "[SendNotificationJob] Failed to send email: #{e.message}"
       notification.update!(status: :failed)
       raise
     end
