@@ -3,6 +3,10 @@ class MessageMailer < ApplicationMailer
     @message = message
     @read_count = message.read_count
 
+    # List-Unsubscribe headers help avoid spam filters (RFC 8058)
+    headers["List-Unsubscribe"] = "<#{edit_message_url(@message.token)}>"
+    headers["List-Unsubscribe-Post"] = "List-Unsubscribe=One-Click"
+
     mail(
       to: message.sender_email,
       subject: "#{message.title} - Opened by recipient"
