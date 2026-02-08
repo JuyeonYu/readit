@@ -27,17 +27,16 @@ class DashboardController < ApplicationController
     opened_messages = @messages.where("read_count > 0").count
     @open_rate = @total_messages > 0 ? ((opened_messages.to_f / @total_messages) * 100).round : 0
 
-    # Calculate average time to first open (in hours)
-    messages_with_opens = current_user.messages.joins(:read_events)
-                                               .select("messages.*, MIN(read_events.read_at) as first_open_at")
-                                               .group("messages.id")
-                                               .to_a
+    # Calculate average time to first open (in hours) - limit to recent messages for efficiency
+    first_opens = current_user.messages
+                              .joins(:read_events)
+                              .where("messages.created_at >= ?", 30.days.ago)
+                              .group("messages.id")
+                              .pluck("messages.id", "messages.created_at", "MIN(read_events.read_at)")
 
-    if messages_with_opens.any?
-      total_hours = messages_with_opens.sum do |msg|
-        ((msg.first_open_at.to_time - msg.created_at) / 1.hour).abs
-      end
-      @avg_time_to_open = (total_hours / messages_with_opens.length).round(1)
+    if first_opens.any?
+      total_hours = first_opens.sum { |_, created, first_open| ((first_open - created) / 1.hour).abs }
+      @avg_time_to_open = (total_hours / first_opens.length).round(1)
     else
       @avg_time_to_open = 0
     end
