@@ -5,7 +5,7 @@ class MessageMailer < ApplicationMailer
 
     mail(
       to: message.sender_email,
-      subject: "Your message was opened"
+      subject: "#{message.title} - Opened by recipient"
     )
   end
 
